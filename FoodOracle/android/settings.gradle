@@ -1,0 +1,3 @@
+rootProject.name = 'FoodOracle'
+
+include ':app'
