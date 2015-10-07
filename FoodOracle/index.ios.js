@@ -5,47 +5,46 @@
 'use strict';
 
 var React = require('react-native');
+var Search = require('./Search');
+var Favourite = require('./Favourite');
+
 var {
   AppRegistry,
-  StyleSheet,
-  Text,
-  View,
+  TabBarIOS,
 } = React;
 
 var FoodOracle = React.createClass({
+  getInitialState: function() {
+    return {
+      selectedTab: 'search'
+    };
+  },
   render: function() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to Food Oracle!
-        </Text>
-        
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
+      <TabBarIOS selectedTab={this.state.selectedTab}>
+        <TabBarIOS.Item
+                    selected={this.state.selectedTab === 'search'}
+                    title="Search"
+                    onPress={() => {
+                        this.setState({
+                            selectedTab: 'search'
+                        });
+                    }}>
+                    <Search/>
+                </TabBarIOS.Item>
+                <TabBarIOS.Item
+                    selected={this.state.selectedTab === 'favourite'}
+                    title="Favourite"
+                    onPress={() => {
+                        this.setState({
+                            selectedTab: 'favourite'
+                        });
+                    }}>
+                    <Favourite/>
+                </TabBarIOS.Item>
+      </TabBarIOS>
     );
   }
-});
-
-var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#1686C8',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
 });
 
 AppRegistry.registerComponent('FoodOracle', () => FoodOracle);
