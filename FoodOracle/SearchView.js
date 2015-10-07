@@ -1,6 +1,7 @@
 'use strict'
 
 var React = require('react-native');
+var SearchBar = require('react-native-search-bar');
 
 var {
 	StyleSheet,
@@ -19,11 +20,10 @@ var styles = StyleSheet.create({
 class SearchView extends Component {
 	render() {
 		return (
-  	    <View style={styles.container}>
-	        <Text style={styles.description}>
-        	  
-	        </Text>
-	    </View>
+  	    	<SearchBar
+  	    		//out of position now 
+  	    		placeholder="Search Something"
+  	    	/>
         );
 	}
 }
