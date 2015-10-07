@@ -5,9 +5,11 @@
 'use strict';
 
 var React = require('react-native');
+
 var {
   AppRegistry,
   StyleSheet,
+  TabBarIOS,
   Text,
   View,
 } = React;
@@ -25,6 +27,8 @@ var FoodOracle = React.createClass({
           Cmd+D or shake for dev menu
         </Text>
       </View>
+
+
     );
   }
 });
