@@ -13,17 +13,19 @@ var {
 
 var styles = StyleSheet.create({
 	container: {
-		flex: 1
+		flex: 1,
+		marginTop: 65
 	}
 });
 
 class SearchView extends Component {
 	render() {
 		return (
-  	    	<SearchBar
-  	    		//out of position now 
-  	    		placeholder="Search Something"
-  	    	/>
+  	    	<View style={styles.container}>
+  	    		<SearchBar
+  	    			placeholder="Search Things"
+  	    		/>
+  	    	</View>
         );
 	}
 }
