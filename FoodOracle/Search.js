@@ -17,8 +17,8 @@ var styles = StyleSheet.create({
 	}
 });
 
-class Search extends Component {
-	render() {
+var Search = React.createClass ({
+	render: function() {
 		return (
 			<NavigatorIOS
 			style={styles.container}
@@ -28,6 +28,6 @@ class Search extends Component {
 			}}/>       
 			);
 	}
-} 
+}); 
 
 module.exports = Search;

@@ -5,7 +5,6 @@ var React = require('react-native');
 var {
 	StyleSheet,
 	NavigatorIOS,
-	Component,
 	View,
 	Text,
 } = React;
@@ -16,8 +15,8 @@ var styles = StyleSheet.create({
 	}
 });
 
-class Favourite extends Component {
-	render() {
+var Favourite = React.createClass({
+	render: function() {
 		return (
   	    <View style={styles.container}>
 	        <Text style={styles.description}>
@@ -26,6 +25,6 @@ class Favourite extends Component {
 	    </View>
         );
 	}
-}
+});
 
 module.exports = Favourite;
