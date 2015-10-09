@@ -19,16 +19,16 @@ var styles = StyleSheet.create({
 	}
 });
 
-var Favourite = React.createClass({
+var Home = React.createClass({
 	render: function() {
 		return (
   	    <View style={styles.container}>
-	        <Text style={styles.description}>Favourite
+	        <Text style={styles.description}>Return Home
 	        </Text>
-	        <Icon name="star" size={40} color="#4F8EF7" />
+	        <Icon name="earth" size={40} color="#4F8EF7" />
 	    </View>
         );
 	}
 });
 
-module.exports = Favourite;
+module.exports = Home;

@@ -2,54 +2,76 @@
  * Sample React Native App
  * https://github.com/facebook/react-native
  */
-'use strict';
+ 'use strict';
 
-var React = require('react-native');
-var {
+ var React = require('react-native');
+ var Icon = require('react-native-vector-icons/Ionicons');
+ var {
   AppRegistry,
   StyleSheet,
   TabBarIOS,
+  View,
+  Image,
   Text,
   View,
 } = React;
 
 var Search = require('./Search');
 var Favourite = require('./Favourite');
-
+var Home = require('./Home');
 
 
 var FoodOracle = React.createClass({
   getInitialState: function() {
     return {
-      selectedTab: 'search'
+      selectedTab: 'home'
     };
   },
   render: function() {
     return (
-      <TabBarIOS selectedTab={this.state.selectedTab}>
-        <TabBarIOS.Item
-                    selected={this.state.selectedTab === 'search'}
-                    title="Search"
-                    onPress={() => {
-                        this.setState({
-                            selectedTab: 'search'
-                        });
-                    }}>
-                    <Search/>
-                </TabBarIOS.Item>
-                <TabBarIOS.Item
-                    selected={this.state.selectedTab === 'favourite'}
-                    title="Favourite"
-                    onPress={() => {
-                        this.setState({
-                            selectedTab: 'favourite'
-                        });
-                    }}>
-                    <Favourite/>
-                </TabBarIOS.Item>
+      <TabBarIOS selectedTab={this.state.selectedTab ==='home'}>
+      <Icon.TabBarItem
+      selected={this.state.selectedTab === 'home'}
+      title="Home"
+      iconName="ios-home-outline"
+      selectedIconName="ios-home-outline"
+      onPress={() => {
+        this.setState({
+          selectedTab: 'home'
+        });
+      }}>
+      <Home/>
+      </Icon.TabBarItem>
+
+      <Icon.TabBarItem
+      selected={this.state.selectedTab === 'search'}
+      title="Search"
+      iconName ="ios-search"
+      selectedIconName="ios-search"
+      onPress={() => {
+        this.setState({
+          selectedTab: 'search'
+        });
+      }}>
+      <Search/>
+      </Icon.TabBarItem>
+
+      <Icon.TabBarItem
+      selected={this.state.selectedTab === 'favourite'}
+      title="Favourite"
+      iconName="ios-star"
+      selectedIconName="ios-star"
+      onPress={() => {
+        this.setState({
+          selectedTab: 'favourite'
+        });
+      }}>
+      <Favourite/>
+      </Icon.TabBarItem>
+
       </TabBarIOS>
-    );
-  }
+      );
+}
 });
 
 AppRegistry.registerComponent('FoodOracle', () => FoodOracle);

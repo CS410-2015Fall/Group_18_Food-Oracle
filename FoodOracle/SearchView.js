@@ -1,6 +1,7 @@
 'use strict'
 
 var React = require('react-native');
+var Icon = require('react-native-vector-icons/Ionicons');
 var SearchBar = require('react-native-search-bar');
 var baseURL = "http://api.yummly.com/v1/api/recipes?";
 var appID = "a05ca702";
