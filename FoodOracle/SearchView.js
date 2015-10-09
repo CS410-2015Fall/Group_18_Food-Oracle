@@ -6,8 +6,7 @@ var SearchBar = require('react-native-search-bar');
 var baseURL = "http://api.yummly.com/v1/api/recipes?";
 var appID = "a05ca702";
 var appKey = "7ce644115e75fa844afb42c6079fc6c8";
-
-"http://api.yummly.com/v1/api/recipes?_app_id=YOUR_ID&_app_key=YOUR_APP_KEY&q=onion+soup"
+var sample = require('./sample.json')
 
 var {
 	StyleSheet,
@@ -78,11 +77,10 @@ var SearchView = React.createClass ({
 			this.setState({
 				dataSource: this.getDataSource(responseData.matches),
 			});
-			
 		}).done();
 	},
 	getDataSource: function(recipes: Array<any>): ListView.DataSource {
-    return this.state.dataSource.cloneWithRows(recipes);
+    	return this.state.dataSource.cloneWithRows(recipes);
   	},
   	renderList: function(recipe){
   		return (
