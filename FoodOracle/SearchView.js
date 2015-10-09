@@ -37,7 +37,7 @@ var styles = StyleSheet.create({
 });
 
 var resultCache = {
-	recipes: sample.matches
+	recipes: {}
 } 
 
 var SearchView = React.createClass ({
@@ -75,6 +75,7 @@ var SearchView = React.createClass ({
 		.then((response) => response.json())
 		.then((responseData) => {
 			resultCache.recipes = responseData.matches;
+			sortByTime(resultCache.recipe);
 			this.setState({
 				dataSource: this.getDataSource(resultCache.recipes),
 			});
@@ -88,13 +89,29 @@ var SearchView = React.createClass ({
   			<TouchableHighlight /*onPress={() => this.showBookDetail(book)}*/>
                 <View>
                     <View style={styles.cellContainer}>
-                        <Text>{recipe.recipeName}</Text>
+                    	<Text>{recipe.recipeName}</Text>
+                        <Text>{recipe.totalTimeInSeconds}</Text>
                     </View>
                     <View style={styles.separator} />
                 </View>
             </TouchableHighlight>
   			);
   	},
+  	
+  	
 });
+
+var sortByTime = function(item){
+	item = resultCache.recipes;
+  	item.sort(compare);
+}
+
+var compare = function(a, b){
+  		if (a.totalTimeInSeconds < b.totalTimeInSeconds)
+    		return -1;
+  		if (a.totalTimeInSeconds > b.totalTimeInSeconds)
+    		return 1;
+  		return 0;
+  	}
 
 module.exports = SearchView;
