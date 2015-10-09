@@ -37,14 +37,14 @@ var styles = StyleSheet.create({
 });
 
 var resultCache = {
-	recipes: {}
+	recipes: sample.matches
 } 
 
 var SearchView = React.createClass ({
 	getInitialState: function() {
+		var ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
 		return {
-			dataSource: new ListView.DataSource({
-				rowHasChanged: (row1, row2) => row1 !== row2})
+			dataSource: ds.cloneWithRows(resultCache.recipes),
 		};
 	},
 	_onPress: function(e) { 
@@ -74,8 +74,9 @@ var SearchView = React.createClass ({
 		fetch(URL)
 		.then((response) => response.json())
 		.then((responseData) => {
+			resultCache.recipes = responseData.matches;
 			this.setState({
-				dataSource: this.getDataSource(responseData.matches),
+				dataSource: this.getDataSource(resultCache.recipes),
 			});
 		}).done();
 	},
