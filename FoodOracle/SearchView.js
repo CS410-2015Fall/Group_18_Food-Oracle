@@ -15,6 +15,7 @@ var {
 	Text,
 	ListView,
 	TouchableHighlight,
+	TouchableOpacity,
 } = React;
 
 var styles = StyleSheet.create({
@@ -86,7 +87,7 @@ var SearchView = React.createClass ({
   	},
   	renderList: function(recipe){
   		return (
-  			<TouchableHighlight /*onPress={() => this.showBookDetail(book)}*/>
+  			<TouchableOpacity /*onPress={() => this.showBookDetail(book)}*/>
                 <View>
                     <View style={styles.cellContainer}>
                     	<Text>{recipe.recipeName}</Text>
@@ -95,7 +96,7 @@ var SearchView = React.createClass ({
                     </View>
                     <View style={styles.separator} />
                 </View>
-            </TouchableHighlight>
+            </TouchableOpacity>
   			);
   	},
   	
