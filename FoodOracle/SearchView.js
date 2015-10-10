@@ -90,7 +90,8 @@ var SearchView = React.createClass ({
                 <View>
                     <View style={styles.cellContainer}>
                     	<Text>{recipe.recipeName}</Text>
-                        <Text>{recipe.totalTimeInSeconds}</Text>
+                    	<Text> </Text>
+                        <Text>{recipe.totalTimeInSeconds/60} Minutes</Text>
                     </View>
                     <View style={styles.separator} />
                 </View>
