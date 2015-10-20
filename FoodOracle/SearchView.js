@@ -7,6 +7,7 @@ var baseURL = "http://api.yummly.com/v1/api/recipes?";
 var appID = "a05ca702";
 var appKey = "7ce644115e75fa844afb42c6079fc6c8";
 var sample = require('./sample.json')
+var Fetch = require('./Fetch')
 
 var {
 	StyleSheet,
@@ -50,7 +51,20 @@ var SearchView = React.createClass ({
 	_onPress: function(e) { 
 		var subURL = '_app_id=' + appID + '&_app_key=' + appKey;
 		subURL = subURL + '&q=' + encodeURIComponent(e);
-		this.fetchData(baseURL+subURL);
+
+		var handler = function(self, responseData) {
+			resultCache.recipes = responseData.matches;
+			sortByTime(resultCache.recipe);
+			self.setState({
+				dataSource: self.getDataSource(resultCache.recipes),
+			});
+		}
+
+		var a = new Fetch(this);
+		a.fetchRequest(baseURL+subURL, handler);
+		//debugger;
+		//return;
+		//this.fetchData(baseURL+subURL);
 	},
 	render: function() {
 		return (
