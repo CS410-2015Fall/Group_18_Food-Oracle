@@ -5,7 +5,6 @@
  'use strict';
 
  var React = require('react-native');
- var Icon = require('react-native-vector-icons/Ionicons');
  var {
   AppRegistry,
   StyleSheet,
@@ -16,9 +15,11 @@
   View,
 } = React;
 
+var Icon = require('react-native-vector-icons/Ionicons');
 var Search = require('./Search');
 var Favourite = require('./Favourite');
 var Home = require('./Home');
+var Refrigerator = require('./Refrigerator');
 
 
 var FoodOracle = React.createClass({
@@ -33,8 +34,8 @@ var FoodOracle = React.createClass({
       <Icon.TabBarItem
       selected={this.state.selectedTab === 'home'}
       title="Home"
-      iconName="ios-home-outline"
-      selectedIconName="ios-home-outline"
+      iconName="ios-home"
+      selectedIconName="ios-home"
       onPress={() => {
         this.setState({
           selectedTab: 'home'
@@ -46,8 +47,8 @@ var FoodOracle = React.createClass({
       <Icon.TabBarItem
       selected={this.state.selectedTab === 'search'}
       title="Search"
-      iconName ="ios-search"
-      selectedIconName="ios-search"
+      iconName ="search"
+      selectedIconName="search"
       onPress={() => {
         this.setState({
           selectedTab: 'search'
@@ -57,10 +58,23 @@ var FoodOracle = React.createClass({
       </Icon.TabBarItem>
 
       <Icon.TabBarItem
+      selected={this.state.selectedTab === 'refrigerator'}
+      title="Refrigerator"
+      iconName="ios-list"
+      selectedIconName="ios-list"
+      onPress={() => {
+        this.setState({
+          selectedTab: 'refrigerator'
+        });
+      }}>
+      <Refrigerator/>
+      </Icon.TabBarItem>
+
+      <Icon.TabBarItem
       selected={this.state.selectedTab === 'favourite'}
       title="Favourite"
-      iconName="ios-star"
-      selectedIconName="ios-star"
+      iconName="ios-heart"
+      selectedIconName="ios-heart"
       onPress={() => {
         this.setState({
           selectedTab: 'favourite'

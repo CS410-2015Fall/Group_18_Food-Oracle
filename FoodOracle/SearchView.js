@@ -13,6 +13,7 @@ var {
 	Text,
 	ListView,
 	TouchableHighlight,
+	TouchableOpacity,
 } = React;
 
 var styles = StyleSheet.create({
@@ -91,15 +92,16 @@ var SearchView = React.createClass ({
   	},
   	renderList: function(recipe){
   		return (
-  			<TouchableHighlight /*onPress={() => this.showBookDetail(book)}*/>
+  			<TouchableOpacity /*onPress={() => this.showBookDetail(book)}*/>
                 <View>
                     <View style={styles.cellContainer}>
                     	<Text>{recipe.recipeName}</Text>
-                        <Text>{recipe.totalTimeInSeconds}</Text>
+                    	<Text> </Text>
+                        <Text>{recipe.totalTimeInSeconds/60} Minutes</Text>
                     </View>
                     <View style={styles.separator} />
                 </View>
-            </TouchableHighlight>
+            </TouchableOpacity>
   			);
   	},
   	

@@ -1,7 +1,6 @@
 'use strict'
 
 var React = require('react-native');
-var Icon = require('react-native-vector-icons/Ionicons');
 
 var {
 	StyleSheet,
@@ -9,6 +8,8 @@ var {
 	View,
 	Text,
 } = React;
+
+var Icon = require('react-native-vector-icons/Ionicons');
 
 var styles = StyleSheet.create({
 	container: {
@@ -19,14 +20,14 @@ var styles = StyleSheet.create({
 	}
 });
 
-var Favourite = React.createClass({
+var HomeView = React.createClass({
 	render: function() {
 		return (
   	    <View style={styles.container}>
-	        <Icon name="heart" size={200} color="#4F8EF7" />
+	        <Icon name="earth" size={200} color="#4F8EF7" />
 	    </View>
         );
 	}
 });
 
-module.exports = Favourite;
+module.exports = HomeView;
