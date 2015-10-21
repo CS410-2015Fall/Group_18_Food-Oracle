@@ -14,12 +14,19 @@ var {
 	ListView,
 	TouchableHighlight,
 	TouchableOpacity,
+	Image,
 } = React;
 
 var styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		marginTop: 65
+	searchContainer: {
+		marginTop: 65,
+		
+	},
+	thumbnail: {
+		width: 90,
+        height: 90,
+        marginRight: 10
+
 	},
 	cellContainer: {
         flex: 1,
@@ -29,6 +36,9 @@ var styles = StyleSheet.create({
         backgroundColor: '#F5FCFF',
         padding: 10
     },
+    rightContainer: {
+    	flex: 1
+    },
     separator: {
         height: 1,
         backgroundColor: '#dddddd'
@@ -36,7 +46,7 @@ var styles = StyleSheet.create({
 });
 
 var resultCache = {
-	recipes: {}
+	recipes: sample.matches
 } 
 
 var SearchView = React.createClass ({
@@ -60,19 +70,22 @@ var SearchView = React.createClass ({
 	},
 	render: function() {
 		return (
-			<View style={styles.container}>
-			<SearchBar
-			placeholder="Search Things"
-			onSearchButtonPress={
-				this._onPress
-			}
-			/>
-			<ListView
-			dataSource={this.state.dataSource}
-			renderRow={this.renderList}
-			style={styles.listView}
-			/>
-			</View>
+			<View>
+				<View style={styles.searchContainer}>
+					<SearchBar 
+					placeholder="Search Things"
+					onSearchButtonPress={this._onPress}
+					/>
+				</View>
+				
+				<ListView
+                dataSource={this.state.dataSource}
+                renderRow={this.renderList.bind(this)}
+                style={styles.listView}
+                automaticallyAdjustContentInsets={false}
+                contentInset={{bottom:600}}
+                />
+                </View>
 			);
 	},
 	fetchData: function(URL){
@@ -95,9 +108,13 @@ var SearchView = React.createClass ({
   			<TouchableOpacity /*onPress={() => this.showBookDetail(book)}*/>
                 <View>
                     <View style={styles.cellContainer}>
-                    	<Text>{recipe.recipeName}</Text>
-                    	<Text> </Text>
-                        <Text>{recipe.totalTimeInSeconds/60} Minutes</Text>
+                    	<Image
+                            source={{uri: recipe.imageUrlsBySize['90']}}
+                            style={styles.thumbnail} />
+                        <View style={styles.rightContainer}>
+                    		<Text>{recipe.recipeName}</Text>
+                        	<Text>{recipe.totalTimeInSeconds/60} Minutes</Text>
+                        </View>
                     </View>
                     <View style={styles.separator} />
                 </View>
