@@ -3,9 +3,6 @@
 var React = require('react-native');
 var Icon = require('react-native-vector-icons/Ionicons');
 var SearchBar = require('react-native-search-bar');
-var baseURL = "http://api.yummly.com/v1/api/recipes?";
-var appID = "a05ca702";
-var appKey = "7ce644115e75fa844afb42c6079fc6c8";
 var sample = require('./sample.json')
 var Fetch = require('./Fetch')
 
@@ -50,9 +47,6 @@ var SearchView = React.createClass ({
 		};
 	},
 	_onPress: function(e) { 
-		var subURL = '_app_id=' + appID + '&_app_key=' + appKey;
-		subURL = subURL + '&q=' + encodeURIComponent(e);
-
 		var handler = function(self, responseData) {
 			resultCache.recipes = responseData.matches;
 			sortByTime(resultCache.recipe);
@@ -61,11 +55,8 @@ var SearchView = React.createClass ({
 			});
 		}
 
-		var a = new Fetch(this);
-		a.fetchRequest(baseURL+subURL, handler);
-		//debugger;
-		//return;
-		//this.fetchData(baseURL+subURL);
+		var fetch = new Fetch(this);
+		fetch.fetchRequest(encodeURIComponent(e), handler);
 	},
 	render: function() {
 		return (
