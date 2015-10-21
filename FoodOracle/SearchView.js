@@ -56,7 +56,7 @@ var SearchView = React.createClass ({
 		}
 
 		var fetch = new Fetch(this);
-		fetch.fetchRequest(encodeURIComponent(e), handler);
+		fetch.searchRequest(encodeURIComponent(e), handler);
 	},
 	render: function() {
 		return (
