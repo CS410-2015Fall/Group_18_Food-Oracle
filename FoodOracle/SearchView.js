@@ -17,15 +17,16 @@ var {
 } = React;
 
 var styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		marginTop: 65
+	searchContainer: {
+		marginTop: 65,
+		
+	},
+	listView: {
+		
+
 	},
 	cellContainer: {
         flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
         backgroundColor: '#F5FCFF',
         padding: 10
     },
@@ -36,7 +37,7 @@ var styles = StyleSheet.create({
 });
 
 var resultCache = {
-	recipes: {}
+	recipes: sample.matches
 } 
 
 var SearchView = React.createClass ({
@@ -60,19 +61,22 @@ var SearchView = React.createClass ({
 	},
 	render: function() {
 		return (
-			<View style={styles.container}>
-			<SearchBar
-			placeholder="Search Things"
-			onSearchButtonPress={
-				this._onPress
-			}
-			/>
-			<ListView
-			dataSource={this.state.dataSource}
-			renderRow={this.renderList}
-			style={styles.listView}
-			/>
-			</View>
+			<View>
+				<View style={styles.searchContainer}>
+					<SearchBar 
+					placeholder="Search Things"
+					onSearchButtonPress={this._onPress}
+					/>
+				</View>
+				
+				<ListView
+                dataSource={this.state.dataSource}
+                renderRow={this.renderList.bind(this)}
+                style={styles.listView}
+                automaticallyAdjustContentInsets={false}
+                contentInset={{bottom:210}}
+                />
+                </View>
 			);
 	},
 	fetchData: function(URL){
