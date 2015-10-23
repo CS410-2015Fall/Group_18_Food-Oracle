@@ -30,6 +30,7 @@ var FoodOracle = React.createClass({
   },
   render: function() {
     return (
+      
       <TabBarIOS selectedTab={this.state.selectedTab ==='home'}>
       <Icon.TabBarItem
       selected={this.state.selectedTab === 'home'}

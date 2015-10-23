@@ -23,7 +23,7 @@ var Home = React.createClass({
 			      <NavigatorIOS
 			style={styles.container}
 			initialRoute={{
-				title: 'Home',
+				title: 'Please select meal time',
 				component: HomeView
 			}}/>       
 			);
