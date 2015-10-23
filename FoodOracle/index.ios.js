@@ -86,7 +86,7 @@ var FoodOracle = React.createClass({
 
       </TabBarIOS>
       );
-}
+  }
 });
 
 AppRegistry.registerComponent('FoodOracle', () => FoodOracle);
