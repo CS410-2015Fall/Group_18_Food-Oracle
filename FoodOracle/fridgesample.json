@@ -1,0 +1,23 @@
+{
+	"ingredients": [
+		{
+			"id": "onions",
+			"quantity": "high"
+		},
+		{
+			"id": "flour",
+			"quantity": "low"
+		},
+		{
+			"id": "chopped fresh thyme",
+			"quantity": "high"
+		},
+		{
+			"id": "cognac",
+			"quantity": "low"
+		}
+	],
+	"facetCounts": {
+
+	}
+}
