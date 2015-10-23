@@ -1,0 +1,37 @@
+{
+
+   "favourites":[
+      {
+         "id":"The-Best-French-Onion-Soup-A-love-story-1319267",
+         "recipeName":"The Best French Onion Soup – A love story",
+         "totalTimeInSeconds":2400,
+      },
+      {
+         "id":"Brown-Ale-French-Onion-Soup-1318732",
+         "recipeName":"Brown Ale French Onion Soup",
+         "totalTimeInSeconds":7800,
+      },
+      {
+         "id":"Crock-Pot-Japanese-Onion-Soup-1319396",
+         "recipeName":"Crock Pot Japanese Onion Soup",
+         "totalTimeInSeconds":2100,
+      },
+      
+      
+      {
+         "id":"French-Onion-Soup-1292648",
+         "recipeName":"French Onion Soup",
+         "totalTimeInSeconds":6300,
+      },
+      
+      {
+         "id":"French-Onion-Soup-1267249",
+         "recipeName":"French Onion Soup",
+         "totalTimeInSeconds":4500,
+      }
+   ],
+   "facetCounts":{
+
+   },
+
+}
