@@ -14,23 +14,18 @@ function Fetch(parentContext) {
 			callback(parentContext, responseData);
 		}).done();
 	}
-}
 
-
-function GetRecipeWithID(parentContext) {
-	var subURL = '_app_id=' + appID + '&_app_key=' + appKey;
-	this.parentContext = parentContext;
-	this.searchRequest = function(recipeID, callback){
-		var fetchURL = baseURLforGet + recipeID + '?' + subURL;
+	this.getRequest = function(request, callback){
+		var subURL = '_app_id=' + appID + '&_app_key=' + appKey;
+		var fetchURL = baseURLforGet + request + '?'+subURL;
 		fetch(fetchURL)
 		.then((response) => response.json())
 		.then((responseData) => {
 			callback(parentContext, responseData);
 		}).done();
 	}
+
+
 }
 
-
-
 module.exports = Fetch;
-//module.exports = GetRecipeWithID;

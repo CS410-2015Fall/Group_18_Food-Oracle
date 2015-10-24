@@ -1,5 +1,5 @@
 /**
- * Sample React Native App
+ * 
  * https://github.com/facebook/react-native
  */
  'use strict';
@@ -30,6 +30,7 @@ var FoodOracle = React.createClass({
   },
   render: function() {
     return (
+      
       <TabBarIOS selectedTab={this.state.selectedTab ==='home'}>
       <Icon.TabBarItem
       selected={this.state.selectedTab === 'home'}
@@ -85,7 +86,7 @@ var FoodOracle = React.createClass({
 
       </TabBarIOS>
       );
-}
+  }
 });
 
 AppRegistry.registerComponent('FoodOracle', () => FoodOracle);
