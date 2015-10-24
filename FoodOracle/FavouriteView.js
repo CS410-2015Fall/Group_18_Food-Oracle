@@ -64,7 +64,7 @@ var FavouriteView = React.createClass ({
 			);
 	},
     //  if manual, instead of automaticallyAdjustContentInsets: contentInset={{top:65, bottom:-10}}
-	
+	//jjjjjj
   	renderList: function(recipe){
   		return (
   			<TouchableOpacity /*onPress={() => this.showBookDetail(book)}*/>
