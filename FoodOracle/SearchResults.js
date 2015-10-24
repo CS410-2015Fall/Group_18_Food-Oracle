@@ -2,6 +2,7 @@
 
 var React = require('react-native');
 var RecipeView = require('./RecipeView');
+var Fetch = require('./Fetch');
 
 var {
 	StyleSheet,
@@ -73,7 +74,8 @@ renderRow(recipeData) {
                             style={styles.thumbnail} />
                         <View style={styles.rightContainer}>
                         <Text>{recipeData.recipeName}</Text>
-                          <Text>{recipeData.totalTimeInSeconds/60} Minutes</Text>
+                        <Text>Rating: {recipeData.rating}</Text>
+                        <Text>{recipeData.totalTimeInSeconds/60} Minutes</Text>
                         </View>
                     </View>
                     <View style={styles.separator} />
@@ -92,12 +94,24 @@ renderRow(recipeData) {
 
 	rowPressed(recipeID){
 		var recipe = this.props.matches.filter(prop => prop.id === recipeID)[0];
-
-		this.props.navigator.push({
-			title: "Recipe",
-			component: RecipeView,
-			passProps: {recipe: recipe}
-		});
+    this._executeQuery(recipe.id); 
 	}
+
+  _executeQuery(query){
+    console.log(query)
+    var handler = function(self, responseData) {
+      self._handleResponse(responseData);
+    }
+    var fetch = new Fetch(this);
+    fetch.getRequest(encodeURIComponent(query), handler);    
+  }
+
+  _handleResponse(response){
+    console.log(response)
+    this.props.navigator.push({
+      component: RecipeView,
+      passProps: {recipe: response}
+    });
+  }
 }
 module.exports = SearchResults;

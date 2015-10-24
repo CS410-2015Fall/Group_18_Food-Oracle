@@ -3,7 +3,11 @@
 var React = require('react-native');
 var Icon = require('react-native-vector-icons/Ionicons');
 var SearchResults = require('./SearchResults');
+var Fetch = require('./Fetch')
 var sample = require('./sample.json')
+var appID = "4cab9c6f";
+var appKey = "d6a77b248298d4344b36a76d680c7cd5";
+var baseURL = "http://api.yummly.com/v1/api/recipes?";
 
 var {
 	StyleSheet,
@@ -97,6 +101,26 @@ var resultCache = {
 	recipes: sample.matches
 } 
 
+function urlForQuery (kvalue){
+	
+	var querystring = encodeURIComponent(value);
+		
+
+		return baseURL + querystring;
+}
+
+var sortByTime = function(item){
+  	item.sort(compare);
+}
+
+var compare = function(a, b){
+  		if (a.totalTimeInSeconds < b.totalTimeInSeconds)
+    		return -1;
+  		if (a.totalTimeInSeconds > b.totalTimeInSeconds)
+    		return 1;
+  		return 0;
+  	}
+
 class HomeView extends Component {
 	constructor(props){
 		super(props);
@@ -167,14 +191,22 @@ class HomeView extends Component {
 		console.log(this.state.searchString);
 	}
 
+	_handleResponse(response){
+		this.props.navigator.push({
+			component: SearchResults,
+			passProps: {matches: response.matches}
+		});
+	}
+
 	_executeQuery(query){
 		console.log(query)
-		this.props.navigator.push({
-				title: 'Matching Recipes',
-				component: SearchResults,
-				passProps: {matches: resultCache.recipes}
-			});
-
+		var handler = function(self, responseData) {
+			resultCache.recipes = responseData.matches;
+			sortByTime(resultCache.recipes);
+			self._handleResponse(responseData);
+		}
+		var fetch = new Fetch(this);
+		fetch.searchRequest(encodeURIComponent(query), handler);		
 	}
 
 	onSearchPressed(){
@@ -183,5 +215,7 @@ class HomeView extends Component {
 		this._executeQuery(query);
 	}
 }
+
+
 
 module.exports = HomeView;
