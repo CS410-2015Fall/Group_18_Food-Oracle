@@ -24,13 +24,16 @@ var styles = StyleSheet.create({
 
 	container: {
 		flex: 1,
-    marginTop: 65,
+    marginTop: 64,
+    marginBottom: 49,
   },
 
   flowRight: {
   	flexDirection: 'row',
   	alignItems: 'center',
-  	alignSelf: 'stretch'
+  	alignSelf: 'stretch',
+    marginLeft: 10,
+    marginRight: 10,
   },
 
   flowRightMealTime: {
@@ -92,7 +95,7 @@ button: {
    },
 
  separator: {
-        height: 2,
+        height: 1,
         backgroundColor: '#dddddd'
     },
 });
