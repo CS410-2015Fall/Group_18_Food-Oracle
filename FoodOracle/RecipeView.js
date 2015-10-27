@@ -1,6 +1,8 @@
 'use strict';
  
 var React = require('react-native');
+var KDSocialShare = require('NativeModules').KDSocialShare;
+
 var {
   StyleSheet,
   Image, 
@@ -55,6 +57,19 @@ var styles = StyleSheet.create({
 });
 
 class RecipeView extends Component{
+  pressShare(){
+    var object = {};
+    var recipe = this.props.recipe;
+    object["link"] = recipe.source.sourceRecipeUrl;
+    object["imagelink"] = recipe.images["0"].hostedMediumUrl;
+    
+    KDSocialShare.shareOnFacebook(object,
+      (results) => {
+        console.log(results);
+      }
+    );
+  }
+
 	render() {
     var recipe = this.props.recipe;  
     console.log(recipe.images[0]['hostedLargeUrl'])
@@ -71,10 +86,16 @@ class RecipeView extends Component{
         <Text style={styles.description}>{recipe.ingredientLines}</Text>
         <View style={styles.separator}/>
         <TouchableHighlight 
-            style={styles.button}
-            underlayColor='#99d9f4'>
-            <Text style={styles.buttonText}>Show Source</Text>
-          </TouchableHighlight>
+          style={styles.button}
+          underlayColor='#99d9f4'>
+          <Text style={styles.buttonText}>Show Source</Text>
+        </TouchableHighlight>
+        <TouchableHighlight
+          onPress={this.pressShare.bind(this)}
+          style={styles.button}
+          underlayColor='#99d9f4'>
+          <Text style={styles.buttonText}>Share on Facebook</Text>
+        </TouchableHighlight>
       </View>
     );
   } 

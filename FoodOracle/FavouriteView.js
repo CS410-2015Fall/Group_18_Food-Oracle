@@ -2,8 +2,8 @@
 
 var React = require('react-native');
 var Icon = require('react-native-vector-icons/Ionicons');
-var Favouritesamples = require('./favouritesamples.json')
-var Fetch = require('./Fetch')
+var Favouritesamples = require('./favouritesamples.json');
+var Fetch = require('./Fetch');
 
 var {
 	StyleSheet,
