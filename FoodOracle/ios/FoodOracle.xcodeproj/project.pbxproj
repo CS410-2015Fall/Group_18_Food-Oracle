@@ -22,18 +22,20 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		25A8BCFA1BDF1EF50026270A /* KDSocialShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A8BCF91BDF1EF50026270A /* KDSocialShare.m */; };
+		25A8BCFC1BDF1F170026270A /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25A8BCFB1BDF1F170026270A /* Social.framework */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		C47F81F71BC6F1B2004EC360 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C47F81F61BC6F195004EC360 /* libRNVectorIcons.a */; };
 		C4B972131BC6F6DD009A6731 /* libRNSearchBar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B972121BC6F6C8009A6731 /* libRNSearchBar.a */; };
-		C4B972151BC7479B009A6731 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB61A68108700A75B9A /* Info.plist */; settings = {ASSET_TAGS = (); }; };
+		C4B972151BC7479B009A6731 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB61A68108700A75B9A /* Info.plist */; };
 		C4B9721F1BC74AB9009A6731 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C4B9721B1BC74A19009A6731 /* Ionicons.ttf */; };
 		C4B972201BC74AD6009A6731 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C4B972191BC74A19009A6731 /* FontAwesome.ttf */; };
 		C4B972211BC74AD6009A6731 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C4B9721A1BC74A19009A6731 /* Foundation.ttf */; };
 		C4B972221BC74AD6009A6731 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C4B9721C1BC74A19009A6731 /* MaterialIcons.ttf */; };
-		C4B972231BC74B27009A6731 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C4B9721E1BC74A19009A6731 /* Zocial.ttf */; settings = {ASSET_TAGS = (); }; };
-		C4B972241BC74B2B009A6731 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C4B9721D1BC74A19009A6731 /* Octicons.ttf */; settings = {ASSET_TAGS = (); }; };
-		C4B972251BC74B3D009A6731 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C4B972181BC74A19009A6731 /* EvilIcons.ttf */; settings = {ASSET_TAGS = (); }; };
-		C4B972261BC74B3F009A6731 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C4B972171BC74A19009A6731 /* Entypo.ttf */; settings = {ASSET_TAGS = (); }; };
+		C4B972231BC74B27009A6731 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C4B9721E1BC74A19009A6731 /* Zocial.ttf */; };
+		C4B972241BC74B2B009A6731 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C4B9721D1BC74A19009A6731 /* Octicons.ttf */; };
+		C4B972251BC74B3D009A6731 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C4B972181BC74A19009A6731 /* EvilIcons.ttf */; };
+		C4B972261BC74B3F009A6731 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C4B972171BC74A19009A6731 /* Entypo.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -150,6 +152,9 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = FoodOracle/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = FoodOracle/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		25A8BCF81BDF1EF50026270A /* KDSocialShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KDSocialShare.h; path = "../node_modules/react-native-social-share/iOS/KDSocialShare.h"; sourceTree = "<group>"; };
+		25A8BCF91BDF1EF50026270A /* KDSocialShare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KDSocialShare.m; path = "../node_modules/react-native-social-share/iOS/KDSocialShare.m"; sourceTree = "<group>"; };
+		25A8BCFB1BDF1F170026270A /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		C47F81F11BC6F195004EC360 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
@@ -176,6 +181,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25A8BCFC1BDF1F170026270A /* Social.framework in Frameworks */,
 				C4B972131BC6F6DD009A6731 /* libRNSearchBar.a in Frameworks */,
 				C47F81F71BC6F1B2004EC360 /* libRNVectorIcons.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
@@ -300,6 +306,8 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				25A8BCF81BDF1EF50026270A /* KDSocialShare.h */,
+				25A8BCF91BDF1EF50026270A /* KDSocialShare.m */,
 				C4B9720D1BC6F6C8009A6731 /* RNSearchBar.xcodeproj */,
 				C47F81F11BC6F195004EC360 /* RNVectorIcons.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -327,6 +335,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				25A8BCFB1BDF1F170026270A /* Social.framework */,
 				C4B972161BC74A19009A6731 /* Fonts */,
 				13B07FAE1A68108700A75B9A /* FoodOracle */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -428,6 +437,9 @@
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
+					};
+					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = H6T6YR6S2K;
 					};
 				};
 			};
@@ -630,6 +642,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				25A8BCFA1BDF1EF50026270A /* KDSocialShare.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -698,10 +711,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEAD_CODE_STRIPPING = NO;
 				INFOPLIST_FILE = FoodOracle/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = FoodOracle;
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -709,10 +726,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEAD_CODE_STRIPPING = NO;
 				INFOPLIST_FILE = FoodOracle/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = FoodOracle;
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

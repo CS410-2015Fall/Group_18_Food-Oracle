@@ -3,11 +3,8 @@
 var React = require('react-native');
 var Icon = require('react-native-vector-icons/Ionicons');
 var SearchResults = require('./SearchResults');
-var Fetch = require('./Fetch')
-var sample = require('./sample.json')
-var appID = "4cab9c6f";
-var appKey = "d6a77b248298d4344b36a76d680c7cd5";
-var baseURL = "http://api.yummly.com/v1/api/recipes?";
+var Fetch = require('./Fetch');
+var sample = require('./sample.json');
 
 var {
 	StyleSheet,
@@ -24,13 +21,16 @@ var styles = StyleSheet.create({
 
 	container: {
 		flex: 1,
-    marginTop: 65,
+    marginTop: 64,
+    marginBottom: 49,
   },
 
   flowRight: {
   	flexDirection: 'row',
   	alignItems: 'center',
-  	alignSelf: 'stretch'
+  	alignSelf: 'stretch',
+    marginLeft: 10,
+    marginRight: 10,
   },
 
   flowRightMealTime: {
@@ -92,7 +92,7 @@ button: {
    },
 
  separator: {
-        height: 2,
+        height: 1,
         backgroundColor: '#dddddd'
     },
 });
@@ -100,14 +100,6 @@ button: {
 var resultCache = {
 	recipes: sample.matches
 } 
-
-function urlForQuery (kvalue){
-	
-	var querystring = encodeURIComponent(value);
-		
-
-		return baseURL + querystring;
-}
 
 var sortByTime = function(item){
   	item.sort(compare);

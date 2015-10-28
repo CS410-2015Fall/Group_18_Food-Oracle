@@ -2,8 +2,8 @@
 
 var React = require('react-native');
 var Icon = require('react-native-vector-icons/Ionicons');
-var Favouritesamples = require('./favouritesamples.json')
-var Fetch = require('./Fetch')
+var Favouritesamples = require('./favouritesamples.json');
+var Fetch = require('./Fetch');
 
 var {
 	StyleSheet,
@@ -64,7 +64,7 @@ var FavouriteView = React.createClass ({
 			);
 	},
     //  if manual, instead of automaticallyAdjustContentInsets: contentInset={{top:65, bottom:-10}}
-	
+	//jjjjjj
   	renderList: function(recipe){
   		return (
   			<TouchableOpacity /*onPress={() => this.showBookDetail(book)}*/>
