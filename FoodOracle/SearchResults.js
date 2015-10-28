@@ -76,6 +76,7 @@ renderRow(recipeData) {
                         <Text>{recipeData.recipeName}</Text>
                         <Text>Rating: {recipeData.rating}</Text>
                         <Text>{recipeData.totalTimeInSeconds/60} Minutes</Text>
+                        <Text>{this.props.matches.length}</Text>
                         </View>
                     </View>
                     <View style={styles.separator} />
@@ -85,10 +86,10 @@ renderRow(recipeData) {
 }
 
 	render(){
-		return (
-			<ListView
-				dataSource={this.state.dataSource}
-				renderRow={this.renderRow.bind(this)}/>
+    return (
+			 <ListView
+			 	 dataSource={this.state.dataSource}
+			 	 renderRow={this.renderRow.bind(this)}/>
 		);
 	}
 

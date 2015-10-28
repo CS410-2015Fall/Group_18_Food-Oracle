@@ -2,6 +2,8 @@
  
 var React = require('react-native');
 var KDSocialShare = require('NativeModules').KDSocialShare;
+var Icon = require('react-native-vector-icons/Ionicons');
+var Browser = require('react-native-browser');
 
 var {
   StyleSheet,
@@ -9,12 +11,13 @@ var {
   View,
   Text,
   Component,
-  TouchableHighlight
+  TouchableHighlight,
+  ScrollView
 } = React;
 
 var styles = StyleSheet.create({
   container: {
-    marginTop: 65
+    marginTop: 10
   },
   heading: {
     backgroundColor: '#F8F8F8',
@@ -70,11 +73,21 @@ class RecipeView extends Component{
     );
   }
 
+  pressSource(){
+    Browser.open('https://google.com/', {
+                navigationButtonsHidden: false,
+                showActionButton: false,
+                showPageTitles: false,
+                disableContextualPopupMenu: true,
+                hideWebViewBoundaries: true
+                });
+  }
+
 	render() {
     var recipe = this.props.recipe;  
     console.log(recipe.images[0]['hostedLargeUrl'])
       return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <View style={styles.heading}>
           <Image style={styles.image} 
             source={{uri: recipe.images[0]['hostedLargeUrl']}} />
@@ -86,17 +99,19 @@ class RecipeView extends Component{
         <Text style={styles.description}>{recipe.ingredientLines}</Text>
         <View style={styles.separator}/>
         <TouchableHighlight 
+          onPress={this.pressSource.bind(this)}
           style={styles.button}
           underlayColor='#99d9f4'>
           <Text style={styles.buttonText}>Show Source</Text>
         </TouchableHighlight>
+        <View style={styles.separator}/>
         <TouchableHighlight
           onPress={this.pressShare.bind(this)}
           style={styles.button}
           underlayColor='#99d9f4'>
           <Text style={styles.buttonText}>Share on Facebook</Text>
         </TouchableHighlight>
-      </View>
+      </ScrollView>
     );
   } 
 }

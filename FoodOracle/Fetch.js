@@ -7,7 +7,7 @@ function Fetch(parentContext) {
 	var subURL = '_app_id=' + appID + '&_app_key=' + appKey;
 	this.parentContext = parentContext;
 	this.searchRequest = function(request, callback){
-		var fetchURL = baseURL + subURL + '&q=' + request;
+		var fetchURL = baseURL + subURL + '&q=' + request +'&requirePictures=true';
 		fetch(fetchURL)
 		.then((response) => response.json())
 		.then((responseData) => {
