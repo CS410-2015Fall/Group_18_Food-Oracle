@@ -8,6 +8,10 @@ function Fetch(parentContext) {
 	this.parentContext = parentContext;
 	this.searchRequest = function(request, callback){
 		var fetchURL = baseURL + subURL + '&q=' + request;
+		/*  fetch with cusinie choice
+		if(cusinie != 'all'){
+			fetchURL = fetchURL + '&allowedCuisine[]=cuisine^cuisine-' + cusinie;
+		} */
 		fetch(fetchURL)
 		.then((response) => response.json())
 		.then((responseData) => {

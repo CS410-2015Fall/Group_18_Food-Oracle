@@ -65,7 +65,7 @@ class PreferenceView extends Component {
 					onPress={()=>{
 						this.refs.picker.show();
 					}}>
-					Click Here to change choice
+					Click here to change choice
 				</Text>
 				<FMPicker ref={'picker'} 
 					options={options}
