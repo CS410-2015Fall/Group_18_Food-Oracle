@@ -4,6 +4,7 @@ var React = require('react-native');
 var FridgeSample = require('./fridgesample.json');
 
 var {
+	Component,
 	StyleSheet,
 	NavigatorIOS,
 	View,
@@ -11,7 +12,7 @@ var {
 	ListView,
 	TouchableHighlight,
 	TouchableOpacity,
-	AsyncStorage
+	PickerIOS,
 } = React;
 
 var styles = StyleSheet.create({
@@ -36,36 +37,63 @@ var resultCache = {
 	ingredients: FridgeSample.ingredients
 } 
 
-var FridgeView = React.createClass({
+var INGREDIENT_QUANTITIES = ['high', 'low', 'empty'];
 
-	getInitialState: function() {
+class FridgeView extends Component {
+
+	constructor(props) {
+		super(props);
 		var ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
-		return {
+		this.state = {
 			dataSource: ds.cloneWithRows(resultCache.ingredients),
+			showIngredientEditor: false,
+			selectedIngredient: false,
 		};
-	},
+	}
 	
-	render: function() {
+	render() {
 		return (
 			<View>
 				<ListView
 					dataSource = {this.state.dataSource}
-        	renderRow = {this.renderList.bind(this)}
+        	renderRow = {this.renderRow.bind(this)}
         	style = {styles.listView}
           automaticallyAdjustContentInsets = {true}
 				/>
+				{this.state.showIngredientEditor ? (
+					<View>
+						<Text>Please choose the quantity of this ingredient:</Text>
+						<PickerIOS
+							selectedValue = {this.state.selectedIngredient.quantity}
+							onValueChange = {(quantity) => {
+								this.setState({showIngredientEditor: false})
+								}
+							}
+						>
+							{INGREDIENT_QUANTITIES.map(
+								(quantity) => (
+									<PickerIOS.Item
+										key = {quantity}
+										value = {quantity}
+										label = {quantity}
+									/>
+								)
+							)}
+						</PickerIOS>
+					</View>
+				) : (<View/>)}
 			</View>
 		);
-	},
+	}
 	
-	renderList: function(ingredients) {
+	renderRow(ingredient) {
 		return (
-			<TouchableOpacity /*onPress={() => this.showBookDetail(book)}*/>
+			<TouchableOpacity onPress = {() => this.rowPressed(ingredient)}>
 				<View>
 					<View style = {styles.cellContainer}>
 						<View style = {styles.rightContainer}>
-							<Text>{ingredients.id}</Text>
-							<Text>{ingredients.quantity}</Text>
+							<Text>{ingredient.id}</Text>
+							<Text>{ingredient.quantity}</Text>
 						</View>
 					</View>
 					<View style = {styles.separator} />
@@ -74,6 +102,15 @@ var FridgeView = React.createClass({
 		);
 	}
 	
-});
+	rowPressed(ingredient) {
+		this.setState({
+			selectedIngredient: ingredient,
+			showIngredientEditor: true,
+		});
+		console.log(this.state.selectedIngredient.id);
+		console.log(this.state.showIngredientEditor);
+	}
+	
+};
 
 module.exports = FridgeView;
