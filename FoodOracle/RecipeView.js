@@ -36,7 +36,7 @@ var styles = StyleSheet.create({
 
   backdropImage: {
     width: 400,
-    height: 300
+    height: 200
   },
 
   backdropView: {
@@ -87,7 +87,7 @@ var styles = StyleSheet.create({
 flowRightButtons: {
   flexDirection: 'row',
   backgroundColor: 'rgba(0,0,0,0)',
-  marginTop: 175,
+  marginTop: 75,
   marginRight: 25,
   marginLeft: 25,
   marginBottom: 50,

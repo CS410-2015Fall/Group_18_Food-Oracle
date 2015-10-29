@@ -26,17 +26,19 @@ var styles = StyleSheet.create({
   instruction: {
   	fontSize: 18,
   	fontFamily: 'Arial',
-  	color:'blue', 
+  	color:'#48BBEC', 
   	marginTop: 20,
   },
   selectionText: {
   	fontSize: 20,
   	fontFamily: 'Arial',
+  	color: '#48BBEC',
   },
   display: {
   	fontSize: 30,
   	fontFamily: 'Arial',
   	marginTop: 20,
+  	color: '#48BBEC',
   }
 });
 

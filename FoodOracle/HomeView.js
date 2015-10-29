@@ -98,6 +98,8 @@ button: {
         alignItems: 'center',
         alignSelf: 'stretch',
         backgroundColor: 'transparent',
+        borderWidth: 2,
+        borderColor: 'rgba(72,187,236,0.3)',
     },
    mealTimeText: {
    	flex: 4,

@@ -1391,7 +1391,10 @@ selectedTab:'home'};},
 render:function(){var _this=this;
 return (
 
-React.createElement(TabBarIOS,{selectedTab:this.state.selectedTab === 'home'},
+React.createElement(TabBarIOS,{
+selectedTab:this.state.selectedTab === 'home',
+tintColor:'#48BBEC',
+translucent:'true'},
 React.createElement(Icon.TabBarItem,{
 selected:this.state.selectedTab === 'home',
 title:'Home',
@@ -65189,10 +65192,10 @@ numberOfLines:PropTypes.number}};
 
 module.exports = requireNativeComponent('RNTypefaceTextView',iface);
 });
-__d('FoodOracle/Preference.js',["react-native/Libraries/react-native/react-native.js","FoodOracle/HomeView.js"],function(global, require, module, exports) {  'use strict';var _createClass=(function(){function defineProperties(target,props){for(var i=0;i < props.length;i++) {var descriptor=props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if('value' in descriptor)descriptor.writable = true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};})();var _get=function get(object,property,receiver){if(object === null)object = Function.prototype;var desc=Object.getOwnPropertyDescriptor(object,property);if(desc === undefined){var parent=Object.getPrototypeOf(object);if(parent === null){return undefined;}else {return get(parent,property,receiver);}}else if('value' in desc){return desc.value;}else {var getter=desc.get;if(getter === undefined){return undefined;}return getter.call(receiver);}};function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError('Cannot call a class as a function');}}function _inherits(subClass,superClass){if(typeof superClass !== 'function' && superClass !== null){throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass);}subClass.prototype = Object.create(superClass && superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__ = superClass;}
+__d('FoodOracle/Preference.js',["react-native/Libraries/react-native/react-native.js","FoodOracle/PreferenceView.js"],function(global, require, module, exports) {  'use strict';var _createClass=(function(){function defineProperties(target,props){for(var i=0;i < props.length;i++) {var descriptor=props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if('value' in descriptor)descriptor.writable = true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};})();var _get=function get(object,property,receiver){if(object === null)object = Function.prototype;var desc=Object.getOwnPropertyDescriptor(object,property);if(desc === undefined){var parent=Object.getPrototypeOf(object);if(parent === null){return undefined;}else {return get(parent,property,receiver);}}else if('value' in desc){return desc.value;}else {var getter=desc.get;if(getter === undefined){return undefined;}return getter.call(receiver);}};function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError('Cannot call a class as a function');}}function _inherits(subClass,superClass){if(typeof superClass !== 'function' && superClass !== null){throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass);}subClass.prototype = Object.create(superClass && superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__ = superClass;}
 
 var React=require('react-native/Libraries/react-native/react-native.js');
-var HomeView=require('FoodOracle/HomeView.js');var 
+var PreferenceView=require('FoodOracle/PreferenceView.js');var 
 
 
 StyleSheet=
@@ -65214,8 +65217,8 @@ return (
 React.createElement(NavigatorIOS,{
 style:styles.container,
 initialRoute:{
-title:'Food Oracle',
-component:HomeView}}));}}]);return Preference;})(Component);
+title:'Preferences',
+component:PreferenceView}}));}}]);return Preference;})(Component);
 
 
 
@@ -65224,13 +65227,10 @@ component:HomeView}}));}}]);return Preference;})(Component);
 
 module.exports = Preference;
 });
-__d('FoodOracle/HomeView.js',["react-native/Libraries/react-native/react-native.js","Ionicons","FoodOracle/SearchResults.js","FoodOracle/Fetch.js","FoodOracle/sample.json"],function(global, require, module, exports) {  'use strict';var _createClass=(function(){function defineProperties(target,props){for(var i=0;i < props.length;i++) {var descriptor=props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if('value' in descriptor)descriptor.writable = true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};})();var _get=function get(object,property,receiver){if(object === null)object = Function.prototype;var desc=Object.getOwnPropertyDescriptor(object,property);if(desc === undefined){var parent=Object.getPrototypeOf(object);if(parent === null){return undefined;}else {return get(parent,property,receiver);}}else if('value' in desc){return desc.value;}else {var getter=desc.get;if(getter === undefined){return undefined;}return getter.call(receiver);}};function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError('Cannot call a class as a function');}}function _inherits(subClass,superClass){if(typeof superClass !== 'function' && superClass !== null){throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass);}subClass.prototype = Object.create(superClass && superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__ = superClass;}
+__d('FoodOracle/PreferenceView.js',["react-native/Libraries/react-native/react-native.js","react-native-fm-picker/index.js"],function(global, require, module, exports) {  'use strict';var _createClass=(function(){function defineProperties(target,props){for(var i=0;i < props.length;i++) {var descriptor=props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if('value' in descriptor)descriptor.writable = true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};})();var _get=function get(object,property,receiver){if(object === null)object = Function.prototype;var desc=Object.getOwnPropertyDescriptor(object,property);if(desc === undefined){var parent=Object.getPrototypeOf(object);if(parent === null){return undefined;}else {return get(parent,property,receiver);}}else if('value' in desc){return desc.value;}else {var getter=desc.get;if(getter === undefined){return undefined;}return getter.call(receiver);}};function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError('Cannot call a class as a function');}}function _inherits(subClass,superClass){if(typeof superClass !== 'function' && superClass !== null){throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass);}subClass.prototype = Object.create(superClass && superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__ = superClass;}
 
 var React=require('react-native/Libraries/react-native/react-native.js');
-var Icon=require('Ionicons');
-var SearchResults=require('FoodOracle/SearchResults.js');
-var Fetch=require('FoodOracle/Fetch.js');
-var sample=require('FoodOracle/sample.json');var 
+var FMPicker=require('react-native-fm-picker/index.js');var 
 
 
 StyleSheet=
@@ -65240,15 +65240,464 @@ StyleSheet=
 
 
 
-React.StyleSheet;var NavigatorIOS=React.NavigatorIOS;var View=React.View;var Text=React.Text;var Component=React.Component;var TouchableHighlight=React.TouchableHighlight;var TextInput=React.TextInput;
+
+
+
+React.StyleSheet;var Image=React.Image;var View=React.View;var TouchableHighlight=React.TouchableHighlight;var ListView=React.ListView;var Text=React.Text;var Component=React.Component;var PickerIOS=React.PickerIOS;var PickerItemIOS=React.PickerItemIOS;var TouchableOpacity=React.TouchableOpacity;
+
+var styles=StyleSheet.create({
+container:{
+flex:1,
+justifyContent:'center',
+alignItems:'center',
+marginTop:65},
+
+instruction:{
+fontSize:18,
+fontFamily:'Arial',
+color:'#48BBEC',
+marginTop:20},
+
+selectionText:{
+fontSize:20,
+fontFamily:'Arial',
+color:'#48BBEC'},
+
+display:{
+fontSize:30,
+fontFamily:'Arial',
+marginTop:20,
+color:'#48BBEC'}});
+
+
+
+var PickerItemIOS=PickerIOS.Item;
+
+var options=['none','american','italian','mexican','french','southwestern','indian',
+'chinese','english','mediterranean','greek','spanish','german','thai','moroccan',
+'irish','japanese','cuban','hawaiin','swedish','portugese'];var 
+
+PreferenceView=(function(_Component){_inherits(PreferenceView,_Component);
+function PreferenceView(props){_classCallCheck(this,PreferenceView);
+_get(Object.getPrototypeOf(PreferenceView.prototype),'constructor',this).call(this,props);
+this.state = {
+cuisine:"none"};}_createClass(PreferenceView,[{key:'render',value:
+
+
+
+function render(){var _this=this;
+return (
+React.createElement(View,{style:styles.container},
+React.createElement(Text,{style:styles.selectionText},'Current cuisine choice:'),
+
+React.createElement(Text,{style:styles.display},' ',this.state.cuisine,' '),
+React.createElement(Text,{
+style:styles.instruction,
+onPress:function(){
+_this.refs.picker.show();}},'Click here to change choice'),
+
+
+
+React.createElement(FMPicker,{ref:'picker',
+options:options,
+onSubmit:function(option){
+_this.setState({cuisine:option});}})));}}]);return PreferenceView;})(Component);
+
+
+
+
+
+
+
+module.exports = PreferenceView;
+});
+__d('react-native-fm-picker/index.js',["react-native/Libraries/react-native/react-native.js"],function(global, require, module, exports) {  'use strict';
+
+
+var React=require('react-native/Libraries/react-native/react-native.js');var 
+
+StyleSheet=
+
+
+
+
+
+
+React.StyleSheet;var Text=React.Text;var View=React.View;var TouchableOpacity=React.TouchableOpacity;var Modal=React.Modal;var PickerIOS=React.PickerIOS;var PickerItemIOS=React.PickerItemIOS;
+
+var SCREEN_WIDTH=require('Dimensions').get('window').width;
+
+var Component=React.createClass({displayName:'Component',
+show:function(){
+this.setState({modalVisible:true});},
+
+getInitialState:function(){
+return {
+options:this.props.options,
+labels:this.props.labels || this.props.options,
+color:this.props.color || '#007AFF',
+modalVisible:false,
+selectedOption:this.props.options[0]};},
+
+
+render:function(){var _this=this;
+return (
+React.createElement(Modal,{
+animated:true,
+transparent:true,
+visible:this.state.modalVisible},
+React.createElement(View,{style:styles.basicContainer},
+React.createElement(View,{style:styles.modalContainer},
+React.createElement(View,{style:styles.buttonView},
+React.createElement(TouchableOpacity,{onPress:function(){
+_this.setState({modalVisible:false});}},
+
+React.createElement(Text,{style:{color:this.state.color}},'Cancel')),
+
+React.createElement(TouchableOpacity,{onPress:function(){
+if(_this.props.onSubmit)_this.props.onSubmit(_this.state.selectedOption);
+_this.setState({modalVisible:false});}},
+
+React.createElement(Text,{style:{color:this.state.color}},'Confirm'))),
+
+
+React.createElement(View,{style:styles.mainBox},
+
+React.createElement(PickerIOS,{
+ref:'picker',
+style:styles.bottomPicker,
+selectedValue:this.state.selectedOption,
+onValueChange:function(option){return _this.setState({selectedOption:option});}},
+
+this.state.options.map(function(option,i){
+var label=_this.state.labels[i] || option;
+return (
+React.createElement(PickerItemIOS,{
+value:option,
+label:label}));})))))));}});
+
+
+
+
+
+
+
+
+
+
+
+
+
+var styles=StyleSheet.create({
+basicContainer:{
+flex:1,
+justifyContent:'center',
+alignItems:'center'},
+
+modalContainer:{
+position:'absolute',
+bottom:0,
+right:0,
+left:0,
+width:SCREEN_WIDTH,
+justifyContent:'center',
+alignItems:'center',
+padding:0,
+backgroundColor:'#F5FCFF'},
+
+buttonView:{
+width:SCREEN_WIDTH,
+padding:8,
+borderTopWidth:0.5,
+borderTopColor:'#48BBEC',
+justifyContent:'space-between',
+flexDirection:'row'},
+
+bottomPicker:{
+width:SCREEN_WIDTH,
+fontSize:13},
+
+mainBox:{}});
+
+
+
+module.exports = Component;
+});
+__d('FoodOracle/Favourite.js',["react-native/Libraries/react-native/react-native.js","FoodOracle/FavouriteView.js","Ionicons"],function(global, require, module, exports) {  'use strict';
+
+var React=require('react-native/Libraries/react-native/react-native.js');
+var FavouriteView=require("FoodOracle/FavouriteView.js");
+var Icon=require('Ionicons');var 
+
+
+StyleSheet=
+
+
+
+React.StyleSheet;var NavigatorIOS=React.NavigatorIOS;var View=React.View;var Text=React.Text;
+
+var styles=StyleSheet.create({
+container:{
+flex:1}});
+
+
+
+
+
+
+var Favourite=React.createClass({displayName:'Favourite',
+render:function(){
+return (
+
+
+
+React.createElement(NavigatorIOS,{
+style:styles.container,
+initialRoute:{
+title:'Favourite',
+component:FavouriteView}}));}});
+
+
+
+
+
+module.exports = Favourite;
+});
+__d('FoodOracle/FavouriteView.js',["react-native/Libraries/react-native/react-native.js","Ionicons","FoodOracle/favouritesamples.json","FoodOracle/Fetch.js"],function(global, require, module, exports) {  'use strict';
+
+var React=require('react-native/Libraries/react-native/react-native.js');
+var Icon=require('Ionicons');
+var Favouritesamples=require('FoodOracle/favouritesamples.json');
+var Fetch=require('FoodOracle/Fetch.js');var 
+
+
+StyleSheet=
+
+
+
+
+
+
+React.StyleSheet;var NavigatorIOS=React.NavigatorIOS;var View=React.View;var Text=React.Text;var ListView=React.ListView;var TouchableHighlight=React.TouchableHighlight;var TouchableOpacity=React.TouchableOpacity;
+
+var styles=StyleSheet.create({
+topMargin:{
+marginTop:65},
+
+
+cellContainer:{
+flex:1,
+flexDirection:'row',
+justifyContent:'center',
+alignItems:'center',
+backgroundColor:'#F5FCFF',
+padding:50},
+
+rightContainer:{
+flex:1},
+
+separator:{
+height:1,
+backgroundColor:'#dddddd'}});
+
+
+
+var resultCache={
+recipes:Favouritesamples.favourites};
+
+
+var FavouriteView=React.createClass({displayName:'FavouriteView',
+getInitialState:function(){
+var ds=new ListView.DataSource({rowHasChanged:function(row1,row2){return row1 !== row2;}});
+return {
+dataSource:ds.cloneWithRows(resultCache.recipes)};},
+
+
+
+
+render:function(){
+return (
+React.createElement(View,null,
+React.createElement(ListView,{
+dataSource:this.state.dataSource,
+renderRow:this.renderList.bind(this),
+style:styles.listView,
+automaticallyAdjustContentInsets:true})));},
+
+
+
+
+
+
+
+renderList:function(recipe){
+return (
+React.createElement(TouchableOpacity,null,
+React.createElement(View,null,
+React.createElement(View,{style:styles.cellContainer},
+React.createElement(View,{style:styles.rightContainer},
+React.createElement(Text,null,recipe.recipeName),
+React.createElement(Text,null,recipe.totalTimeInSeconds / 60,' Minutes'))),
+
+
+React.createElement(View,{style:styles.separator}))));}});
+
+
+
+
+
+
+
+
+
+module.exports = FavouriteView;
+});
+__d('FoodOracle/favouritesamples.json',[],function(global, require, module, exports) {  module.exports = {
+
+   "favourites":[
+      {
+         "id":"The-Best-French-Onion-Soup-A-love-story-1319267",
+         "recipeName":"The Best French Onion Soup – A love story",
+         "totalTimeInSeconds":2400,
+      },
+      {
+         "id":"Brown-Ale-French-Onion-Soup-1318732",
+         "recipeName":"Brown Ale French Onion Soup",
+         "totalTimeInSeconds":7800,
+      },
+      {
+         "id":"Crock-Pot-Japanese-Onion-Soup-1319396",
+         "recipeName":"Crock Pot Japanese Onion Soup",
+         "totalTimeInSeconds":2100,
+      },
+      
+      
+      {
+         "id":"French-Onion-Soup-1292648",
+         "recipeName":"French Onion Soup",
+         "totalTimeInSeconds":6300,
+      },
+      
+      {
+         "id":"French-Onion-Soup-1267249",
+         "recipeName":"French Onion Soup",
+         "totalTimeInSeconds":4500,
+      }
+   ],
+   "facetCounts":{
+
+   },
+
+};
+});
+__d('FoodOracle/Fetch.js',[],function(global, require, module, exports) {  var appID="a05ca702";
+var appKey="7ce644115e75fa844afb42c6079fc6c8";
+var baseURL="http://api.yummly.com/v1/api/recipes?";
+var baseURLforGet="http://api.yummly.com/v1/api/recipe/";
+
+function Fetch(parentContext){
+var subURL='_app_id=' + appID + '&_app_key=' + appKey;
+this.parentContext = parentContext;
+this.searchRequest = function(request,callback,errorHandler){
+var fetchURL=baseURL + subURL + '&q=' + request + '&requirePictures=true';
+
+
+
+
+fetch(fetchURL).
+then(function(response){return response.json();}).
+then(function(responseData){
+callback(parentContext,responseData);}).
+catch(function(error){
+errorHandler(error);});};
+
+
+
+this.getRequest = function(request,callback){
+var subURL='_app_id=' + appID + '&_app_key=' + appKey;
+var fetchURL=baseURLforGet + request + '?' + subURL;
+fetch(fetchURL).
+then(function(response){return response.json();}).
+then(function(responseData){
+callback(parentContext,responseData);}).
+catch(function(error){
+errorHandler(error);});};}
+
+
+
+
+
+
+module.exports = Fetch;
+});
+__d('FoodOracle/Home.js',["react-native/Libraries/react-native/react-native.js","FoodOracle/HomeView.js"],function(global, require, module, exports) {  'use strict';
+
+var React=require('react-native/Libraries/react-native/react-native.js');
+var HomeView=require('FoodOracle/HomeView.js');var 
+
+
+StyleSheet=
+
+
+
+
+React.StyleSheet;var NavigatorIOS=React.NavigatorIOS;var Component=React.Component;var View=React.View;var Text=React.Text;
+
+var styles=StyleSheet.create({
+container:{
+flex:1}});
+
+
+
+var Home=React.createClass({displayName:'Home',
+render:function(){
+return (
+React.createElement(NavigatorIOS,{
+style:styles.container,
+barTintColor:'rgba(114,192,253,0.7)',
+tintColor:'#FFFFFF',
+titleTextColor:'#FFFFFF',
+initialRoute:{
+title:'Food Oracle',
+component:HomeView}}));}});
+
+
+
+
+
+
+module.exports = Home;
+});
+__d('FoodOracle/HomeView.js',["react-native/Libraries/react-native/react-native.js","Ionicons","FoodOracle/SearchResults.js","FoodOracle/Fetch.js","FoodOracle/sample.json","react-native-blur/index.js","react-native-blur/index.js"],function(global, require, module, exports) {  'use strict';var _createClass=(function(){function defineProperties(target,props){for(var i=0;i < props.length;i++) {var descriptor=props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if('value' in descriptor)descriptor.writable = true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};})();var _get=function get(object,property,receiver){if(object === null)object = Function.prototype;var desc=Object.getOwnPropertyDescriptor(object,property);if(desc === undefined){var parent=Object.getPrototypeOf(object);if(parent === null){return undefined;}else {return get(parent,property,receiver);}}else if('value' in desc){return desc.value;}else {var getter=desc.get;if(getter === undefined){return undefined;}return getter.call(receiver);}};function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError('Cannot call a class as a function');}}function _inherits(subClass,superClass){if(typeof superClass !== 'function' && superClass !== null){throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass);}subClass.prototype = Object.create(superClass && superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__ = superClass;}
+
+var React=require('react-native/Libraries/react-native/react-native.js');
+var Icon=require('Ionicons');
+var SearchResults=require('FoodOracle/SearchResults.js');
+var Fetch=require('FoodOracle/Fetch.js');
+var sample=require('FoodOracle/sample.json');
+var BlurView=require('react-native-blur/index.js').BlurView;
+var VibrancyView=require('react-native-blur/index.js').VibrancyView;
+
+var background='http://iphonewallpapers-hd.com/wallpapers/cocktail_-640x1136.jpg';var 
+
+
+StyleSheet=
+
+
+
+
+
+
+
+React.StyleSheet;var NavigatorIOS=React.NavigatorIOS;var View=React.View;var Text=React.Text;var Component=React.Component;var TouchableHighlight=React.TouchableHighlight;var TextInput=React.TextInput;var Image=React.Image;
 
 
 var styles=StyleSheet.create({
 
 container:{
 flex:1,
-marginTop:64,
-marginBottom:49},
+marginTop:64},
+
 
 
 flowRight:{
@@ -65266,6 +65715,7 @@ flexDirection:'row'},
 
 searchInput:{
 height:36,
+paddingLeft:5,
 marginRight:5,
 flex:3,
 fontSize:18,
@@ -65273,19 +65723,20 @@ borderWidth:1,
 borderColor:'#48BBEC',
 borderRadius:8,
 color:'#48BBEC',
-justifyContent:'center'},
+justifyContent:'center',
+backgroundColor:'#FFFFFF'},
 
 
 button:{
 height:36,
 flex:1,
 flexDirection:'row',
-backgroundColor:'#48BBEC',
-borderColor:'#48BBEC',
+borderColor:'#FFFFFF',
 borderWidth:1,
 borderRadius:8,
 alignSelf:'stretch',
-justifyContent:'center'},
+justifyContent:'center',
+backgroundColor:'rgba(72,187,236,0.3)'},
 
 
 buttonText:{
@@ -65297,11 +65748,28 @@ alignSelf:'center'},
 
 mealTimeContainer:{
 flex:1,
+justifyContent:'center',
+alignItems:'center',
+alignSelf:'stretch',
+backgroundColor:'transparent'},
+
+
+searchContainer:{
+flex:1,
+justifyContent:'center',
+alignItems:'center',
+alignSelf:'stretch',
+backgroundColor:'transparent'},
+
+mealTimeTextContainer:{
+flex:1,
 flexDirection:'row',
 justifyContent:'center',
 alignItems:'center',
-backgroundColor:'#58C4FA',
-alignSelf:'stretch'},
+alignSelf:'stretch',
+backgroundColor:'transparent',
+borderWidth:2,
+borderColor:'rgba(72,187,236,0.3)'},
 
 mealTimeText:{
 flex:4,
@@ -65317,9 +65785,8 @@ mealTimeIcon:{
 flex:1},
 
 
-separator:{
-height:1,
-backgroundColor:'#dddddd'}});
+fillerView:{
+height:49}});
 
 
 
@@ -65351,9 +65818,11 @@ mealTime:'breakfast'};}_createClass(HomeView,[{key:'render',value:
 function render(){
 console.log('HomeView.render');
 return (
-React.createElement(View,{style:styles.container},
 
-React.createElement(View,{style:styles.separator}),
+React.createElement(View,{style:styles.container},
+React.createElement(Image,{source:{uri:background},style:styles.mealTimeContainer},
+
+React.createElement(BlurView,{blurType:'light',style:styles.searchContainer},
 React.createElement(View,{style:styles.flowRight},
 React.createElement(TextInput,{
 style:styles.searchInput,
@@ -65364,41 +65833,47 @@ React.createElement(TouchableHighlight,{
 style:styles.button,
 underlayColor:'#99d9f4',
 onPress:this.onSearchPressed.bind(this)},
-React.createElement(Text,{style:styles.buttonText},'Search'))),
+React.createElement(Text,{style:styles.buttonText},'Search')))),
 
 
-React.createElement(View,{style:styles.separator}),
-React.createElement(TouchableHighlight,{style:styles.mealTimeContainer,
+
+
+
+React.createElement(BlurView,{blurType:'light',style:styles.mealTimeContainer},
+React.createElement(TouchableHighlight,{style:styles.mealTimeTextContainer,
 underlayColor:'#dddddd'},
 React.createElement(View,{style:styles.flowRightMealTime},
 React.createElement(Text,{style:styles.mealTimeText},'Breakfast'),
 React.createElement(Icon,{name:'ios-arrow-right',size:40,color:'#FFF',
-style:styles.mealTimeIcon}))),
+style:styles.mealTimeIcon})))),
 
 
 
-React.createElement(View,{style:styles.separator}),
 
-React.createElement(TouchableHighlight,{style:styles.mealTimeContainer,
+React.createElement(BlurView,{blurType:'light',style:styles.mealTimeContainer},
+React.createElement(TouchableHighlight,{style:styles.mealTimeTextContainer,
 underlayColor:'#dddddd'},
 React.createElement(View,{style:styles.flowRightMealTime},
 React.createElement(Text,{style:styles.mealTimeText},'Lunch'),
 React.createElement(Icon,{name:'ios-arrow-right',size:40,color:'#FFF',
-style:styles.mealTimeIcon}))),
+style:styles.mealTimeIcon})))),
 
 
 
-React.createElement(View,{style:styles.separator}),
 
-React.createElement(TouchableHighlight,{style:styles.mealTimeContainer,
+React.createElement(BlurView,{blurType:'light',style:styles.mealTimeContainer},
+React.createElement(TouchableHighlight,{style:styles.mealTimeTextContainer,
 underlayColor:'#dddddd'},
 React.createElement(View,{style:styles.flowRightMealTime},
 React.createElement(Text,{style:styles.mealTimeText},'Dinner'),
 React.createElement(Icon,{name:'ios-arrow-right',size:40,color:'#FFF',
-style:styles.mealTimeIcon}))),
+style:styles.mealTimeIcon})))),
 
 
-React.createElement(View,{style:styles.separator})));}},{key:'onSearchTextChanged',value:
+
+
+React.createElement(View,{style:styles.fillerView}))));}},{key:'onSearchTextChanged',value:
+
 
 
 
@@ -65424,12 +65899,17 @@ resultCache.recipes = responseData.matches;
 sortByTime(resultCache.recipes);
 self._handleResponse(responseData);};
 
+var errorHandler=function(error){
+React.AlertIOS.alert(
+'Error',
+'There seems to be an issue connecting to the network.  ' + error);};
+
+
 var fetch=new Fetch(this);
-fetch.searchRequest(encodeURIComponent(query),handler);}},{key:'onSearchPressed',value:
+fetch.searchRequest(encodeURIComponent(query),handler,errorHandler);}},{key:'onSearchPressed',value:
 
 
 function onSearchPressed(){
-console.log('Search Food, will connect to Fetch Later');
 var query=this.state.searchString;
 this._executeQuery(query);}}]);return HomeView;})(Component);
 
@@ -65439,7 +65919,7 @@ this._executeQuery(query);}}]);return HomeView;})(Component);
 
 module.exports = HomeView;
 });
-__d('FoodOracle/SearchResults.js',["react-native/Libraries/react-native/react-native.js","FoodOracle/Fetch.js","FoodOracle/RecipeView.js"],function(global, require, module, exports) {  'use strict';var _createClass=(function(){function defineProperties(target,props){for(var i=0;i < props.length;i++) {var descriptor=props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if('value' in descriptor)descriptor.writable = true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};})();var _get=function get(object,property,receiver){if(object === null)object = Function.prototype;var desc=Object.getOwnPropertyDescriptor(object,property);if(desc === undefined){var parent=Object.getPrototypeOf(object);if(parent === null){return undefined;}else {return get(parent,property,receiver);}}else if('value' in desc){return desc.value;}else {var getter=desc.get;if(getter === undefined){return undefined;}return getter.call(receiver);}};function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError('Cannot call a class as a function');}}function _inherits(subClass,superClass){if(typeof superClass !== 'function' && superClass !== null){throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass);}subClass.prototype = Object.create(superClass && superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__ = superClass;}
+__d('FoodOracle/SearchResults.js',["react-native/Libraries/react-native/react-native.js","FoodOracle/RecipeView.js","FoodOracle/Fetch.js"],function(global, require, module, exports) {  'use strict';var _createClass=(function(){function defineProperties(target,props){for(var i=0;i < props.length;i++) {var descriptor=props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if('value' in descriptor)descriptor.writable = true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};})();var _get=function get(object,property,receiver){if(object === null)object = Function.prototype;var desc=Object.getOwnPropertyDescriptor(object,property);if(desc === undefined){var parent=Object.getPrototypeOf(object);if(parent === null){return undefined;}else {return get(parent,property,receiver);}}else if('value' in desc){return desc.value;}else {var getter=desc.get;if(getter === undefined){return undefined;}return getter.call(receiver);}};function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError('Cannot call a class as a function');}}function _inherits(subClass,superClass){if(typeof superClass !== 'function' && superClass !== null){throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass);}subClass.prototype = Object.create(superClass && superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__ = superClass;}
 
 var React=require('react-native/Libraries/react-native/react-native.js');
 var RecipeView=require('FoodOracle/RecipeView.js');
@@ -65516,8 +65996,7 @@ style:styles.thumbnail}),
 React.createElement(View,{style:styles.rightContainer},
 React.createElement(Text,null,recipeData.recipeName),
 React.createElement(Text,null,'Rating: ',recipeData.rating,'/5'),
-React.createElement(Text,null,recipeData.totalTimeInSeconds / 60,' Minutes'),
-React.createElement(Text,null,this.props.matches.length))),
+React.createElement(Text,null,'Time: ',recipeData.totalTimeInSeconds / 60,' Minutes'))),
 
 
 React.createElement(View,{style:styles.separator}))));}},{key:'render',value:
@@ -65544,8 +66023,14 @@ console.log(query);
 var handler=function(self,responseData){
 self._handleResponse(responseData);};
 
+var errorHandler=function(error){
+React.AlertIOS.alert(
+'Error',
+'There seems to be an issue connecting to the network.  ' + error);};
+
+
 var fetch=new Fetch(this);
-fetch.getRequest(encodeURIComponent(query),handler);}},{key:'_handleResponse',value:
+fetch.getRequest(encodeURIComponent(query),handler,errorHandler);}},{key:'_handleResponse',value:
 
 
 function _handleResponse(response){
@@ -65558,12 +66043,13 @@ passProps:{recipe:response}});}}]);return SearchResults;})(Component);
 
 module.exports = SearchResults;
 });
-__d('FoodOracle/RecipeView.js',["react-native/Libraries/react-native/react-native.js","NativeModules","Ionicons","RCTBrowser"],function(global, require, module, exports) {  'use strict';var _createClass=(function(){function defineProperties(target,props){for(var i=0;i < props.length;i++) {var descriptor=props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if('value' in descriptor)descriptor.writable = true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};})();var _get=function get(object,property,receiver){if(object === null)object = Function.prototype;var desc=Object.getOwnPropertyDescriptor(object,property);if(desc === undefined){var parent=Object.getPrototypeOf(object);if(parent === null){return undefined;}else {return get(parent,property,receiver);}}else if('value' in desc){return desc.value;}else {var getter=desc.get;if(getter === undefined){return undefined;}return getter.call(receiver);}};function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError('Cannot call a class as a function');}}function _inherits(subClass,superClass){if(typeof superClass !== 'function' && superClass !== null){throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass);}subClass.prototype = Object.create(superClass && superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__ = superClass;}
+__d('FoodOracle/RecipeView.js',["react-native/Libraries/react-native/react-native.js","NativeModules","Ionicons","RCTBrowser","Lightbox"],function(global, require, module, exports) {  'use strict';var _createClass=(function(){function defineProperties(target,props){for(var i=0;i < props.length;i++) {var descriptor=props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if('value' in descriptor)descriptor.writable = true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};})();var _get=function get(object,property,receiver){if(object === null)object = Function.prototype;var desc=Object.getOwnPropertyDescriptor(object,property);if(desc === undefined){var parent=Object.getPrototypeOf(object);if(parent === null){return undefined;}else {return get(parent,property,receiver);}}else if('value' in desc){return desc.value;}else {var getter=desc.get;if(getter === undefined){return undefined;}return getter.call(receiver);}};function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError('Cannot call a class as a function');}}function _inherits(subClass,superClass){if(typeof superClass !== 'function' && superClass !== null){throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass);}subClass.prototype = Object.create(superClass && superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__ = superClass;}
 
 var React=require('react-native/Libraries/react-native/react-native.js');
 var KDSocialShare=require('NativeModules').KDSocialShare;
 var Icon=require('Ionicons');
-var Browser=require('RCTBrowser');var 
+var Browser=require('RCTBrowser');
+var Lightbox=require('Lightbox');var 
 
 
 StyleSheet=
@@ -65573,45 +66059,69 @@ StyleSheet=
 
 
 
-React.StyleSheet;var Image=React.Image;var View=React.View;var Text=React.Text;var Component=React.Component;var TouchableHighlight=React.TouchableHighlight;var ScrollView=React.ScrollView;
+React.StyleSheet;var Image=React.Image;var View=React.View;var Text=React.Text;var Component=React.Component;var TouchableHighlight=React.TouchableHighlight;var ListView=React.ListView;
 
 var styles=StyleSheet.create({
 container:{
-flex:1},
+flex:1,
+marginTop:64,
+justifyContent:'flex-start',
+alignItems:'center',
+backgroundColor:'rgba(72,187,236,0.3)'},
+
 
 heading:{
 backgroundColor:'#F8F8F8'},
+
 
 separator:{
 height:1,
 backgroundColor:'#DDDDDD'},
 
-image:{
+
+backdropImage:{
 width:400,
-height:300},
+height:200},
+
+
+backdropView:{
+marginTop:25,
+marginLeft:25,
+width:170,
+backgroundColor:'rgba(0,0,0,0.3)',
+justifyContent:'center',
+alignItems:'center',
+alignSelf:'stretch',
+borderColor:'#48BBEC',
+borderWidth:2},
+
 
 title:{
 fontSize:20,
-margin:5,
-color:'#656565',
-marginRight:75,
-marginLeft:25},
+backgroundColor:'rgba(0,0,0,0)',
+color:'white'},
+
 
 description:{
-fontSize:18,
+fontSize:20,
 margin:5,
-color:'#656565'},
+color:'#656565',
+paddingLeft:25,
+paddingRight:25},
+
 
 button:{
-height:36,
-flex:1,
+height:30,
+width:170,
 flexDirection:'row',
-backgroundColor:'#48BBEC',
+backgroundColor:'rgba(0,0,0,0.5)',
 borderColor:'#48BBEC',
 borderWidth:1,
 borderRadius:8,
-alignSelf:'stretch',
-justifyContent:'center'},
+justifyContent:'center',
+marginRight:5,
+marginLeft:10},
+
 
 buttonText:{
 fontSize:18,
@@ -65619,12 +66129,46 @@ fontFamily:'Arial',
 color:'white',
 alignSelf:'center'},
 
-flowRight:{
-flexDirection:'row'}});var 
+flowRightButtons:{
+flexDirection:'row',
+backgroundColor:'rgba(0,0,0,0)',
+marginTop:75,
+marginRight:25,
+marginLeft:25,
+marginBottom:50,
+justifyContent:'center',
+borderRadius:8},
+
+cellContainer:{
+flex:1,
+justifyContent:'center',
+alignItems:'center',
+alignSelf:'center',
+backgroundColor:'#F5FCFF',
+width:400,
+height:70,
+backgroundColor:'rgba(0,0,0,0)'},
+
+
+ingredients:{
+flex:1},
+
+fillerView:{
+height:49}});var 
 
 
 
-RecipeView=(function(_Component){_inherits(RecipeView,_Component);function RecipeView(){_classCallCheck(this,RecipeView);_get(Object.getPrototypeOf(RecipeView.prototype),'constructor',this).apply(this,arguments);}_createClass(RecipeView,[{key:'pressShare',value:
+RecipeView=(function(_Component){_inherits(RecipeView,_Component);
+
+function RecipeView(props){_classCallCheck(this,RecipeView);
+_get(Object.getPrototypeOf(RecipeView.prototype),'constructor',this).call(this,props);
+var ds=new ListView.DataSource({rowHasChanged:function(row1,row2){return row1 !== row2;}});
+var recipe=this.props.recipe;
+this.state = {
+dataSource:ds.cloneWithRows(recipe.ingredientLines)};}_createClass(RecipeView,[{key:'pressShare',value:
+
+
+
 function pressShare(){
 var object={};
 var recipe=this.props.recipe;
@@ -65654,29 +66198,17 @@ var recipe=this.props.recipe;
 console.log(recipe.images[0]['hostedLargeUrl']);
 return (
 
-React.createElement(ScrollView,{style:styles.container},
+React.createElement(View,{style:styles.container},
 
 React.createElement(View,{style:styles.heading},
-React.createElement(Image,{style:styles.image,
-source:{uri:recipe.images[0]['hostedLargeUrl']}})),
+React.createElement(Lightbox,{navigator:this.navigator},
+React.createElement(Image,{style:styles.backdropImage,
+source:{uri:recipe.images[0]['hostedLargeUrl']}},
+React.createElement(View,{style:styles.backdropView},
+React.createElement(Text,{style:styles.title},recipe.name)),
 
 
-React.createElement(View,{style:styles.separator}),
-
-React.createElement(View,{style:styles.flowRight},
-React.createElement(Text,{style:styles.title},recipe.name),
-React.createElement(TouchableHighlight,{
-onPress:this.pressSource.bind(this),
-underlayColor:'#dddddd'},
-React.createElement(Icon,{name:'ios-heart-outline',size:35,color:'#48BBEC'}))),
-
-
-React.createElement(View,{style:styles.separator}),
-
-React.createElement(Text,{style:styles.description},recipe.ingredientLines),
-
-React.createElement(View,{style:styles.separator}),
-
+React.createElement(View,{style:styles.flowRightButtons},
 React.createElement(TouchableHighlight,{
 onPress:this.pressSource.bind(this),
 style:styles.button,
@@ -65684,15 +66216,34 @@ underlayColor:'#99d9f4'},
 React.createElement(Text,{style:styles.buttonText},'Show Source')),
 
 
-React.createElement(View,{style:styles.separator}),
-
 React.createElement(TouchableHighlight,{
 onPress:this.pressShare.bind(this),
 style:styles.button,
 underlayColor:'#99d9f4'},
-React.createElement(Text,{style:styles.buttonText},'Share on Facebook'))));}}]);return RecipeView;})(Component);
+React.createElement(Text,{style:styles.buttonText},'Share on Facebook')))))),
 
 
+
+
+
+
+React.createElement(ListView,{
+automaticallyAdjustContentInsets:false,
+dataSource:this.state.dataSource,
+renderRow:this.renderRow.bind(this)}),
+
+React.createElement(View,{style:styles.fillerView})));}},{key:'renderRow',value:
+
+
+
+
+function renderRow(ingredient){
+return (
+React.createElement(View,null,
+React.createElement(View,{style:styles.cellContainer},
+React.createElement(Text,{style:styles.description},ingredient)),
+
+React.createElement(View,{style:styles.separator})));}}]);return RecipeView;})(Component);
 
 
 
@@ -65721,37 +66272,517 @@ Browser.presentUrl(url,options);}};
 
 module.exports = RCTBrowserExport;
 });
-__d('FoodOracle/Fetch.js',[],function(global, require, module, exports) {  var appID="a05ca702";
-var appKey="7ce644115e75fa844afb42c6079fc6c8";
-var baseURL="http://api.yummly.com/v1/api/recipes?";
-var baseURLforGet="http://api.yummly.com/v1/api/recipe/";
-
-function Fetch(parentContext){
-var subURL='_app_id=' + appID + '&_app_key=' + appKey;
-this.parentContext = parentContext;
-this.searchRequest = function(request,callback){
-var fetchURL=baseURL + subURL + '&q=' + request + '&requirePictures=true';
-fetch(fetchURL).
-then(function(response){return response.json();}).
-then(function(responseData){
-callback(parentContext,responseData);}).
-done();};
+__d('Lightbox',["react-native/Libraries/react-native/react-native.js","react-timer-mixin/TimerMixin.js","LightboxOverlay"],function(global, require, module, exports) {  'use strict';
 
 
-this.getRequest = function(request,callback){
-var subURL='_app_id=' + appID + '&_app_key=' + appKey;
-var fetchURL=baseURLforGet + request + '?' + subURL;
-fetch(fetchURL).
-then(function(response){return response.json();}).
-then(function(responseData){
-callback(parentContext,responseData);}).
-done();};}
+
+
+var React=require('react-native/Libraries/react-native/react-native.js');var 
+
+PropTypes=
 
 
 
 
 
-module.exports = Fetch;
+React.PropTypes;var View=React.View;var TouchableHighlight=React.TouchableHighlight;var Animated=React.Animated;var Children=React.Children;var cloneElement=React.cloneElement;
+var TimerMixin=require('react-timer-mixin/TimerMixin.js');
+
+var LightboxOverlay=require('LightboxOverlay');
+
+var Lightbox=React.createClass({displayName:'Lightbox',
+mixins:[TimerMixin],
+
+propTypes:{
+activeProps:PropTypes.object,
+renderHeader:PropTypes.func,
+renderContent:PropTypes.func,
+underlayColor:PropTypes.string,
+onOpen:PropTypes.func,
+onClose:PropTypes.func,
+springConfig:PropTypes.shape({
+tension:PropTypes.number,
+friction:PropTypes.number}),
+
+swipeToDismiss:PropTypes.bool},
+
+
+getDefaultProps:function(){
+return {
+swipeToDismiss:true,
+onOpen:function(){},
+onClose:function(){}};},
+
+
+
+getInitialState:function(){
+return {
+isOpen:false,
+origin:{
+x:0,
+y:0,
+width:0,
+height:0},
+
+layoutOpacity:new Animated.Value(1)};},
+
+
+
+getContent:function(){
+if(this.props.renderContent){
+return this.props.renderContent();}else 
+if(this.props.activeProps){
+return cloneElement(
+Children.only(this.props.children),
+this.props.activeProps);}
+
+
+return this.props.children;},
+
+
+getOverlayProps:function(){
+return {
+isOpen:this.state.isOpen,
+origin:this.state.origin,
+renderHeader:this.props.renderHeader,
+swipeToDismiss:this.props.swipeToDismiss,
+springConfig:this.props.springConfig,
+children:this.getContent(),
+onClose:this.onClose};},
+
+
+
+open:function(){var _this=this;
+this._root.measure(function(ox,oy,width,height,px,py){
+_this.props.onOpen();
+
+_this.setState({
+isOpen:_this.props.navigator?true:false,
+isAnimating:true,
+origin:{
+width:width,
+height:height,
+x:px,
+y:py}},
+
+function(){
+if(_this.props.navigator){
+var route={
+component:LightboxOverlay,
+passProps:_this.getOverlayProps()};
+
+var routes=_this.props.navigator.getCurrentRoutes();
+routes.push(route);
+_this.props.navigator.immediatelyResetRouteStack(routes);}else 
+{
+_this.setState({
+isOpen:true});}
+
+
+_this.setTimeout(function(){
+_this.state.layoutOpacity.setValue(0);});});});},
+
+
+
+
+
+close:function(){
+throw new Error('Lightbox.close method is deprecated. Use renderHeader(close) prop instead.');},
+
+
+onClose:function(){
+this.state.layoutOpacity.setValue(1);
+this.setState({
+isOpen:false},
+this.props.onClose);
+if(this.props.navigator){
+var routes=this.props.navigator.getCurrentRoutes();
+routes.pop();
+this.props.navigator.immediatelyResetRouteStack(routes);}},
+
+
+
+render:function(){var _this2=this;
+
+return (
+React.createElement(View,{
+ref:function(component){return _this2._root = component;},
+style:this.props.style,
+onLayout:function(){}},
+
+React.createElement(Animated.View,{style:{opacity:this.state.layoutOpacity}},
+React.createElement(TouchableHighlight,{
+underlayColor:this.props.underlayColor,
+onPress:this.open},
+
+this.props.children)),
+
+
+this.props.navigator?false:React.createElement(LightboxOverlay,this.getOverlayProps())));}});
+
+
+
+
+
+module.exports = Lightbox;
+});
+__d('react-timer-mixin/TimerMixin.js',[],function(global, require, module, exports) {  'use strict';
+
+
+
+
+
+
+
+
+
+
+var GLOBAL=typeof window === 'undefined'?global:window;
+
+var setter=function(_setter,_clearer,array){
+return function(callback,delta){
+var id=_setter((function(){
+_clearer.call(this,id);
+callback.apply(this,arguments);}).
+bind(this),delta);
+
+if(!this[array]){
+this[array] = [id];}else 
+{
+this[array].push(id);}
+
+return id;};};
+
+
+
+var clearer=function(_clearer,array){
+return function(id){
+if(this[array]){
+var index=this[array].indexOf(id);
+if(index !== -1){
+this[array].splice(index,1);}}
+
+
+_clearer(id);};};
+
+
+
+var _timeouts='TimerMixin_timeouts';
+var _clearTimeout=clearer(GLOBAL.clearTimeout,_timeouts);
+var _setTimeout=setter(GLOBAL.setTimeout,_clearTimeout,_timeouts);
+
+var _intervals='TimerMixin_intervals';
+var _clearInterval=clearer(GLOBAL.clearInterval,_intervals);
+var _setInterval=setter(GLOBAL.setInterval,function(){},_intervals);
+
+var _immediates='TimerMixin_immediates';
+var _clearImmediate=clearer(GLOBAL.clearImmediate,_immediates);
+var _setImmediate=setter(GLOBAL.setImmediate,_clearImmediate,_immediates);
+
+var _rafs='TimerMixin_rafs';
+var _cancelAnimationFrame=clearer(GLOBAL.cancelAnimationFrame,_rafs);
+var _requestAnimationFrame=setter(GLOBAL.requestAnimationFrame,_cancelAnimationFrame,_rafs);
+
+var TimerMixin={
+componentWillUnmount:function(){
+this[_timeouts] && this[_timeouts].forEach(function(id){
+GLOBAL.clearTimeout(id);});
+
+this[_timeouts] = null;
+this[_intervals] && this[_intervals].forEach(function(id){
+GLOBAL.clearInterval(id);});
+
+this[_intervals] = null;
+this[_immediates] && this[_immediates].forEach(function(id){
+GLOBAL.clearImmediate(id);});
+
+this[_immediates] = null;
+this[_rafs] && this[_rafs].forEach(function(id){
+GLOBAL.cancelAnimationFrame(id);});
+
+this[_rafs] = null;},
+
+
+setTimeout:_setTimeout,
+clearTimeout:_clearTimeout,
+
+setInterval:_setInterval,
+clearInterval:_clearInterval,
+
+setImmediate:_setImmediate,
+clearImmediate:_clearImmediate,
+
+requestAnimationFrame:_requestAnimationFrame,
+cancelAnimationFrame:_cancelAnimationFrame};
+
+
+module.exports = TimerMixin;
+});
+__d('LightboxOverlay',["react-native/Libraries/react-native/react-native.js"],function(global, require, module, exports) {  'use strict';var _extends=Object.assign || function(target){for(var i=1;i < arguments.length;i++) {var source=arguments[i];for(var key in source) {if(Object.prototype.hasOwnProperty.call(source,key)){target[key] = source[key];}}}return target;};
+
+
+
+
+var React=require('react-native/Libraries/react-native/react-native.js');var 
+
+PropTypes=
+
+
+
+
+
+
+
+
+
+
+React.PropTypes;var View=React.View;var Text=React.Text;var Animated=React.Animated;var StyleSheet=React.StyleSheet;var Dimensions=React.Dimensions;var PanResponder=React.PanResponder;var TouchableOpacity=React.TouchableOpacity;var StatusBarIOS=React.StatusBarIOS;var Modal=React.Modal;var Platform=React.Platform;
+
+var WINDOW_HEIGHT=Dimensions.get('window').height;
+var WINDOW_WIDTH=Dimensions.get('window').width;
+var DRAG_DISMISS_THRESHOLD=150;
+var STATUS_BAR_OFFSET=Platform.OS === 'android'?-25:0;
+
+var LightboxOverlay=React.createClass({displayName:'LightboxOverlay',
+propTypes:{
+origin:PropTypes.shape({
+x:PropTypes.number,
+y:PropTypes.number,
+width:PropTypes.number,
+height:PropTypes.number}),
+
+springConfig:PropTypes.shape({
+tension:PropTypes.number,
+friction:PropTypes.number}),
+
+isOpen:PropTypes.bool,
+renderHeader:PropTypes.func,
+onOpen:PropTypes.func,
+onClose:PropTypes.func,
+swipeToDismiss:PropTypes.bool},
+
+
+getInitialState:function(){
+return {
+isAnimating:false,
+isPanning:false,
+target:{
+x:0,
+y:0,
+opacity:1},
+
+pan:new Animated.Value(0),
+openVal:new Animated.Value(0)};},
+
+
+
+getDefaultProps:function(){
+return {
+springConfig:{tension:30,friction:7}};},
+
+
+
+componentWillMount:function(){var _this=this;
+this._panResponder = PanResponder.create({
+
+onStartShouldSetPanResponder:function(evt,gestureState){return !_this.state.isAnimating;},
+onStartShouldSetPanResponderCapture:function(evt,gestureState){return !_this.state.isAnimating;},
+onMoveShouldSetPanResponder:function(evt,gestureState){return !_this.state.isAnimating;},
+onMoveShouldSetPanResponderCapture:function(evt,gestureState){return !_this.state.isAnimating;},
+
+onPanResponderGrant:function(evt,gestureState){
+_this.state.pan.setValue(0);
+_this.setState({isPanning:true});},
+
+onPanResponderMove:Animated.event([
+null,
+{dy:this.state.pan}]),
+
+onPanResponderTerminationRequest:function(evt,gestureState){return true;},
+onPanResponderRelease:function(evt,gestureState){
+if(Math.abs(gestureState.dy) > DRAG_DISMISS_THRESHOLD){
+_this.setState({
+isPanning:false,
+target:{
+y:gestureState.dy,
+x:gestureState.dx,
+opacity:1 - Math.abs(gestureState.dy / WINDOW_HEIGHT)}});
+
+
+_this.close();}else 
+{
+Animated.spring(
+_this.state.pan,_extends({
+toValue:0},_this.props.springConfig)).
+start(function(){_this.setState({isPanning:false});});}}});},
+
+
+
+
+
+componentDidMount:function(){
+if(this.props.isOpen){
+this.open();}},
+
+
+
+open:function(){var _this2=this;
+if(StatusBarIOS){
+StatusBarIOS.setHidden(true,'fade');}
+
+this.state.pan.setValue(0);
+this.setState({
+isAnimating:true,
+target:{
+x:0,
+y:0,
+opacity:1}});
+
+
+
+Animated.spring(
+this.state.openVal,_extends({
+toValue:1},this.props.springConfig)).
+start(function(){return _this2.setState({isAnimating:false});});},
+
+
+close:function(){var _this3=this;
+if(StatusBarIOS){
+StatusBarIOS.setHidden(false,'fade');}
+
+this.setState({
+isAnimating:true});
+
+Animated.spring(
+this.state.openVal,_extends({
+toValue:0},this.props.springConfig)).
+start(function(){
+_this3.props.onClose();
+_this3.setState({
+isAnimating:false});});},
+
+
+
+
+componentWillReceiveProps:function(props){
+if(this.props.isOpen != props.isOpen && props.isOpen){
+this.open();}},
+
+
+
+render:function(){var _props=
+
+
+
+
+
+this.props;var isOpen=_props.isOpen;var renderHeader=_props.renderHeader;var swipeToDismiss=_props.swipeToDismiss;var origin=_props.origin;var _state=
+
+
+
+
+
+
+this.state;var isPanning=_state.isPanning;var isAnimating=_state.isAnimating;var openVal=_state.openVal;var target=_state.target;
+
+
+var lightboxOpacityStyle={
+opacity:openVal.interpolate({inputRange:[0,1],outputRange:[0,target.opacity]})};
+
+
+var handlers;
+if(swipeToDismiss){
+handlers = this._panResponder.panHandlers;}
+
+
+var dragStyle;
+if(isPanning){
+dragStyle = {
+top:this.state.pan};
+
+lightboxOpacityStyle.opacity = this.state.pan.interpolate({inputRange:[-WINDOW_HEIGHT,0,WINDOW_HEIGHT],outputRange:[0,1,0]});}
+
+
+var openStyle=[styles.open,{
+left:openVal.interpolate({inputRange:[0,1],outputRange:[origin.x,target.x]}),
+top:openVal.interpolate({inputRange:[0,1],outputRange:[origin.y + STATUS_BAR_OFFSET,target.y + STATUS_BAR_OFFSET]}),
+width:openVal.interpolate({inputRange:[0,1],outputRange:[origin.width,WINDOW_WIDTH]}),
+height:openVal.interpolate({inputRange:[0,1],outputRange:[origin.height,WINDOW_HEIGHT]})}];
+
+
+var background=React.createElement(Animated.View,{style:[styles.background,lightboxOpacityStyle]});
+var header=React.createElement(Animated.View,{style:[styles.header,lightboxOpacityStyle]},renderHeader?
+renderHeader(this.close):
+
+React.createElement(TouchableOpacity,{onPress:this.close},
+React.createElement(Text,{style:styles.closeButton},'×')));
+
+
+
+var content=
+React.createElement(Animated.View,_extends({style:[openStyle,dragStyle]},handlers),
+this.props.children);
+
+
+if(this.props.navigator){
+return (
+React.createElement(View,null,
+background,
+content,
+header));}
+
+
+
+return (
+React.createElement(Modal,{visible:isOpen,transparent:true},
+background,
+content,
+header));}});
+
+
+
+
+
+var styles=StyleSheet.create({
+background:{
+position:'absolute',
+top:0,
+left:0,
+width:WINDOW_WIDTH,
+height:WINDOW_HEIGHT,
+backgroundColor:'black'},
+
+open:{
+position:'absolute',
+flex:1,
+justifyContent:'center',
+
+backgroundColor:'transparent'},
+
+header:{
+position:'absolute',
+top:0,
+left:0,
+width:WINDOW_WIDTH,
+backgroundColor:'transparent'},
+
+closeButton:{
+fontSize:35,
+color:'white',
+lineHeight:40,
+width:40,
+textAlign:'center',
+shadowOffset:{
+width:0,
+height:0},
+
+shadowRadius:1.5,
+shadowColor:'black',
+shadowOpacity:0.8}});
+
+
+
+module.exports = LightboxOverlay;
 });
 __d('FoodOracle/sample.json',[],function(global, require, module, exports) {  module.exports = {
    "criteria":{
@@ -66166,177 +67197,57 @@ __d('FoodOracle/sample.json',[],function(global, require, module, exports) {  mo
    }
 };
 });
-__d('FoodOracle/Favourite.js',["react-native/Libraries/react-native/react-native.js","FoodOracle/FavouriteView.js","Ionicons"],function(global, require, module, exports) {  'use strict';
+__d('react-native-blur/index.js',["react-native-blur/src/BlurView.js","react-native-blur/src/VibrancyView.js"],function(global, require, module, exports) {  const BlurView=require('react-native-blur/src/BlurView.js');
+const VibrancyView=require('react-native-blur/src/VibrancyView.js');
+
+module.exports = {
+BlurView:BlurView,
+VibrancyView:VibrancyView};
+});
+__d('react-native-blur/src/BlurView.js',["react-native/Libraries/react-native/react-native.js"],function(global, require, module, exports) {  var _createClass=(function(){function defineProperties(target,props){for(var i=0;i < props.length;i++) {var descriptor=props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if('value' in descriptor)descriptor.writable = true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};})();var _get=function get(object,property,receiver){if(object === null)object = Function.prototype;var desc=Object.getOwnPropertyDescriptor(object,property);if(desc === undefined){var parent=Object.getPrototypeOf(object);if(parent === null){return undefined;}else {return get(parent,property,receiver);}}else if('value' in desc){return desc.value;}else {var getter=desc.get;if(getter === undefined){return undefined;}return getter.call(receiver);}};function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError('Cannot call a class as a function');}}function _inherits(subClass,superClass){if(typeof superClass !== 'function' && superClass !== null){throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass);}subClass.prototype = Object.create(superClass && superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__ = superClass;}const React=require('react-native/Libraries/react-native/react-native.js');const 
+
+requireNativeComponent=
+
+React.requireNativeComponent;const Component=React.Component;var 
+
+BlurView=(function(_Component){_inherits(BlurView,_Component);function BlurView(){_classCallCheck(this,BlurView);_get(Object.getPrototypeOf(BlurView.prototype),'constructor',this).apply(this,arguments);}_createClass(BlurView,[{key:'render',value:
+function render(){
+return React.createElement(NativeBlurView,this.props);}}]);return BlurView;})(Component);
+
+
+
+BlurView.propTypes = {
+blurType:React.PropTypes.string};
+
+
+const NativeBlurView=requireNativeComponent('BlurView',BlurView);
+
+module.exports = BlurView;
+});
+__d('react-native-blur/src/VibrancyView.js',["react-native/Libraries/react-native/react-native.js"],function(global, require, module, exports) {  var _createClass=(function(){function defineProperties(target,props){for(var i=0;i < props.length;i++) {var descriptor=props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if('value' in descriptor)descriptor.writable = true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};})();var _get=function get(object,property,receiver){if(object === null)object = Function.prototype;var desc=Object.getOwnPropertyDescriptor(object,property);if(desc === undefined){var parent=Object.getPrototypeOf(object);if(parent === null){return undefined;}else {return get(parent,property,receiver);}}else if('value' in desc){return desc.value;}else {var getter=desc.get;if(getter === undefined){return undefined;}return getter.call(receiver);}};function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError('Cannot call a class as a function');}}function _inherits(subClass,superClass){if(typeof superClass !== 'function' && superClass !== null){throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass);}subClass.prototype = Object.create(superClass && superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__ = superClass;}const React=require('react-native/Libraries/react-native/react-native.js');const 
+
+requireNativeComponent=
+
+React.requireNativeComponent;const Component=React.Component;var 
+
+VibrancyView=(function(_Component){_inherits(VibrancyView,_Component);function VibrancyView(){_classCallCheck(this,VibrancyView);_get(Object.getPrototypeOf(VibrancyView.prototype),'constructor',this).apply(this,arguments);}_createClass(VibrancyView,[{key:'render',value:
+function render(){
+return React.createElement(NativeVibrancyView,this.props);}}]);return VibrancyView;})(Component);
+
+
+
+VibrancyView.propTypes = {
+blurType:React.PropTypes.string};
+
+
+const NativeVibrancyView=requireNativeComponent('VibrancyView',VibrancyView);
+
+module.exports = VibrancyView;
+});
+__d('FoodOracle/Refrigerator.js',["react-native/Libraries/react-native/react-native.js","FoodOracle/FridgeView.js"],function(global, require, module, exports) {  'use strict';
 
 var React=require('react-native/Libraries/react-native/react-native.js');
-var FavouriteView=require("FoodOracle/FavouriteView.js");
-var Icon=require('Ionicons');var 
-
-
-StyleSheet=
-
-
-
-React.StyleSheet;var NavigatorIOS=React.NavigatorIOS;var View=React.View;var Text=React.Text;
-
-var styles=StyleSheet.create({
-container:{
-flex:1}});
-
-
-
-
-
-
-var Favourite=React.createClass({displayName:'Favourite',
-render:function(){
-return (
-
-
-
-React.createElement(NavigatorIOS,{
-style:styles.container,
-initialRoute:{
-title:'Favourite',
-component:FavouriteView}}));}});
-
-
-
-
-
-module.exports = Favourite;
-});
-__d('FoodOracle/FavouriteView.js',["react-native/Libraries/react-native/react-native.js","Ionicons","FoodOracle/favouritesamples.json","FoodOracle/Fetch.js"],function(global, require, module, exports) {  'use strict';
-
-var React=require('react-native/Libraries/react-native/react-native.js');
-var Icon=require('Ionicons');
-var Favouritesamples=require('FoodOracle/favouritesamples.json');
-var Fetch=require('FoodOracle/Fetch.js');var 
-
-
-StyleSheet=
-
-
-
-
-
-
-React.StyleSheet;var NavigatorIOS=React.NavigatorIOS;var View=React.View;var Text=React.Text;var ListView=React.ListView;var TouchableHighlight=React.TouchableHighlight;var TouchableOpacity=React.TouchableOpacity;
-
-var styles=StyleSheet.create({
-topMargin:{
-marginTop:65},
-
-
-cellContainer:{
-flex:1,
-flexDirection:'row',
-justifyContent:'center',
-alignItems:'center',
-backgroundColor:'#F5FCFF',
-padding:50},
-
-rightContainer:{
-flex:1},
-
-separator:{
-height:1,
-backgroundColor:'#dddddd'}});
-
-
-
-var resultCache={
-recipes:Favouritesamples.favourites};
-
-
-var FavouriteView=React.createClass({displayName:'FavouriteView',
-getInitialState:function(){
-var ds=new ListView.DataSource({rowHasChanged:function(row1,row2){return row1 !== row2;}});
-return {
-dataSource:ds.cloneWithRows(resultCache.recipes)};},
-
-
-
-
-render:function(){
-return (
-React.createElement(View,null,
-React.createElement(ListView,{
-dataSource:this.state.dataSource,
-renderRow:this.renderList.bind(this),
-style:styles.listView,
-automaticallyAdjustContentInsets:true})));},
-
-
-
-
-
-
-
-renderList:function(recipe){
-return (
-React.createElement(TouchableOpacity,null,
-React.createElement(View,null,
-React.createElement(View,{style:styles.cellContainer},
-React.createElement(View,{style:styles.rightContainer},
-React.createElement(Text,null,recipe.recipeName),
-React.createElement(Text,null,recipe.totalTimeInSeconds / 60,' Minutes'))),
-
-
-React.createElement(View,{style:styles.separator}))));}});
-
-
-
-
-
-
-
-
-
-module.exports = FavouriteView;
-});
-__d('FoodOracle/favouritesamples.json',[],function(global, require, module, exports) {  module.exports = {
-
-   "favourites":[
-      {
-         "id":"The-Best-French-Onion-Soup-A-love-story-1319267",
-         "recipeName":"The Best French Onion Soup – A love story",
-         "totalTimeInSeconds":2400,
-      },
-      {
-         "id":"Brown-Ale-French-Onion-Soup-1318732",
-         "recipeName":"Brown Ale French Onion Soup",
-         "totalTimeInSeconds":7800,
-      },
-      {
-         "id":"Crock-Pot-Japanese-Onion-Soup-1319396",
-         "recipeName":"Crock Pot Japanese Onion Soup",
-         "totalTimeInSeconds":2100,
-      },
-      
-      
-      {
-         "id":"French-Onion-Soup-1292648",
-         "recipeName":"French Onion Soup",
-         "totalTimeInSeconds":6300,
-      },
-      
-      {
-         "id":"French-Onion-Soup-1267249",
-         "recipeName":"French Onion Soup",
-         "totalTimeInSeconds":4500,
-      }
-   ],
-   "facetCounts":{
-
-   },
-
-};
-});
-__d('FoodOracle/Home.js',["react-native/Libraries/react-native/react-native.js","FoodOracle/HomeView.js"],function(global, require, module, exports) {  'use strict';
-
-var React=require('react-native/Libraries/react-native/react-native.js');
-var HomeView=require('FoodOracle/HomeView.js');var 
+var FridgeView=require('FoodOracle/FridgeView.js');var 
 
 
 StyleSheet=
@@ -66352,57 +67263,162 @@ flex:1}});
 
 
 
-var Home=React.createClass({displayName:'Home',
+var Fridge=React.createClass({displayName:'Fridge',
 render:function(){
 return (
 React.createElement(NavigatorIOS,{
 style:styles.container,
 initialRoute:{
-title:'Food Oracle',
-component:HomeView}}));}});
+title:'Fridge',
+component:FridgeView}}));}});
 
 
 
 
 
 
-module.exports = Home;
+module.exports = Fridge;
 });
-__d('FoodOracle/Refrigerator.js',["react-native/Libraries/react-native/react-native.js","Ionicons"],function(global, require, module, exports) {  'use strict';
+__d('FoodOracle/FridgeView.js',["react-native/Libraries/react-native/react-native.js","FoodOracle/fridgesample.json"],function(global, require, module, exports) {  'use strict';var _createClass=(function(){function defineProperties(target,props){for(var i=0;i < props.length;i++) {var descriptor=props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if('value' in descriptor)descriptor.writable = true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};})();var _get=function get(object,property,receiver){if(object === null)object = Function.prototype;var desc=Object.getOwnPropertyDescriptor(object,property);if(desc === undefined){var parent=Object.getPrototypeOf(object);if(parent === null){return undefined;}else {return get(parent,property,receiver);}}else if('value' in desc){return desc.value;}else {var getter=desc.get;if(getter === undefined){return undefined;}return getter.call(receiver);}};function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError('Cannot call a class as a function');}}function _inherits(subClass,superClass){if(typeof superClass !== 'function' && superClass !== null){throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass);}subClass.prototype = Object.create(superClass && superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__ = superClass;}
 
-var React=require('react-native/Libraries/react-native/react-native.js');var 
-
-
-StyleSheet=
+var React=require('react-native/Libraries/react-native/react-native.js');
+var FridgeSample=require('FoodOracle/fridgesample.json');var 
 
 
+Component=
 
-React.StyleSheet;var NavigatorIOS=React.NavigatorIOS;var View=React.View;var Text=React.Text;
 
-var Icon=require('Ionicons');
+
+
+
+
+
+
+React.Component;var StyleSheet=React.StyleSheet;var NavigatorIOS=React.NavigatorIOS;var View=React.View;var Text=React.Text;var ListView=React.ListView;var TouchableHighlight=React.TouchableHighlight;var TouchableOpacity=React.TouchableOpacity;var PickerIOS=React.PickerIOS;
 
 var styles=StyleSheet.create({
-container:{
+cellContainer:{
 flex:1,
+flexDirection:'row',
 justifyContent:'center',
 alignItems:'center',
-backgroundColor:'#F5FCFF'}});
+backgroundColor:'#F5FCFF',
+padding:10},
+
+rightContainer:{
+flex:1},
+
+separator:{
+height:1,
+backgroundColor:'#dddddd'}});
 
 
 
-var Refrigerator=React.createClass({displayName:'Refrigerator',
-render:function(){
+var resultCache={
+ingredients:FridgeSample.ingredients};
+
+
+var INGREDIENT_QUANTITIES=['high','low','empty'];var 
+
+FridgeView=(function(_Component){_inherits(FridgeView,_Component);
+
+function FridgeView(props){_classCallCheck(this,FridgeView);
+_get(Object.getPrototypeOf(FridgeView.prototype),'constructor',this).call(this,props);
+var ds=new ListView.DataSource({rowHasChanged:function(row1,row2){return row1 !== row2;}});
+this.state = {
+dataSource:ds.cloneWithRows(resultCache.ingredients),
+showIngredientEditor:false,
+selectedIngredient:false};}_createClass(FridgeView,[{key:'render',value:
+
+
+
+function render(){var _this=this;
 return (
-React.createElement(View,{style:styles.container},
-React.createElement(Text,{style:styles.description},'Fill Fridge'),
+React.createElement(View,null,
+React.createElement(ListView,{
+dataSource:this.state.dataSource,
+renderRow:this.renderRow.bind(this),
+style:styles.listView,
+automaticallyAdjustContentInsets:true}),
 
-React.createElement(Icon,{name:'ios-list-outline',size:40,color:'#4F8EF7'})));}});
+this.state.showIngredientEditor?
+React.createElement(View,null,
+React.createElement(Text,null,'Please choose the quantity of this ingredient:'),
+React.createElement(PickerIOS,{
+selectedValue:this.state.selectedIngredient.quantity,
+onValueChange:function(quantity){
+_this.setState({showIngredientEditor:false});}},
+
+
+
+INGREDIENT_QUANTITIES.map(
+function(quantity){return (
+React.createElement(PickerIOS.Item,{
+key:quantity,
+value:quantity,
+label:quantity}));}))):
 
 
 
 
 
-module.exports = Refrigerator;
+React.createElement(View,null)));}},{key:'renderRow',value:
+
+
+
+
+function renderRow(ingredient){var _this2=this;
+return (
+React.createElement(TouchableOpacity,{onPress:function(){return _this2.rowPressed(ingredient);}},
+React.createElement(View,null,
+React.createElement(View,{style:styles.cellContainer},
+React.createElement(View,{style:styles.rightContainer},
+React.createElement(Text,null,ingredient.id),
+React.createElement(Text,null,ingredient.quantity))),
+
+
+React.createElement(View,{style:styles.separator}))));}},{key:'rowPressed',value:
+
+
+
+
+
+function rowPressed(ingredient){
+this.setState({
+selectedIngredient:ingredient,
+showIngredientEditor:true});
+
+console.log(this.state.selectedIngredient.id);
+console.log(this.state.showIngredientEditor);}}]);return FridgeView;})(Component);
+
+
+;
+
+module.exports = FridgeView;
+});
+__d('FoodOracle/fridgesample.json',[],function(global, require, module, exports) {  module.exports = {
+	"ingredients": [
+		{
+			"id": "onions",
+			"quantity": "high"
+		},
+		{
+			"id": "flour",
+			"quantity": "low"
+		},
+		{
+			"id": "chopped fresh thyme",
+			"quantity": "high"
+		},
+		{
+			"id": "cognac",
+			"quantity": "low"
+		}
+	],
+	"facetCounts": {
+
+	}
+};
 });
 ;require("FoodOracle/index.ios.js");
 //@ sourceMappingURL=/index.ios.map
