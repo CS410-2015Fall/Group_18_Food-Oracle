@@ -76,7 +76,6 @@ renderRow(recipeData) {
                         <Text>{recipeData.recipeName}</Text>
                         <Text>Rating: {recipeData.rating}/5</Text>
                         <Text>{recipeData.totalTimeInSeconds/60} Minutes</Text>
-                        <Text>{this.props.matches.length}</Text>
                         </View>
                     </View>
                     <View style={styles.separator} />

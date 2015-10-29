@@ -12,47 +12,69 @@ var {
   Text,
   Component,
   TouchableHighlight,
-  ScrollView
+  ListView
 } = React;
 
 var styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 64,
+    marginBottom: 49,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: 'transparent',
   },
+
   heading: {
     backgroundColor: '#F8F8F8',
   },
+
   separator: {
     height: 1,
     backgroundColor: '#DDDDDD'
   },
-  image: {
+
+  backdropImage: {
     width: 400,
     height: 300
   },
+
+  backdropView: {
+    marginTop: 25,
+    marginLeft: 25,
+    width: 180,
+    backgroundColor: 'rgba(0,0,0,0.3)',
+  },
+
   title: {
     fontSize: 20,
-    margin: 5,
-    color: '#656565',
-    marginRight: 75,
-    marginLeft: 25
+    paddingLeft: 10,
+    paddingRight: 10,
+    backgroundColor: 'rgba(0,0,0,0)',
+    color: 'white',
+    borderColor: '#656565',
+    borderWidth: 2,
   },
+
   description: {
-    fontSize: 18,
+    fontSize: 20,
     margin: 5,
     color: '#656565'
   },
+
   button: {
-    height: 36,
-  flex: 1,
+    height: 30,
+    width: 180,
   flexDirection: 'row',
   backgroundColor: '#48BBEC',
   borderColor: '#48BBEC',
   borderWidth: 1,
   borderRadius: 8,
-  alignSelf: 'stretch',
-  justifyContent: 'center'
+  justifyContent: 'center',
+  marginRight: 5,
+  marginLeft: 10,
  },
+
  buttonText: {
   fontSize: 18,
   fontFamily: 'Arial',
@@ -61,10 +83,35 @@ var styles = StyleSheet.create({
 },
 flowRight: {
   flexDirection: 'row',
-}
+  backgroundColor: 'rgba(0,0,0,0.3)',
+},
+ cellContainer: {
+        paddingTop: 10,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5FCFF',
+        width: 400,
+        height: 60,
+        backgroundColor: 'rgba(0,0,0,0.)'
+    },
+
+  ingredients: {
+    flex: 1,
+  }
 });
 
 class RecipeView extends Component{
+  
+  constructor(props){
+    super(props);
+    var ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
+    var recipe = this.props.recipe;
+    this.state = {
+      dataSource: ds.cloneWithRows(recipe.ingredientLines),
+    };
+  }
+
   pressShare(){
     var object = {};
     var recipe = this.props.recipe;
@@ -94,37 +141,25 @@ class RecipeView extends Component{
     console.log(recipe.images[0]['hostedLargeUrl'])
       return (
 
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
         
         <View style={styles.heading}>
-          <Image style={styles.image} 
-            source={{uri: recipe.images[0]['hostedLargeUrl']}} />
+          <Image style={styles.backdropImage} 
+            source={{uri: recipe.images[0]['hostedLargeUrl']}}>
+              <View style={styles.backdropView}>
+                <Text style={styles.title}>{recipe.name}</Text>
+              </View>
+            </Image>
         </View>
 
         <View style={styles.separator}/>
-
         <View style={styles.flowRight}>
-          <Text style={styles.title}>{recipe.name}</Text>
-          <TouchableHighlight 
-            onPress={this.pressSource.bind(this)}
-            underlayColor='#dddddd'>
-            <Icon name="ios-heart-outline" size={35} color="#48BBEC"/>
-          </TouchableHighlight>
-        </View>
-        <View style={styles.separator}/>
-
-        <Text style={styles.description}>{recipe.ingredientLines}</Text>
-        
-        <View style={styles.separator}/>
-
         <TouchableHighlight 
           onPress={this.pressSource.bind(this)}
           style={styles.button}
           underlayColor='#99d9f4'>
           <Text style={styles.buttonText}>Show Source</Text>
         </TouchableHighlight>
-
-        <View style={styles.separator}/>
         
         <TouchableHighlight
           onPress={this.pressShare.bind(this)}
@@ -132,10 +167,39 @@ class RecipeView extends Component{
           underlayColor='#99d9f4'>
           <Text style={styles.buttonText}>Share on Facebook</Text>
         </TouchableHighlight>
+        </View>
+        <View style={styles.separator}/>
 
-      </ScrollView>
+        <View style={styles.ingredients}>
+          <ListView
+            dataSource={this.state.dataSource}
+            renderRow={this.renderRow.bind(this)}/>
+        </View>
+
+      </View>
     );
-  } 
+  }
+
+  renderRow(ingredient) {
+  return (
+                <View>
+                    <View style={styles.cellContainer}>
+                        <Text style={styles.description}>{ingredient}</Text>
+                    </View>
+                    <View style={styles.separator} />
+                </View>
+  );
+} 
 }
+
+
+        /*<View style={styles.flowRight}>
+          <TouchableHighlight 
+            onPress={this.pressShare.bind(this)}
+            underlayColor='#dddddd'>
+            <Icon name="ios-heart-outline" size={35} color="#48BBEC"/>
+          </TouchableHighlight>
+        </View>
+        <View style={styles.separator}/>*/
 
 module.exports = RecipeView;
