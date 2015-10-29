@@ -17,7 +17,7 @@ var {
 
 var styles = StyleSheet.create({
   container: {
-    marginTop: 10
+    flex: 1,
   },
   heading: {
     backgroundColor: '#F8F8F8',
@@ -33,7 +33,9 @@ var styles = StyleSheet.create({
   title: {
     fontSize: 20,
     margin: 5,
-    color: '#656565'
+    color: '#656565',
+    marginRight: 75,
+    marginLeft: 25
   },
   description: {
     fontSize: 18,
@@ -57,6 +59,9 @@ var styles = StyleSheet.create({
   color: 'white',
   alignSelf: 'center'
 },
+flowRight: {
+  flexDirection: 'row',
+}
 });
 
 class RecipeView extends Component{
@@ -74,7 +79,8 @@ class RecipeView extends Component{
   }
 
   pressSource(){
-    Browser.open('https://google.com/', {
+    var recipe = this.props.recipe;
+    Browser.open(recipe.source.sourceRecipeUrl, {
                 navigationButtonsHidden: false,
                 showActionButton: false,
                 showPageTitles: false,
@@ -87,30 +93,46 @@ class RecipeView extends Component{
     var recipe = this.props.recipe;  
     console.log(recipe.images[0]['hostedLargeUrl'])
       return (
+
       <ScrollView style={styles.container}>
+        
         <View style={styles.heading}>
           <Image style={styles.image} 
             source={{uri: recipe.images[0]['hostedLargeUrl']}} />
-            
-        <View style={styles.separator}/>
-          <Text style={styles.title}>{recipe.name}</Text>
-          <View style={styles.separator}/>
         </View>
-        <Text style={styles.description}>{recipe.ingredientLines}</Text>
+
         <View style={styles.separator}/>
+
+        <View style={styles.flowRight}>
+          <Text style={styles.title}>{recipe.name}</Text>
+          <TouchableHighlight 
+            onPress={this.pressSource.bind(this)}
+            underlayColor='#dddddd'>
+            <Icon name="ios-heart-outline" size={35} color="#48BBEC"/>
+          </TouchableHighlight>
+        </View>
+        <View style={styles.separator}/>
+
+        <Text style={styles.description}>{recipe.ingredientLines}</Text>
+        
+        <View style={styles.separator}/>
+
         <TouchableHighlight 
           onPress={this.pressSource.bind(this)}
           style={styles.button}
           underlayColor='#99d9f4'>
           <Text style={styles.buttonText}>Show Source</Text>
         </TouchableHighlight>
+
         <View style={styles.separator}/>
+        
         <TouchableHighlight
           onPress={this.pressShare.bind(this)}
           style={styles.button}
           underlayColor='#99d9f4'>
           <Text style={styles.buttonText}>Share on Facebook</Text>
         </TouchableHighlight>
+
       </ScrollView>
     );
   } 

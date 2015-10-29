@@ -2,7 +2,6 @@
 
 var React = require('react-native');
 var Icon = require('react-native-vector-icons/Ionicons');
-var Browser = require('react-native-browser');
 var SearchResults = require('./SearchResults');
 var Fetch = require('./Fetch');
 var sample = require('./sample.json');

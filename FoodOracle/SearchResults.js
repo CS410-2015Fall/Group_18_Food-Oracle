@@ -74,7 +74,7 @@ renderRow(recipeData) {
                             style={styles.thumbnail} />
                         <View style={styles.rightContainer}>
                         <Text>{recipeData.recipeName}</Text>
-                        <Text>Rating: {recipeData.rating}</Text>
+                        <Text>Rating: {recipeData.rating}/5</Text>
                         <Text>{recipeData.totalTimeInSeconds/60} Minutes</Text>
                         <Text>{this.props.matches.length}</Text>
                         </View>
