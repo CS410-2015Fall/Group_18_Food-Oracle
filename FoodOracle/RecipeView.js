@@ -4,6 +4,7 @@ var React = require('react-native');
 var KDSocialShare = require('NativeModules').KDSocialShare;
 var Icon = require('react-native-vector-icons/Ionicons');
 var Browser = require('react-native-browser');
+var Lightbox = require('react-native-lightbox');
 
 var {
   StyleSheet,
@@ -155,6 +156,7 @@ class RecipeView extends Component{
       <View style={styles.container}>
         
         <View style={styles.heading}>
+            <Lightbox navigator={this.navigator}>
             <Image style={styles.backdropImage} 
               source={{uri: recipe.images[0]['hostedLargeUrl']}}>
                   <View style={styles.backdropView}>
@@ -177,6 +179,7 @@ class RecipeView extends Component{
                           </TouchableHighlight>
                   </View>
             </Image>
+            </Lightbox>
         </View> 
           
           <ListView
