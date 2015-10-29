@@ -6,7 +6,7 @@ var baseURLforGet = "http://api.yummly.com/v1/api/recipe/";
 function Fetch(parentContext) {
 	var subURL = '_app_id=' + appID + '&_app_key=' + appKey;
 	this.parentContext = parentContext;
-	this.searchRequest = function(request, callback){
+	this.searchRequest = function(request, callback, errorHandler){
 		var fetchURL = baseURL + subURL + '&q=' + request;
 		/*  fetch with cusinie choice
 		if(cusinie != 'all'){
@@ -16,7 +16,9 @@ function Fetch(parentContext) {
 		.then((response) => response.json())
 		.then((responseData) => {
 			callback(parentContext, responseData);
-		}).done();
+		}).catch((error) => {
+			errorHandler(error);
+		});
 	}
 
 	this.getRequest = function(request, callback){
@@ -26,7 +28,9 @@ function Fetch(parentContext) {
 		.then((response) => response.json())
 		.then((responseData) => {
 			callback(parentContext, responseData);
-		}).done();
+		}).catch((error) => {
+			errorHandler(error);
+		});
 	}
 
 
