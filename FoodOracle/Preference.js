@@ -1,7 +1,7 @@
 'use strict'
 
 var React = require('react-native');
-var HomeView = require('./HomeView');
+var PreferenceView = require('./PreferenceView');
 
 var {
 	StyleSheet,
@@ -24,7 +24,7 @@ class Preference extends Component{
 			style={styles.container}
 			initialRoute={{
 				title: 'Food Oracle',
-				component: HomeView
+				component: PreferenceView
 			}}/>       
 			);
 			
