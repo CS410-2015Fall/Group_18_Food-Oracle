@@ -102,8 +102,14 @@ renderRow(recipeData) {
     var handler = function(self, responseData) {
       self._handleResponse(responseData);
     }
+    var errorHandler = function(error) {
+      React.AlertIOS.alert(
+          'Error',
+          'There seems to be an issue connecting to the network.  ' + error
+        );
+    }
     var fetch = new Fetch(this);
-    fetch.getRequest(encodeURIComponent(query), handler);    
+    fetch.getRequest(encodeURIComponent(query), handler, errorHandler);    
   }
 
   _handleResponse(response){

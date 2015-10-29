@@ -198,8 +198,14 @@ class HomeView extends Component {
 			sortByTime(resultCache.recipes);
 			self._handleResponse(responseData);
 		}
+    var errorHandler = function(error) {
+      React.AlertIOS.alert(
+          'Error',
+          'There seems to be an issue connecting to the network.  ' + error
+        );
+    }
 		var fetch = new Fetch(this);
-		fetch.searchRequest(encodeURIComponent(query), handler);		
+		fetch.searchRequest(encodeURIComponent(query), handler, errorHandler);		
 	}
 
 	onSearchPressed(){
