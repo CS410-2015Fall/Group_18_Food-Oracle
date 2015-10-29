@@ -5,6 +5,10 @@ var Icon = require('react-native-vector-icons/Ionicons');
 var SearchResults = require('./SearchResults');
 var Fetch = require('./Fetch');
 var sample = require('./sample.json');
+var BlurView = require('react-native-blur').BlurView;
+var VibrancyView = require('react-native-blur').VibrancyView;
+
+var background = 'http://iphonewallpapers-hd.com/wallpapers/cocktail_-640x1136.jpg';
 
 var {
 	StyleSheet,
@@ -13,7 +17,8 @@ var {
 	Text,
 	Component,
 	TouchableHighlight,
-	TextInput
+	TextInput,
+  Image
 } = React;
 
 
@@ -22,7 +27,7 @@ var styles = StyleSheet.create({
 	container: {
 		flex: 1,
     marginTop: 64,
-    marginBottom: 49,
+
   },
 
   flowRight: {
@@ -40,6 +45,7 @@ var styles = StyleSheet.create({
 
   searchInput: {
   height: 36,
+  paddingLeft: 5,
   marginRight: 5,
   flex: 3,
   fontSize: 18,
@@ -47,19 +53,20 @@ var styles = StyleSheet.create({
   borderColor: '#48BBEC',
   borderRadius: 8,
   color: '#48BBEC',
-  justifyContent: 'center'
+  justifyContent: 'center',
+  backgroundColor: '#FFFFFF',
 },
 
 button: {
   	height: 36,
   flex: 1,
   flexDirection: 'row',
-  backgroundColor: '#48BBEC',
-  borderColor: '#48BBEC',
+  borderColor: '#FFFFFF',
   borderWidth: 1,
   borderRadius: 8,
   alignSelf: 'stretch',
-  justifyContent: 'center'
+  justifyContent: 'center',
+  backgroundColor: 'rgba(72,187,236,0.3)',
  },
 
  buttonText: {
@@ -71,11 +78,26 @@ button: {
 
  mealTimeContainer: {
         flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'stretch',
+        backgroundColor: 'transparent',
+    },
+
+     searchContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'stretch',
+        backgroundColor: 'transparent',
+    },
+    mealTimeTextContainer: {
+        flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#58C4FA',
-        alignSelf: 'stretch'
+        alignSelf: 'stretch',
+        backgroundColor: 'transparent',
     },
    mealTimeText: {
    	flex: 4,
@@ -91,9 +113,8 @@ button: {
    		flex: 1
    },
 
- separator: {
-        height: 1,
-        backgroundColor: '#dddddd'
+    fillerView: {
+      height: 49,
     },
 });
 
@@ -125,10 +146,12 @@ class HomeView extends Component {
 	render() {
 		console.log('HomeView.render');
 		return (
-  	    <View style={styles.container}>
 
-				<View style={styles.separator} />
-				<View style={styles.flowRight}>
+  	    <View style={styles.container}>
+				<Image source={{uri: background,}} style={styles.mealTimeContainer}>
+
+        <BlurView blurType="light" style={styles.searchContainer}>
+        <View style={styles.flowRight}>
 					<TextInput
 						style={styles.searchInput}
 						value={this.state.searchString}
@@ -141,8 +164,11 @@ class HomeView extends Component {
 						<Text style={styles.buttonText}>Search</Text>
 					</TouchableHighlight>
 				</View>
-				<View style={styles.separator} />
-				<TouchableHighlight style={styles.mealTimeContainer}
+        </BlurView>
+        
+
+        <BlurView blurType="light" style={styles.mealTimeContainer}>
+				<TouchableHighlight style={styles.mealTimeTextContainer}
     				underlayColor='#dddddd'>
     				<View style={styles.flowRightMealTime}>	
   						<Text style={styles.mealTimeText}>Breakfast</Text>
@@ -150,10 +176,10 @@ class HomeView extends Component {
   						style={styles.mealTimeIcon}/>
   					</View>
 				</TouchableHighlight>
+        </BlurView>
 				
-				<View style={styles.separator} />
-				
-				<TouchableHighlight style={styles.mealTimeContainer}
+         <BlurView blurType="light" style={styles.mealTimeContainer}>
+				<TouchableHighlight style={styles.mealTimeTextContainer}
     				underlayColor='#dddddd'>
     				<View style={styles.flowRightMealTime}>	
   						<Text style={styles.mealTimeText}>Lunch</Text>
@@ -161,10 +187,10 @@ class HomeView extends Component {
   						style={styles.mealTimeIcon}/>
   					</View>
 				</TouchableHighlight>
-
-				<View style={styles.separator} />
+        </BlurView>
 				
-				<TouchableHighlight style={styles.mealTimeContainer}
+         <BlurView blurType="light" style={styles.mealTimeContainer}>
+				<TouchableHighlight style={styles.mealTimeTextContainer}
     				underlayColor='#dddddd'>
   					<View style={styles.flowRightMealTime}>	
   						<Text style={styles.mealTimeText}>Dinner</Text>
@@ -172,10 +198,13 @@ class HomeView extends Component {
   						style={styles.mealTimeIcon}/>
   					</View>
 				</TouchableHighlight>
-				<View style={styles.separator} />
+        </BlurView>
+
+        <View style={styles.fillerView}/>
+        </Image>
 			</View>
 
-        );
+    );
 	}
 
 	onSearchTextChanged(event){
@@ -209,7 +238,6 @@ class HomeView extends Component {
 	}
 
 	onSearchPressed(){
-		console.log('Search Food, will connect to Fetch Later');
 		var query = this.state.searchString;
 		this._executeQuery(query);
 	}

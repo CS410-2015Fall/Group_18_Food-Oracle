@@ -16,6 +16,7 @@
 } = React;
 
 var Icon = require('react-native-vector-icons/Ionicons');
+var Preference = require('./Preference');
 var Favourite = require('./Favourite');
 var Home = require('./Home');
 var Refrigerator = require('./Refrigerator');
@@ -30,7 +31,10 @@ var FoodOracle = React.createClass({
   render: function() {
     return (
       
-      <TabBarIOS selectedTab={this.state.selectedTab ==='home'}>
+      <TabBarIOS 
+      selectedTab={this.state.selectedTab ==='home'}
+      tintColor="#48BBEC"
+      translucent='true'>
       <Icon.TabBarItem
       selected={this.state.selectedTab === 'home'}
       title="Home"
@@ -68,7 +72,21 @@ var FoodOracle = React.createClass({
         });
       }}>
       <Favourite/>
-      </Icon.TabBarItem> 
+      </Icon.TabBarItem>
+
+      <Icon.TabBarItem
+      selected={this.state.selectedTab === 'preference'}
+      title="Preference"
+      iconName ="person"
+      selectedIconName="person"
+      onPress={() => {
+        this.setState({
+          selectedTab: 'preference'
+        });
+      }}>
+      <Preference/>
+      </Icon.TabBarItem>
+
       </TabBarIOS>
       );
   }

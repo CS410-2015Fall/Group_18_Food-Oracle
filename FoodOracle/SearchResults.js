@@ -75,7 +75,7 @@ renderRow(recipeData) {
                         <View style={styles.rightContainer}>
                         <Text>{recipeData.recipeName}</Text>
                         <Text>Rating: {recipeData.rating}/5</Text>
-                        <Text>{recipeData.totalTimeInSeconds/60} Minutes</Text>
+                        <Text>Time: {recipeData.totalTimeInSeconds/60} Minutes</Text>
                         </View>
                     </View>
                     <View style={styles.separator} />

@@ -23,7 +23,7 @@ class Preference extends Component{
 			      <NavigatorIOS
 			style={styles.container}
 			initialRoute={{
-				title: 'Food Oracle',
+				title: 'Preferences',
 				component: PreferenceView
 			}}/>       
 			);

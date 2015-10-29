@@ -19,10 +19,9 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 64,
-    marginBottom: 49,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: 'transparent',
+    backgroundColor: 'rgba(72,187,236,0.3)',
   },
 
   heading: {
@@ -42,31 +41,34 @@ var styles = StyleSheet.create({
   backdropView: {
     marginTop: 25,
     marginLeft: 25,
-    width: 180,
+    width: 170,
     backgroundColor: 'rgba(0,0,0,0.3)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'stretch',
+    borderColor: '#48BBEC',
+    borderWidth: 2,
   },
 
   title: {
     fontSize: 20,
-    paddingLeft: 10,
-    paddingRight: 10,
     backgroundColor: 'rgba(0,0,0,0)',
     color: 'white',
-    borderColor: '#656565',
-    borderWidth: 2,
   },
 
   description: {
     fontSize: 20,
     margin: 5,
-    color: '#656565'
+    color: '#656565',
+    paddingLeft: 25,
+    paddingRight: 25,
   },
 
   button: {
     height: 30,
-    width: 180,
+    width: 170,
   flexDirection: 'row',
-  backgroundColor: '#48BBEC',
+  backgroundColor: 'rgba(0,0,0,0.5)',
   borderColor: '#48BBEC',
   borderWidth: 1,
   borderRadius: 8,
@@ -81,24 +83,33 @@ var styles = StyleSheet.create({
   color: 'white',
   alignSelf: 'center'
 },
-flowRight: {
+flowRightButtons: {
   flexDirection: 'row',
-  backgroundColor: 'rgba(0,0,0,0.3)',
+  backgroundColor: 'rgba(0,0,0,0)',
+  marginTop: 175,
+  marginRight: 25,
+  marginLeft: 25,
+  marginBottom: 50,
+  justifyContent: 'center',
+  borderRadius: 8,
 },
  cellContainer: {
-        paddingTop: 10,
-        flexDirection: 'row',
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        alignSelf: 'center',
         backgroundColor: '#F5FCFF',
         width: 400,
-        height: 60,
-        backgroundColor: 'rgba(0,0,0,0.)'
+        height: 70,
+        backgroundColor: 'rgba(0,0,0,0)'
     },
 
   ingredients: {
     flex: 1,
-  }
+  },
+  fillerView: {
+      height: 49,
+    },
 });
 
 class RecipeView extends Component{
@@ -144,38 +155,36 @@ class RecipeView extends Component{
       <View style={styles.container}>
         
         <View style={styles.heading}>
-          <Image style={styles.backdropImage} 
-            source={{uri: recipe.images[0]['hostedLargeUrl']}}>
-              <View style={styles.backdropView}>
-                <Text style={styles.title}>{recipe.name}</Text>
-              </View>
+            <Image style={styles.backdropImage} 
+              source={{uri: recipe.images[0]['hostedLargeUrl']}}>
+                  <View style={styles.backdropView}>
+                    <Text style={styles.title}>{recipe.name}</Text>
+                  </View>
+              
+                  <View style={styles.flowRightButtons}>
+                          <TouchableHighlight 
+                            onPress={this.pressSource.bind(this)}
+                            style={styles.button}
+                            underlayColor='#99d9f4'>
+                            <Text style={styles.buttonText}>Show Source</Text>
+                          </TouchableHighlight>
+                  
+                          <TouchableHighlight
+                            onPress={this.pressShare.bind(this)}
+                            style={styles.button}
+                            underlayColor='#99d9f4'>
+                            <Text style={styles.buttonText}>Share on Facebook</Text>
+                          </TouchableHighlight>
+                  </View>
             </Image>
-        </View>
-
-        <View style={styles.separator}/>
-        <View style={styles.flowRight}>
-        <TouchableHighlight 
-          onPress={this.pressSource.bind(this)}
-          style={styles.button}
-          underlayColor='#99d9f4'>
-          <Text style={styles.buttonText}>Show Source</Text>
-        </TouchableHighlight>
-        
-        <TouchableHighlight
-          onPress={this.pressShare.bind(this)}
-          style={styles.button}
-          underlayColor='#99d9f4'>
-          <Text style={styles.buttonText}>Share on Facebook</Text>
-        </TouchableHighlight>
-        </View>
-        <View style={styles.separator}/>
-
-        <View style={styles.ingredients}>
+        </View> 
+          
           <ListView
+            automaticallyAdjustContentInsets={false}
             dataSource={this.state.dataSource}
             renderRow={this.renderRow.bind(this)}/>
-        </View>
-
+          
+        <View style={styles.fillerView}/>
       </View>
     );
   }
@@ -191,15 +200,5 @@ class RecipeView extends Component{
   );
 } 
 }
-
-
-        /*<View style={styles.flowRight}>
-          <TouchableHighlight 
-            onPress={this.pressShare.bind(this)}
-            underlayColor='#dddddd'>
-            <Icon name="ios-heart-outline" size={35} color="#48BBEC"/>
-          </TouchableHighlight>
-        </View>
-        <View style={styles.separator}/>*/
 
 module.exports = RecipeView;
