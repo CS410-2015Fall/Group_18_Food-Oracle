@@ -18,7 +18,8 @@ var {
 	Component,
 	TouchableHighlight,
 	TextInput,
-  Image
+  Image,
+  ActivityIndicatorIOS,
 } = React;
 
 
@@ -52,7 +53,7 @@ var styles = StyleSheet.create({
   borderWidth: 1,
   borderColor: '#48BBEC',
   borderRadius: 8,
-  color: '#48BBEC',
+  color: 'rgba(20,50,87,1)',
   justifyContent: 'center',
   backgroundColor: '#FFFFFF',
 },
@@ -61,12 +62,13 @@ button: {
   	height: 36,
   flex: 1,
   flexDirection: 'row',
-  borderColor: '#FFFFFF',
+  borderColor: 'rgba(72,187,236,0.3)',
   borderWidth: 1,
   borderRadius: 8,
   alignSelf: 'stretch',
   justifyContent: 'center',
   backgroundColor: 'rgba(72,187,236,0.3)',
+
  },
 
  buttonText: {
@@ -141,17 +143,23 @@ class HomeView extends Component {
 		super(props);
 		this.state = {
 			searchString: '',
+      isLoading: false,
 		};
 	}
 
 	render() {
 		console.log('HomeView.render');
+    var spinner = this.state.isLoading ? (<ActivityIndicatorIOS
+                                                  hidden='true'
+                                                  size='large'/>):
+                                          (<View/>);
 		return (
 
   	    <View style={styles.container}>
 				<Image source={{uri: background,}} style={styles.mealTimeContainer}>
-
-        <BlurView blurType="light" style={styles.searchContainer}>
+        
+        <BlurView blurType="dark" style={styles.searchContainer}>
+        <View blurType="light" style={styles.searchContainer}>
         <View style={styles.flowRight}>
 					<TextInput
 						style={styles.searchInput}
@@ -165,23 +173,26 @@ class HomeView extends Component {
 						<Text style={styles.buttonText}>Search</Text>
 					</TouchableHighlight>
 				</View>
+        {spinner}
+        </View>
         </BlurView>
         
 
-        <BlurView blurType="light" style={styles.mealTimeContainer}>
+        <BlurView blurType="dark" style={styles.mealTimeContainer}>
 				<TouchableHighlight 
             style={styles.mealTimeTextContainer}
     				underlayColor='#dddddd'
             onPress={() => this._onMealTimePress('breakfast')}>
     				<View style={styles.flowRightMealTime}>	
-  						<Text style={styles.mealTimeText}>Breakfast</Text>
+  						<Text style={styles.mealTimeText}>Breakfast </Text>
+
   						<Icon name="ios-arrow-right" size={40} color="#FFF" 
   						style={styles.mealTimeIcon}/>
   					</View>
 				</TouchableHighlight>
         </BlurView>
 				
-         <BlurView blurType="light" style={styles.mealTimeContainer}>
+         <BlurView blurType="dark" style={styles.mealTimeContainer}>
 				<TouchableHighlight style={styles.mealTimeTextContainer}
     				underlayColor='#dddddd'
             onPress={() => this._onMealTimePress('lunch')}>
@@ -193,7 +204,7 @@ class HomeView extends Component {
 				</TouchableHighlight>
         </BlurView>
 				
-         <BlurView blurType="light" style={styles.mealTimeContainer}>
+         <BlurView blurType="dark" style={styles.mealTimeContainer}>
 				<TouchableHighlight 
             style={styles.mealTimeTextContainer}
     				underlayColor='#dddddd'
@@ -206,7 +217,9 @@ class HomeView extends Component {
 				</TouchableHighlight>
         </BlurView>
 
-        <View style={styles.fillerView}/>
+        <BlurView blurType="dark" style={styles.fillerView}>
+          <View style={styles.fillerView}/>
+        </BlurView>
         </Image>
 			</View>
 
@@ -220,6 +233,7 @@ class HomeView extends Component {
 	}
 
 	_handleResponse(response){
+    this.setState({isLoading: false,});
 		this.props.navigator.push({
 			component: SearchResults,
 			passProps: {matches: response.matches}
@@ -228,12 +242,14 @@ class HomeView extends Component {
 
 	_executeQuery(query){
 		console.log(query)
+    this.setState({isLoading: true});
 		var handler = function(self, responseData) {
 			resultCache.recipes = responseData.matches;
 			sortByTime(resultCache.recipes);
 			self._handleResponse(responseData);
 		}
     var errorHandler = function(error) {
+      this.setState({isLoading: false,});
       React.AlertIOS.alert(
           'Error',
           'There seems to be an issue connecting to the network.  ' + error
