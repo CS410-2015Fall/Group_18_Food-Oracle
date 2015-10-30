@@ -33,7 +33,7 @@ var FoodOracle = React.createClass({
       
       <TabBarIOS 
       selectedTab={this.state.selectedTab ==='home'}
-      tintColor="#48BBEC"
+      tintColor="rgba(114,192,253,1)"
       translucent='true'>
       <Icon.TabBarItem
       selected={this.state.selectedTab === 'home'}

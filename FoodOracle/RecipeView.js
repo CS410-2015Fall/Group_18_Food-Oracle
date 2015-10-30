@@ -158,7 +158,11 @@ class RecipeView extends Component{
       <View style={styles.container}>
         
         <View style={styles.heading}>
-            <Lightbox navigator={this.navigator}>
+            <Lightbox navigator={this.navigator}
+                      renderContent={() => (
+                            <Image style={styles.backdropImage} 
+                            source={{uri: recipe.images[0]['hostedLargeUrl']}}/>
+                          )}>
             <Image style={styles.backdropImage} 
               source={{uri: recipe.images[0]['hostedLargeUrl']}}>
                   <View style={styles.backdropView}>
@@ -192,7 +196,7 @@ class RecipeView extends Component{
         <View style={styles.fillerView}/>
       </View>
     );
-  }
+  } 
 
   renderRow(ingredient) {
   return (
