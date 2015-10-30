@@ -22,6 +22,9 @@ var Search = React.createClass ({
 		return (
 			<NavigatorIOS
 			style={styles.container}
+			barTintColor="rgba(114,192,253,0)"
+			tintColor="#FFFFFF"
+			titleTextColor="#FFFFFF"
 			initialRoute={{
 				title: 'Search',
 				component: SearchView

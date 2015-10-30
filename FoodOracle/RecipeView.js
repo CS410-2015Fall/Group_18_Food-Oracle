@@ -35,24 +35,26 @@ var styles = StyleSheet.create({
   },
 
   backdropImage: {
-    width: 400,
-    height: 200
+    alignSelf: 'stretch',
+    height: 220,
+    justifyContent: 'center'
   },
 
   backdropView: {
-    marginTop: 25,
+    marginTop: 15,
     marginLeft: 25,
     width: 170,
     backgroundColor: 'rgba(0,0,0,0.3)',
     justifyContent: 'center',
     alignItems: 'center',
-    alignSelf: 'stretch',
+    alignSelf: 'center',
     borderColor: '#48BBEC',
-    borderWidth: 2,
+    borderWidth: 1,
   },
 
   title: {
     fontSize: 20,
+    alignSelf: 'center',
     backgroundColor: 'rgba(0,0,0,0)',
     color: 'white',
   },
@@ -74,7 +76,7 @@ var styles = StyleSheet.create({
   borderWidth: 1,
   borderRadius: 8,
   justifyContent: 'center',
-  marginRight: 5,
+  marginRight: 10,
   marginLeft: 10,
  },
 
