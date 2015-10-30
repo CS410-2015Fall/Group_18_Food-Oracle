@@ -141,7 +141,6 @@ class HomeView extends Component {
 		super(props);
 		this.state = {
 			searchString: '',
-      mealTime: 'breakfast',
 		};
 	}
 
@@ -157,12 +156,12 @@ class HomeView extends Component {
 					<TextInput
 						style={styles.searchInput}
 						value={this.state.searchString}
-						onChange={this.onSearchTextChanged.bind(this)}
+						onChange={this._onSearchTextChanged.bind(this)}
 						placeholder='Quick food search'/>
 					<TouchableHighlight 
 						style={styles.button}
 						underlayColor='#99d9f4'
-						onPress={this.onSearchPressed.bind(this)}>
+						onPress={this._onSearchPress.bind(this)}>
 						<Text style={styles.buttonText}>Search</Text>
 					</TouchableHighlight>
 				</View>
@@ -170,8 +169,10 @@ class HomeView extends Component {
         
 
         <BlurView blurType="light" style={styles.mealTimeContainer}>
-				<TouchableHighlight style={styles.mealTimeTextContainer}
-    				underlayColor='#dddddd'>
+				<TouchableHighlight 
+            style={styles.mealTimeTextContainer}
+    				underlayColor='#dddddd'
+            onPress={() => this._onMealTimePress('breakfast')}>
     				<View style={styles.flowRightMealTime}>	
   						<Text style={styles.mealTimeText}>Breakfast</Text>
   						<Icon name="ios-arrow-right" size={40} color="#FFF" 
@@ -182,7 +183,8 @@ class HomeView extends Component {
 				
          <BlurView blurType="light" style={styles.mealTimeContainer}>
 				<TouchableHighlight style={styles.mealTimeTextContainer}
-    				underlayColor='#dddddd'>
+    				underlayColor='#dddddd'
+            onPress={() => this._onMealTimePress('lunch')}>
     				<View style={styles.flowRightMealTime}>	
   						<Text style={styles.mealTimeText}>Lunch</Text>
   						<Icon name="ios-arrow-right" size={40} color="#FFF" 
@@ -192,8 +194,10 @@ class HomeView extends Component {
         </BlurView>
 				
          <BlurView blurType="light" style={styles.mealTimeContainer}>
-				<TouchableHighlight style={styles.mealTimeTextContainer}
-    				underlayColor='#dddddd'>
+				<TouchableHighlight 
+            style={styles.mealTimeTextContainer}
+    				underlayColor='#dddddd'
+            onPress={() => this._onMealTimePress('dinner')}>
   					<View style={styles.flowRightMealTime}>	
   						<Text style={styles.mealTimeText}>Dinner</Text>
   						<Icon name="ios-arrow-right" size={40} color="#FFF" 
@@ -209,7 +213,7 @@ class HomeView extends Component {
     );
 	}
 
-	onSearchTextChanged(event){
+	_onSearchTextChanged(event){
 		console.log('onSearchTextChanged');
 		this.setState({searchString: event.nativeEvent.text});
 		console.log(this.state.searchString);
@@ -239,12 +243,21 @@ class HomeView extends Component {
 		fetch.searchRequest(encodeURIComponent(query), handler, errorHandler);		
 	}
 
-	onSearchPressed(){
+	_onSearchPress(){
 		var query = this.state.searchString;
 		this._executeQuery(query);
 	}
+
+  _onBreakfastPress(){
+    var query = 'breakfast';
+    this._executeQuery(query);
+  }
+
+  _onMealTimePress(mealtime){
+    console.log(mealtime)
+    this._executeQuery(mealtime);
+  }
+
 }
-
-
 
 module.exports = HomeView;
