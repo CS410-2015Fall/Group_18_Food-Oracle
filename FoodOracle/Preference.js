@@ -22,11 +22,11 @@ class Preference extends Component{
 		return (
 			      <NavigatorIOS
 			style={styles.container}
-			barTintColor="rgba(114,192,253,0)"
+			barTintColor="rgba(114,192,253,1)"
 			tintColor="#FFFFFF"
 			titleTextColor="#FFFFFF"
 			initialRoute={{
-				title: 'Preferences',
+				title: 'Preference',
 				component: PreferenceView
 			}}/>       
 			);

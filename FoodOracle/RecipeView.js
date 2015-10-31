@@ -31,7 +31,7 @@ var styles = StyleSheet.create({
 
   separator: {
     height: 1,
-    backgroundColor: '#DDDDDD'
+    backgroundColor: 'rgba(20,50,87,1)'
   },
 
   backdropImage: {

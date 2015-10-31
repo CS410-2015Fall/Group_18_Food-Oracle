@@ -62,12 +62,12 @@ button: {
   	height: 36,
   flex: 1,
   flexDirection: 'row',
-  borderColor: 'rgba(72,187,236,0.3)',
+  borderColor: 'rgba(72,187,236,0.2)',
   borderWidth: 1,
   borderRadius: 8,
   alignSelf: 'stretch',
   justifyContent: 'center',
-  backgroundColor: 'rgba(72,187,236,0.3)',
+  backgroundColor: 'rgba(72,187,236,0.2)',
 
  },
 
@@ -100,8 +100,8 @@ button: {
         alignItems: 'center',
         alignSelf: 'stretch',
         backgroundColor: 'transparent',
-        borderWidth: 2,
-        borderColor: 'rgba(72,187,236,0.3)',
+        borderWidth: 1,
+        borderColor: 'rgba(72,187,236,0.2)',
     },
    mealTimeText: {
    	flex: 4,

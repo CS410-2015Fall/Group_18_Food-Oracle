@@ -1393,7 +1393,7 @@ return (
 
 React.createElement(TabBarIOS,{
 selectedTab:this.state.selectedTab === 'home',
-tintColor:'#48BBEC',
+tintColor:'rgba(20,50,87,0.8)',
 translucent:'true'},
 React.createElement(Icon.TabBarItem,{
 selected:this.state.selectedTab === 'home',
@@ -65216,11 +65216,11 @@ function render(){
 return (
 React.createElement(NavigatorIOS,{
 style:styles.container,
-barTintColor:'rgba(114,192,253,0)',
+barTintColor:'rgba(114,192,253,1)',
 tintColor:'#FFFFFF',
 titleTextColor:'#FFFFFF',
 initialRoute:{
-title:'Preferences',
+title:'Preference',
 component:PreferenceView}}));}}]);return Preference;})(Component);
 
 
@@ -65258,19 +65258,19 @@ marginTop:65},
 instruction:{
 fontSize:18,
 fontFamily:'Arial',
-color:'#48BBEC',
+color:'rgba(20,50,87,1)',
 marginTop:20},
 
 selectionText:{
 fontSize:20,
 fontFamily:'Arial',
-color:'#48BBEC'},
+color:'rgba(20,50,87,1)'},
 
 display:{
 fontSize:30,
 fontFamily:'Arial',
 marginTop:20,
-color:'#48BBEC'}});
+color:'rgba(20,50,87,1)'}});
 
 
 
@@ -65338,7 +65338,7 @@ getInitialState:function(){
 return {
 options:this.props.options,
 labels:this.props.labels || this.props.options,
-color:this.props.color || '#007AFF',
+color:this.props.color || 'rgba(20,50,87,1)',
 modalVisible:false,
 selectedOption:this.props.options[0]};},
 
@@ -65377,7 +65377,8 @@ var label=_this.state.labels[i] || option;
 return (
 React.createElement(PickerItemIOS,{
 value:option,
-label:label}));})))))));}});
+label:label,
+style:{color:_this.state.color}}));})))))));}});
 
 
 
@@ -65406,7 +65407,8 @@ width:SCREEN_WIDTH,
 justifyContent:'center',
 alignItems:'center',
 padding:0,
-backgroundColor:'#F5FCFF'},
+backgroundColor:'rgba(114,192,253,1)',
+color:'#FFFFFF'},
 
 buttonView:{
 width:SCREEN_WIDTH,
@@ -65418,7 +65420,11 @@ flexDirection:'row'},
 
 bottomPicker:{
 width:SCREEN_WIDTH,
-fontSize:13},
+fontSize:18,
+color:'#FFFFFF'},
+
+item:{
+color:'#FFFFFF'},
 
 mainBox:{}});
 
@@ -65456,7 +65462,7 @@ return (
 
 React.createElement(NavigatorIOS,{
 style:styles.container,
-barTintColor:'rgba(114,192,253,0)',
+barTintColor:'rgba(114,192,253,1)',
 tintColor:'#FFFFFF',
 titleTextColor:'#FFFFFF',
 initialRoute:{
@@ -65660,7 +65666,7 @@ render:function(){
 return (
 React.createElement(NavigatorIOS,{
 style:styles.container,
-barTintColor:'rgba(114,192,253,0)',
+barTintColor:'rgba(114,192,253,1)',
 tintColor:'#FFFFFF',
 titleTextColor:'#FFFFFF',
 initialRoute:{
@@ -65695,7 +65701,8 @@ StyleSheet=
 
 
 
-React.StyleSheet;var NavigatorIOS=React.NavigatorIOS;var View=React.View;var Text=React.Text;var Component=React.Component;var TouchableHighlight=React.TouchableHighlight;var TextInput=React.TextInput;var Image=React.Image;
+
+React.StyleSheet;var NavigatorIOS=React.NavigatorIOS;var View=React.View;var Text=React.Text;var Component=React.Component;var TouchableHighlight=React.TouchableHighlight;var TextInput=React.TextInput;var Image=React.Image;var ActivityIndicatorIOS=React.ActivityIndicatorIOS;
 
 
 var styles=StyleSheet.create({
@@ -65728,7 +65735,7 @@ fontSize:18,
 borderWidth:1,
 borderColor:'#48BBEC',
 borderRadius:8,
-color:'#48BBEC',
+color:'rgba(20,50,87,1)',
 justifyContent:'center',
 backgroundColor:'#FFFFFF'},
 
@@ -65737,12 +65744,13 @@ button:{
 height:36,
 flex:1,
 flexDirection:'row',
-borderColor:'#FFFFFF',
+borderColor:'rgba(72,187,236,0.2)',
 borderWidth:1,
 borderRadius:8,
 alignSelf:'stretch',
 justifyContent:'center',
-backgroundColor:'rgba(72,187,236,0.3)'},
+backgroundColor:'rgba(72,187,236,0.2)'},
+
 
 
 buttonText:{
@@ -65774,8 +65782,8 @@ justifyContent:'center',
 alignItems:'center',
 alignSelf:'stretch',
 backgroundColor:'transparent',
-borderWidth:2,
-borderColor:'rgba(72,187,236,0.3)'},
+borderWidth:1,
+borderColor:'rgba(72,187,236,0.2)'},
 
 mealTimeText:{
 flex:4,
@@ -65816,18 +65824,24 @@ HomeView=(function(_Component){_inherits(HomeView,_Component);
 function HomeView(props){_classCallCheck(this,HomeView);
 _get(Object.getPrototypeOf(HomeView.prototype),'constructor',this).call(this,props);
 this.state = {
-searchString:''};}_createClass(HomeView,[{key:'render',value:
+searchString:'',
+isLoading:false};}_createClass(HomeView,[{key:'render',value:
 
 
 
 function render(){var _this=this;
 console.log('HomeView.render');
+var spinner=this.state.isLoading?React.createElement(ActivityIndicatorIOS,{
+hidden:'true',
+size:'large'}):
+React.createElement(View,null);
 return (
 
 React.createElement(View,{style:styles.container},
 React.createElement(Image,{source:{uri:background},style:styles.mealTimeContainer},
 
-React.createElement(BlurView,{blurType:'light',style:styles.searchContainer},
+React.createElement(BlurView,{blurType:'dark',style:styles.searchContainer},
+React.createElement(View,{blurType:'light',style:styles.searchContainer},
 React.createElement(View,{style:styles.flowRight},
 React.createElement(TextInput,{
 style:styles.searchInput,
@@ -65838,26 +65852,29 @@ React.createElement(TouchableHighlight,{
 style:styles.button,
 underlayColor:'#99d9f4',
 onPress:this._onSearchPress.bind(this)},
-React.createElement(Text,{style:styles.buttonText},'Search')))),
+React.createElement(Text,{style:styles.buttonText},'Search'))),
+
+
+spinner)),
 
 
 
 
-
-React.createElement(BlurView,{blurType:'light',style:styles.mealTimeContainer},
+React.createElement(BlurView,{blurType:'dark',style:styles.mealTimeContainer},
 React.createElement(TouchableHighlight,{
 style:styles.mealTimeTextContainer,
 underlayColor:'#dddddd',
 onPress:function(){return _this._onMealTimePress('breakfast');}},
 React.createElement(View,{style:styles.flowRightMealTime},
-React.createElement(Text,{style:styles.mealTimeText},'Breakfast'),
+React.createElement(Text,{style:styles.mealTimeText},'Breakfast '),
+
 React.createElement(Icon,{name:'ios-arrow-right',size:40,color:'#FFF',
 style:styles.mealTimeIcon})))),
 
 
 
 
-React.createElement(BlurView,{blurType:'light',style:styles.mealTimeContainer},
+React.createElement(BlurView,{blurType:'dark',style:styles.mealTimeContainer},
 React.createElement(TouchableHighlight,{style:styles.mealTimeTextContainer,
 underlayColor:'#dddddd',
 onPress:function(){return _this._onMealTimePress('lunch');}},
@@ -65869,7 +65886,7 @@ style:styles.mealTimeIcon})))),
 
 
 
-React.createElement(BlurView,{blurType:'light',style:styles.mealTimeContainer},
+React.createElement(BlurView,{blurType:'dark',style:styles.mealTimeContainer},
 React.createElement(TouchableHighlight,{
 style:styles.mealTimeTextContainer,
 underlayColor:'#dddddd',
@@ -65882,7 +65899,9 @@ style:styles.mealTimeIcon})))),
 
 
 
-React.createElement(View,{style:styles.fillerView}))));}},{key:'_onSearchTextChanged',value:
+React.createElement(BlurView,{blurType:'dark',style:styles.fillerView},
+React.createElement(View,{style:styles.fillerView})))));}},{key:'_onSearchTextChanged',value:
+
 
 
 
@@ -65896,6 +65915,7 @@ console.log(this.state.searchString);}},{key:'_handleResponse',value:
 
 
 function _handleResponse(response){
+this.setState({isLoading:false});
 this.props.navigator.push({
 component:SearchResults,
 passProps:{matches:response.matches}});}},{key:'_executeQuery',value:
@@ -65904,12 +65924,14 @@ passProps:{matches:response.matches}});}},{key:'_executeQuery',value:
 
 function _executeQuery(query){
 console.log(query);
+this.setState({isLoading:true});
 var handler=function(self,responseData){
 resultCache.recipes = responseData.matches;
 sortByTime(resultCache.recipes);
 self._handleResponse(responseData);};
 
 var errorHandler=function(error){
+this.setState({isLoading:false});
 React.AlertIOS.alert(
 'Error',
 'There seems to be an issue connecting to the network.  ' + error);};
@@ -65938,7 +65960,7 @@ this._executeQuery(mealtime);}}]);return HomeView;})(Component);
 
 module.exports = HomeView;
 });
-__d('FoodOracle/SearchResults.js',["react-native/Libraries/react-native/react-native.js","FoodOracle/Fetch.js","FoodOracle/RecipeView.js"],function(global, require, module, exports) {  'use strict';var _createClass=(function(){function defineProperties(target,props){for(var i=0;i < props.length;i++) {var descriptor=props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if('value' in descriptor)descriptor.writable = true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};})();var _get=function get(object,property,receiver){if(object === null)object = Function.prototype;var desc=Object.getOwnPropertyDescriptor(object,property);if(desc === undefined){var parent=Object.getPrototypeOf(object);if(parent === null){return undefined;}else {return get(parent,property,receiver);}}else if('value' in desc){return desc.value;}else {var getter=desc.get;if(getter === undefined){return undefined;}return getter.call(receiver);}};function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError('Cannot call a class as a function');}}function _inherits(subClass,superClass){if(typeof superClass !== 'function' && superClass !== null){throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass);}subClass.prototype = Object.create(superClass && superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__ = superClass;}
+__d('FoodOracle/SearchResults.js',["react-native/Libraries/react-native/react-native.js","FoodOracle/RecipeView.js","FoodOracle/Fetch.js"],function(global, require, module, exports) {  'use strict';var _createClass=(function(){function defineProperties(target,props){for(var i=0;i < props.length;i++) {var descriptor=props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if('value' in descriptor)descriptor.writable = true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};})();var _get=function get(object,property,receiver){if(object === null)object = Function.prototype;var desc=Object.getOwnPropertyDescriptor(object,property);if(desc === undefined){var parent=Object.getPrototypeOf(object);if(parent === null){return undefined;}else {return get(parent,property,receiver);}}else if('value' in desc){return desc.value;}else {var getter=desc.get;if(getter === undefined){return undefined;}return getter.call(receiver);}};function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError('Cannot call a class as a function');}}function _inherits(subClass,superClass){if(typeof superClass !== 'function' && superClass !== null){throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass);}subClass.prototype = Object.create(superClass && superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__ = superClass;}
 
 var React=require('react-native/Libraries/react-native/react-native.js');
 var RecipeView=require('FoodOracle/RecipeView.js');
@@ -66095,7 +66117,7 @@ backgroundColor:'#F8F8F8'},
 
 separator:{
 height:1,
-backgroundColor:'#DDDDDD'},
+backgroundColor:'rgba(20,50,87,1)'},
 
 
 backdropImage:{
@@ -66222,7 +66244,11 @@ return (
 React.createElement(View,{style:styles.container},
 
 React.createElement(View,{style:styles.heading},
-React.createElement(Lightbox,{navigator:this.navigator},
+React.createElement(Lightbox,{navigator:this.navigator,
+renderContent:function(){return (
+React.createElement(Image,{style:styles.backdropImage,
+source:{uri:recipe.images[0]['hostedLargeUrl']}}));}},
+
 React.createElement(Image,{style:styles.backdropImage,
 source:{uri:recipe.images[0]['hostedLargeUrl']}},
 React.createElement(View,{style:styles.backdropView},
@@ -67289,7 +67315,7 @@ render:function(){
 return (
 React.createElement(NavigatorIOS,{
 style:styles.container,
-barTintColor:'rgba(114,192,253,0)',
+barTintColor:'rgba(114,192,253,1)',
 tintColor:'#FFFFFF',
 titleTextColor:'#FFFFFF',
 initialRoute:{
