@@ -264,11 +264,6 @@ class HomeView extends Component {
 		this._executeQuery(query);
 	}
 
-  _onBreakfastPress(){
-    var query = 'breakfast';
-    this._executeQuery(query);
-  }
-
   _onMealTimePress(mealtime){
     console.log(mealtime)
     this._executeQuery(mealtime);
