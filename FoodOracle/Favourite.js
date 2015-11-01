@@ -29,8 +29,8 @@ var Favourite = React.createClass({
 	    	<NavigatorIOS
 			style={styles.container}
 			barTintColor="rgba(114,192,253,1)"
-			tintColor="#FFFFFF"
-			titleTextColor="#FFFFFF"
+			tintColor="rgba(20,50,87,1)"
+			titleTextColor="rgba(20,50,87,1)"
 			initialRoute={{
 				title: 'Favourite',
 				component: FavouriteView

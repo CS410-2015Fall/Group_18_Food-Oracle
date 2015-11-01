@@ -103,7 +103,7 @@ flowRightButtons: {
         alignSelf: 'center',
         backgroundColor: '#F5FCFF',
         width: 400,
-        height: 70,
+        height: 80,
         backgroundColor: 'rgba(0,0,0,0)'
     },
 
@@ -174,7 +174,7 @@ class RecipeView extends Component{
                             onPress={this.pressSource.bind(this)}
                             style={styles.button}
                             underlayColor='#99d9f4'>
-                            <Text style={styles.buttonText}>Show Source</Text>
+                            <Text style={styles.buttonText}>Instructions</Text>
                           </TouchableHighlight>
                   
                           <TouchableHighlight
