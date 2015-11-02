@@ -3,6 +3,7 @@
 var React = require('react-native');
 var FridgeSample = require('./fridgesample.json');
 var FMPicker = require('react-native-fm-picker');
+var Fetch = require('./Fetch');
 var SearchResults = require('./SearchResults');
 
 var {
@@ -33,7 +34,7 @@ var styles = StyleSheet.create({
   },
 	button: {
 		height: 36,
-		flex: 1,
+		flex: 0.0625,
 		flexDirection: 'row',
 		borderColor: 'rgba(72,187,236,0.2)',
 		borderWidth: 1,
@@ -41,11 +42,12 @@ var styles = StyleSheet.create({
 		alignSelf: 'stretch',
 		justifyContent: 'center',
 		backgroundColor: 'rgba(72,187,236,0.2)',
+		marginTop: 65,
  	},
 	buttonText: {
 		fontSize: 18,
 		fontFamily: 'Arial',
-		color: 'white',
+		color: 'black',
 		alignSelf: 'center',
 	},
 	searchContainer: {
@@ -82,9 +84,9 @@ var styles = StyleSheet.create({
 	},
 });
 
-var resultCache = {
+var sampleIngredients = {
 	ingredients: FridgeSample.ingredients
-} 
+}
 
 var INGREDIENT_QUANTITIES = ['high', 'low', 'empty'];
 
@@ -94,8 +96,9 @@ class FridgeView extends Component {
 		super(props);
 		var ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
 		this.state = {
-			dataSource: ds.cloneWithRows(resultCache.ingredients),
+			dataSource: ds.cloneWithRows(sampleIngredients.ingredients),
 			selectedIngredient: false,
+			isLoading: false,
 		};
 	}
 	
@@ -104,6 +107,13 @@ class FridgeView extends Component {
 		hidden='true' size='large'/>) : (<View/>);
 		return (
 			<View style = {styles.container}>
+				<TouchableHighlight 
+					style = {styles.button}
+					underlayColor = '#99d9f4'
+					onPress ={ this._onSearchPress.bind(this)}>
+					<Text style = {styles.buttonText}>Search for recipes</Text>
+				</TouchableHighlight>
+				{spinner}
 				<ListView
 					dataSource = {this.state.dataSource}
 					renderRow = {this.renderRow.bind(this)}
@@ -138,6 +148,36 @@ class FridgeView extends Component {
 			selectedIngredient: ingredient,
 		});
 		this.refs.picker.show();
+	}
+	
+	_onSearchPress() {
+		var query = 'onions, chicken, mushrooms';
+		this._executeQuery(query);
+	}
+	
+	_handleResponse(response){
+    this.setState({isLoading: false,});
+		this.props.navigator.push({
+			component: SearchResults,
+			passProps: {matches: response.matches}
+		});
+	}
+
+	_executeQuery(query){
+		console.log(query);
+    this.setState({isLoading: true});
+		var handler = function(self, responseData) {
+			self._handleResponse(responseData);
+		}
+    var errorHandler = function(error) {
+      this.setState({isLoading: false,});
+      React.AlertIOS.alert(
+				'Error',
+				'There seems to be an issue connecting to the network.  ' + error
+			);
+    }
+		var fetch = new Fetch(this);
+		fetch.searchRequest(encodeURIComponent(query), handler, errorHandler);		
 	}
 	
 };
