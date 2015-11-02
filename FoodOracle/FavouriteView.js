@@ -16,6 +16,9 @@ var {
 } = React;
 
 var styles = StyleSheet.create({
+	container: {
+		flex: 1,
+  },
 	topMargin: {
 		marginTop: 65,
 		
@@ -26,7 +29,7 @@ var styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
-        padding: 50
+        padding: 10
     },
     rightContainer: {
     	flex: 1
@@ -52,7 +55,7 @@ var FavouriteView = React.createClass ({
 
 	render: function() {
 		return (
-			<View>
+			<View style = {styles.container}>
 				<ListView
                 dataSource={this.state.dataSource}
                 renderRow={this.renderList.bind(this)}

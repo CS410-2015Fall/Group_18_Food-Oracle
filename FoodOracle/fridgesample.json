@@ -5,52 +5,12 @@
 			"quantity": "high"
 		},
 		{
-			"id": "flour",
+			"id": "chicken",
 			"quantity": "low"
 		},
 		{
-			"id": "chopped fresh thyme",
+			"id": "mushrooms",
 			"quantity": "high"
-		},
-		{
-			"id": "cognac",
-			"quantity": "low"
-		},
-		{
-			"id": "aaaa",
-			"quantity": "low"
-		},
-		{
-			"id": "bbbb",
-			"quantity": "low"
-		},
-		{
-			"id": "cccc",
-			"quantity": "low"
-		},
-		{
-			"id": "dddd",
-			"quantity": "low"
-		},
-		{
-			"id": "eeee",
-			"quantity": "low"
-		},
-		{
-			"id": "ffff",
-			"quantity": "low"
-		},
-		{
-			"id": "gggg",
-			"quantity": "low"
-		},
-		{
-			"id": "hhhh",
-			"quantity": "low"
-		},
-		{
-			"id": "iiii",
-			"quantity": "low"
 		},
 	],
 	"facetCounts": {
