@@ -2,6 +2,7 @@
 
 var React = require('react-native');
 var FridgeSample = require('./fridgesample.json');
+var FMPicker = require('react-native-fm-picker');
 
 var {
 	Component,
@@ -16,21 +17,28 @@ var {
 } = React;
 
 var styles = StyleSheet.create({
+	textContainer: {
+    flex: 1
+  },
+  rowContainer: {
+    flexDirection: 'row',
+    padding: 10
+  },
 	cellContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-        padding: 10
-    },
-    rightContainer: {
-    	flex: 1
-    },
-    separator: {
-        height: 1,
-        backgroundColor: '#dddddd'
-    },
+		flex: 1,
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor: '#F5FCFF',
+		padding: 20,
+	},
+	rightContainer: {
+		flex: 1
+	},
+	separator: {
+			height: 1,
+			backgroundColor: '#dddddd'
+	},
 });
 
 var resultCache = {
@@ -46,7 +54,6 @@ class FridgeView extends Component {
 		var ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
 		this.state = {
 			dataSource: ds.cloneWithRows(resultCache.ingredients),
-			showIngredientEditor: false,
 			selectedIngredient: false,
 		};
 	}
@@ -56,32 +63,13 @@ class FridgeView extends Component {
 			<View>
 				<ListView
 					dataSource = {this.state.dataSource}
-        	renderRow = {this.renderRow.bind(this)}
-        	style = {styles.listView}
-          automaticallyAdjustContentInsets = {true}
+					renderRow = {this.renderRow.bind(this)}
+					automaticallyAdjustContentInsets = {true}
 				/>
-				{this.state.showIngredientEditor ? (
-					<View>
-						<Text>Please choose the quantity of this ingredient:</Text>
-						<PickerIOS
-							selectedValue = {this.state.selectedIngredient.quantity}
-							onValueChange = {(quantity) => {
-								this.setState({showIngredientEditor: false})
-								}
-							}
-						>
-							{INGREDIENT_QUANTITIES.map(
-								(quantity) => (
-									<PickerIOS.Item
-										key = {quantity}
-										value = {quantity}
-										label = {quantity}
-									/>
-								)
-							)}
-						</PickerIOS>
-					</View>
-				) : (<View/>)}
+				<FMPicker ref = {'picker'}
+					options = {INGREDIENT_QUANTITIES}
+					onSubmit = {(option) => {}}
+				/>
 			</View>
 		);
 	}
@@ -105,10 +93,8 @@ class FridgeView extends Component {
 	rowPressed(ingredient) {
 		this.setState({
 			selectedIngredient: ingredient,
-			showIngredientEditor: true,
 		});
-		console.log(this.state.selectedIngredient.id);
-		console.log(this.state.showIngredientEditor);
+		this.refs.picker.show();
 	}
 	
 };

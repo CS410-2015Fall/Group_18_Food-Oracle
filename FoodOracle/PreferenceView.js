@@ -2,6 +2,7 @@
  
 var React = require('react-native');
 var FMPicker = require('react-native-fm-picker');
+var DB = require('./DB.js');
 
 var {
 	StyleSheet,
@@ -52,8 +53,18 @@ class PreferenceView extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			cuisine: "none",
+			cuisine: '',
 		};
+		DB.preferences.get({key: 'cuisine'}, (result) => {
+			if (result.length == 0) {
+				DB.preferences.add({key: 'cuisine', value: 'none'}, (result) => {
+					console.log(result);
+					this.setState({cuisine: result[0].value});
+				});
+			}
+			console.log(result);
+			this.setState({cuisine: result[0].value});
+		});
 	}
 
 	render(){
@@ -72,7 +83,9 @@ class PreferenceView extends Component {
 				<FMPicker ref={'picker'} 
 					options={options}
                     onSubmit={(option)=>{
-                        this.setState({cuisine: option})
+                        this.setState({cuisine: option});
+                        DB.preferences.update({key: "cuisine"}, {value: option},
+                        	(result) => {console.log(result)});
                     }}
                     />
 			</View>
