@@ -5,6 +5,7 @@ var FridgeSample = require('./fridgesample.json');
 var FMPicker = require('react-native-fm-picker');
 var Fetch = require('./Fetch');
 var SearchResults = require('./SearchResults');
+var DB = require('./DB.js');
 
 var {
 	Component,
@@ -33,7 +34,7 @@ var styles = StyleSheet.create({
     marginRight: 10,
   },
 	button: {
-		height: 36,
+		height: 35,
 		flex: 0.0625,
 		flexDirection: 'row',
 		borderColor: 'rgba(72,187,236,0.2)',
@@ -88,40 +89,67 @@ var sampleIngredients = {
 	ingredients: FridgeSample.ingredients
 }
 
+var ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
+
 var INGREDIENT_QUANTITIES = ['high', 'low', 'empty'];
 
 class FridgeView extends Component {
 
 	constructor(props) {
 		super(props);
-		var ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
 		this.state = {
-			dataSource: ds.cloneWithRows(sampleIngredients.ingredients),
+			isInitialized: false,
+			ingredients: false,
 			selectedIngredient: false,
 			isLoading: false,
 		};
+		this._refreshListView();
 	}
 	
 	render() {
-	var spinner = this.state.isLoading ? (<ActivityIndicatorIOS
+		var spinner = this.state.isLoading ? (<ActivityIndicatorIOS
 		hidden='true' size='large'/>) : (<View/>);
 		return (
 			<View style = {styles.container}>
 				<TouchableHighlight 
 					style = {styles.button}
 					underlayColor = '#99d9f4'
-					onPress ={ this._onSearchPress.bind(this)}>
+					onPress ={this._onSearchPress.bind(this)}>
 					<Text style = {styles.buttonText}>Search for recipes</Text>
 				</TouchableHighlight>
+				<TouchableHighlight 
+					style = {styles.button}
+					underlayColor = '#99d9f4'
+					onPress ={this._onAddPress.bind(this)}>
+					<Text style = {styles.buttonText}>Add ingredient</Text>
+				</TouchableHighlight>
 				{spinner}
-				<ListView
-					dataSource = {this.state.dataSource}
-					renderRow = {this.renderRow.bind(this)}
-					automaticallyAdjustContentInsets = {true}
-				/>
+				{this.state.isInitialized ? (
+					<ListView
+						dataSource = {ds.cloneWithRows(this.state.ingredients)}
+						renderRow = {this.renderRow.bind(this)}
+						automaticallyAdjustContentInsets = {true}
+					/>
+				) : (<View/>)}
 				<FMPicker ref = {'picker'}
 					options = {INGREDIENT_QUANTITIES}
-					onSubmit = {(option) => {}}
+					onSubmit = {(option) => {
+						if (option == 'empty') {
+							DB.ingredients.remove_id(this.state.selectedIngredient._id, (result) => {
+								console.log(result);
+								this._refreshListView();
+							});
+						} else {
+							DB.ingredients.update_id(this.state.selectedIngredient._id,
+								{name: this.state.selectedIngredient.name, quantity: option,
+									checked:this.state.selectedIngredient.checked},
+								(result) => {
+									console.log(result);
+									this._refreshListView();
+								}
+							);
+						}
+					}}
 				/>
 			</View>
 		);
@@ -133,7 +161,7 @@ class FridgeView extends Component {
 				<View>
 					<View style = {styles.cellContainer}>
 						<View style = {styles.rightContainer}>
-							<Text>{ingredient.id}</Text>
+							<Text>{ingredient.name}</Text>
 							<Text>{ingredient.quantity}</Text>
 						</View>
 					</View>
@@ -153,6 +181,13 @@ class FridgeView extends Component {
 	_onSearchPress() {
 		var query = 'onions, chicken, mushrooms';
 		this._executeQuery(query);
+	}
+	
+	_onAddPress() {
+		DB.ingredients.add({name: 'test', quantity: 'high', checked: false}, (result) => {
+			console.log(result);
+			this._refreshListView();
+		});
 	}
 	
 	_handleResponse(response){
@@ -178,6 +213,16 @@ class FridgeView extends Component {
     }
 		var fetch = new Fetch(this);
 		fetch.searchRequest(encodeURIComponent(query), handler, errorHandler);		
+	}
+	
+	_refreshListView() {
+		DB.ingredients.get_all((result) => {
+			console.log(result);
+			this.setState({
+				isInitialized: true,
+				ingredients: result.rows,
+			});
+		});
 	}
 	
 };
