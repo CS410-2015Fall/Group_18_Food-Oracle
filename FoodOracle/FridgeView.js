@@ -78,9 +78,22 @@ var styles = StyleSheet.create({
 	rightContainer: {
 		flex: 1
 	},
+	textInput: {
+		height: 35,
+		paddingLeft: 5,
+		marginRight: 5,
+		flex: 2,
+		fontSize: 18,
+		borderWidth: 1,
+		borderColor: '#48BBEC',
+		borderRadius: 8,
+		color: 'rgba(20,50,87,1)',
+		justifyContent: 'center',
+		backgroundColor: '#FFFFFF',
+	},
 	separator: {
-			height: 1,
-			backgroundColor: '#dddddd'
+		height: 1,
+		backgroundColor: '#dddddd',
 	},
 });
 
@@ -101,6 +114,7 @@ class FridgeView extends Component {
 			ingredients: false,
 			currentIngredient: false,
 			isLoading: false,
+			ingredientString: '',
 		};
 		this._refreshListView();
 	}
@@ -111,17 +125,24 @@ class FridgeView extends Component {
 		return (
 			<View style = {styles.container}>
 				<View style = {styles.buttonContainer}>
+					<View style = {styles.flowRight}>
+						<TextInput
+							style = {styles.textInput}
+							value = {this.state.ingredientString}
+							onChange = {this._onIngredientTextChanged.bind(this)}
+							placeholder = 'Enter ingredient' />
+						<TouchableHighlight 
+							style = {styles.button}
+							underlayColor = '#99d9f4'
+							onPress = {this._onAddPress.bind(this)}>
+							<Text style = {styles.buttonText}>Add ingredient</Text>
+						</TouchableHighlight>
+					</View>
 					<TouchableHighlight 
 						style = {styles.button}
 						underlayColor = '#99d9f4'
 						onPress = {this._onSearchPress.bind(this)}>
 						<Text style = {styles.buttonText}>Search for recipes</Text>
-					</TouchableHighlight>
-					<TouchableHighlight 
-						style = {styles.button}
-						underlayColor = '#99d9f4'
-						onPress = {this._onAddPress.bind(this)}>
-						<Text style = {styles.buttonText}>Add ingredient</Text>
 					</TouchableHighlight>
 				</View>
 				{spinner}
@@ -187,16 +208,22 @@ class FridgeView extends Component {
 		this.refs.picker.show();
 	}
 	
+	_onIngredientTextChanged(event) {
+		this.setState({ingredientString: event.nativeEvent.text});
+	}
+	
 	_onSearchPress() {
 		var query = 'onions, chicken, mushrooms';
 		this._executeQuery(query);
 	}
 	
 	_onAddPress() {
-		DB.ingredients.add({name: 'test', quantity: 'high', isSelected: false}, (result) => {
-			console.log(result);
-			this._refreshListView();
-		});
+		DB.ingredients.add({name: this.state.ingredientString,
+			quantity: 'high', isSelected: false}, (result) => {
+				console.log(result);
+				this._refreshListView();
+			}
+		);
 	}
 	
 	_onSelectPress(ingredient) {
