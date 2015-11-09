@@ -162,9 +162,7 @@ class FridgeView extends Component {
 								this._refreshListView();
 							});
 						} else {
-							DB.ingredients.update_id(this.state.currentIngredient._id,
-								{name: this.state.currentIngredient.name, quantity: option,
-									isSelected: this.state.currentIngredient.isSelected},
+							DB.ingredients.update_id(this.state.currentIngredient._id, {quantity: option},
 								(result) => {
 									console.log(result);
 									this._refreshListView();
@@ -218,17 +216,27 @@ class FridgeView extends Component {
 	}
 	
 	_onAddPress() {
-		DB.ingredients.add({name: this.state.ingredientString,
-			quantity: 'high', isSelected: false}, (result) => {
-				console.log(result);
-				this._refreshListView();
+		DB.ingredients.get({name: this.state.ingredientString}, (result) => {
+			console.log(result);
+			if (result.length == 0) {
+				DB.ingredients.add({name: this.state.ingredientString,
+					quantity: 'high', isSelected: false}, (result) => {
+						console.log(result);
+						this._refreshListView();
+					}
+				);
+			} else {
+				DB.ingredients.update_id(result[0]._id, {quantity: 'high'}, (result) => {
+					console.log(result);
+					this._refreshListView();
+				});
 			}
-		);
+			this.setState({ingredientString: ''});
+		});
 	}
 	
 	_onSelectPress(ingredient) {
-		DB.ingredients.update_id(ingredient._id,
-			{name: ingredient.name, quantity: ingredient.quantity, isSelected: !(ingredient.isSelected)},
+		DB.ingredients.update_id(ingredient._id, {isSelected: !(ingredient.isSelected)},
 			(result) => {
 				console.log(result);
 				this._refreshListView();
