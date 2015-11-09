@@ -4,7 +4,6 @@ var React = require('react-native');
 var Icon = require('react-native-vector-icons/Ionicons');
 var SearchResults = require('./SearchResults');
 var Fetch = require('./Fetch');
-var sample = require('./sample.json');
 var BlurView = require('react-native-blur').BlurView;
 var VibrancyView = require('react-native-blur').VibrancyView;
 
@@ -123,7 +122,7 @@ button: {
 });
 
 var resultCache = {
-	recipes: sample.matches
+	recipes: false,
 } 
 
 var sortByTime = function(item){
@@ -241,7 +240,7 @@ class HomeView extends Component {
 	}
 
 	_executeQuery(query){
-		console.log(query)
+		console.log(query);
     this.setState({isLoading: true});
 		var handler = function(self, responseData) {
 			resultCache.recipes = responseData.matches;

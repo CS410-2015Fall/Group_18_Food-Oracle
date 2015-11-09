@@ -1,7 +1,6 @@
 'use strict'
 
 var React = require('react-native');
-var FridgeSample = require('./fridgesample.json');
 var FMPicker = require('react-native-fm-picker');
 var Fetch = require('./Fetch');
 var SearchResults = require('./SearchResults');
@@ -97,8 +96,20 @@ var styles = StyleSheet.create({
 	},
 });
 
-var sampleIngredients = {
-	ingredients: FridgeSample.ingredients
+var resultCache = {
+	recipes: false,
+}
+
+var sortByTime = function(item) {
+  item.sort(compare);
+}
+
+var compare = function(a, b){
+	if (a.totalTimeInSeconds < b.totalTimeInSeconds)
+		return -1;
+	if (a.totalTimeInSeconds > b.totalTimeInSeconds)
+		return 1;
+	return 0;
 }
 
 var ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
@@ -211,7 +222,19 @@ class FridgeView extends Component {
 	}
 	
 	_onSearchPress() {
-		var query = 'onions, chicken, mushrooms';
+		var query = '';
+		var x;
+		var first = true;
+		for (x in this.state.ingredients) {
+			if (this.state.ingredients[x].isSelected) {
+				if (first) {
+					first = false;
+				} else {
+					query += ', ';
+				}
+				query += this.state.ingredients[x].name;
+			}
+		}
 		this._executeQuery(query);
 	}
 	
@@ -256,6 +279,8 @@ class FridgeView extends Component {
 		console.log(query);
     this.setState({isLoading: true});
 		var handler = function(self, responseData) {
+			resultCache.recipes = responseData.matches;
+			sortByTime(resultCache.recipes);
 			self._handleResponse(responseData);
 		}
     var errorHandler = function(error) {
