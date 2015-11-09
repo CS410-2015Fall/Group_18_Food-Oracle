@@ -34,8 +34,7 @@ var styles = StyleSheet.create({
     marginRight: 10,
   },
 	button: {
-		height: 35,
-		flex: 0.0625,
+		flex: 1,
 		flexDirection: 'row',
 		borderColor: 'rgba(72,187,236,0.2)',
 		borderWidth: 1,
@@ -43,7 +42,6 @@ var styles = StyleSheet.create({
 		alignSelf: 'stretch',
 		justifyContent: 'center',
 		backgroundColor: 'rgba(72,187,236,0.2)',
-		marginTop: 65,
  	},
 	buttonText: {
 		fontSize: 18,
@@ -51,12 +49,13 @@ var styles = StyleSheet.create({
 		color: 'black',
 		alignSelf: 'center',
 	},
-	searchContainer: {
-		flex: 1,
+	buttonContainer: {
+		flex: 0.125,
 		justifyContent: 'center',
 		alignItems: 'center',
 		alignSelf: 'stretch',
 		backgroundColor: 'transparent',
+		marginTop: 65,
 	},
 	fillerView: {
     height: 49,
@@ -100,7 +99,7 @@ class FridgeView extends Component {
 		this.state = {
 			isInitialized: false,
 			ingredients: false,
-			selectedIngredient: false,
+			currentIngredient: false,
 			isLoading: false,
 		};
 		this._refreshListView();
@@ -111,18 +110,20 @@ class FridgeView extends Component {
 		hidden='true' size='large'/>) : (<View/>);
 		return (
 			<View style = {styles.container}>
-				<TouchableHighlight 
-					style = {styles.button}
-					underlayColor = '#99d9f4'
-					onPress ={this._onSearchPress.bind(this)}>
-					<Text style = {styles.buttonText}>Search for recipes</Text>
-				</TouchableHighlight>
-				<TouchableHighlight 
-					style = {styles.button}
-					underlayColor = '#99d9f4'
-					onPress ={this._onAddPress.bind(this)}>
-					<Text style = {styles.buttonText}>Add ingredient</Text>
-				</TouchableHighlight>
+				<View style = {styles.buttonContainer}>
+					<TouchableHighlight 
+						style = {styles.button}
+						underlayColor = '#99d9f4'
+						onPress = {this._onSearchPress.bind(this)}>
+						<Text style = {styles.buttonText}>Search for recipes</Text>
+					</TouchableHighlight>
+					<TouchableHighlight 
+						style = {styles.button}
+						underlayColor = '#99d9f4'
+						onPress = {this._onAddPress.bind(this)}>
+						<Text style = {styles.buttonText}>Add ingredient</Text>
+					</TouchableHighlight>
+				</View>
 				{spinner}
 				{this.state.isInitialized ? (
 					<ListView
@@ -135,14 +136,14 @@ class FridgeView extends Component {
 					options = {INGREDIENT_QUANTITIES}
 					onSubmit = {(option) => {
 						if (option == 'empty') {
-							DB.ingredients.remove_id(this.state.selectedIngredient._id, (result) => {
+							DB.ingredients.remove_id(this.state.currentIngredient._id, (result) => {
 								console.log(result);
 								this._refreshListView();
 							});
 						} else {
-							DB.ingredients.update_id(this.state.selectedIngredient._id,
-								{name: this.state.selectedIngredient.name, quantity: option,
-									checked:this.state.selectedIngredient.checked},
+							DB.ingredients.update_id(this.state.currentIngredient._id,
+								{name: this.state.currentIngredient.name, quantity: option,
+									isSelected: this.state.currentIngredient.isSelected},
 								(result) => {
 									console.log(result);
 									this._refreshListView();
@@ -164,6 +165,14 @@ class FridgeView extends Component {
 							<Text>{ingredient.name}</Text>
 							<Text>{ingredient.quantity}</Text>
 						</View>
+						<TouchableHighlight 
+							style = {styles.button}
+							underlayColor = '#99d9f4'
+							onPress = {() => this._onSelectPress(ingredient)}>
+							<Text style = {styles.buttonText}>
+								{ingredient.isSelected ? 'Unselect' : 'Select'}
+							</Text>
+						</TouchableHighlight>
 					</View>
 					<View style = {styles.separator} />
 				</View>
@@ -173,7 +182,7 @@ class FridgeView extends Component {
 	
 	rowPressed(ingredient) {
 		this.setState({
-			selectedIngredient: ingredient,
+			currentIngredient: ingredient,
 		});
 		this.refs.picker.show();
 	}
@@ -184,10 +193,20 @@ class FridgeView extends Component {
 	}
 	
 	_onAddPress() {
-		DB.ingredients.add({name: 'test', quantity: 'high', checked: false}, (result) => {
+		DB.ingredients.add({name: 'test', quantity: 'high', isSelected: false}, (result) => {
 			console.log(result);
 			this._refreshListView();
 		});
+	}
+	
+	_onSelectPress(ingredient) {
+		DB.ingredients.update_id(ingredient._id,
+			{name: ingredient.name, quantity: ingredient.quantity, isSelected: !(ingredient.isSelected)},
+			(result) => {
+				console.log(result);
+				this._refreshListView();
+			}
+		);
 	}
 	
 	_handleResponse(response){
