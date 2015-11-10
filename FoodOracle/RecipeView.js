@@ -5,6 +5,7 @@ var KDSocialShare = require('NativeModules').KDSocialShare;
 var Icon = require('react-native-vector-icons/Ionicons');
 var Browser = require('react-native-browser');
 var Lightbox = require('react-native-lightbox');
+var Favourites = require('./FavouriteView');
 
 var {
   StyleSheet,
