@@ -4,9 +4,8 @@ node_js:
   - "4.0"
 
 install: 
+- cd FoodOracle
 - npm install
-
-before_script: cd FoodOracle
 
 script:
 - npm test 
