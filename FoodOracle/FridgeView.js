@@ -1,10 +1,10 @@
 'use strict'
 
 var React = require('react-native');
-var FridgeSample = require('./fridgesample.json');
 var FMPicker = require('react-native-fm-picker');
 var Fetch = require('./Fetch');
 var SearchResults = require('./SearchResults');
+var DB = require('./DB.js');
 
 var {
 	Component,
@@ -33,8 +33,7 @@ var styles = StyleSheet.create({
     marginRight: 10,
   },
 	button: {
-		height: 36,
-		flex: 0.0625,
+		flex: 1,
 		flexDirection: 'row',
 		borderColor: 'rgba(72,187,236,0.2)',
 		borderWidth: 1,
@@ -42,7 +41,6 @@ var styles = StyleSheet.create({
 		alignSelf: 'stretch',
 		justifyContent: 'center',
 		backgroundColor: 'rgba(72,187,236,0.2)',
-		marginTop: 65,
  	},
 	buttonText: {
 		fontSize: 18,
@@ -50,12 +48,13 @@ var styles = StyleSheet.create({
 		color: 'black',
 		alignSelf: 'center',
 	},
-	searchContainer: {
-		flex: 1,
+	buttonContainer: {
+		flex: 0.125,
 		justifyContent: 'center',
 		alignItems: 'center',
 		alignSelf: 'stretch',
 		backgroundColor: 'transparent',
+		marginTop: 65,
 	},
 	fillerView: {
     height: 49,
@@ -78,15 +77,42 @@ var styles = StyleSheet.create({
 	rightContainer: {
 		flex: 1
 	},
+	textInput: {
+		height: 35,
+		paddingLeft: 5,
+		marginRight: 5,
+		flex: 2,
+		fontSize: 18,
+		borderWidth: 1,
+		borderColor: '#48BBEC',
+		borderRadius: 8,
+		color: 'rgba(20,50,87,1)',
+		justifyContent: 'center',
+		backgroundColor: '#FFFFFF',
+	},
 	separator: {
-			height: 1,
-			backgroundColor: '#dddddd'
+		height: 1,
+		backgroundColor: '#dddddd',
 	},
 });
 
-var sampleIngredients = {
-	ingredients: FridgeSample.ingredients
+var resultCache = {
+	recipes: false,
 }
+
+var sortByTime = function(item) {
+  item.sort(compare);
+}
+
+var compare = function(a, b){
+	if (a.totalTimeInSeconds < b.totalTimeInSeconds)
+		return -1;
+	if (a.totalTimeInSeconds > b.totalTimeInSeconds)
+		return 1;
+	return 0;
+}
+
+var ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
 
 var INGREDIENT_QUANTITIES = ['high', 'low', 'empty'];
 
@@ -94,34 +120,67 @@ class FridgeView extends Component {
 
 	constructor(props) {
 		super(props);
-		var ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
 		this.state = {
-			dataSource: ds.cloneWithRows(sampleIngredients.ingredients),
-			selectedIngredient: false,
+			isInitialized: false,
+			ingredients: false,
+			currentIngredient: false,
 			isLoading: false,
+			ingredientString: '',
 		};
+		this._refreshListView();
 	}
 	
 	render() {
-	var spinner = this.state.isLoading ? (<ActivityIndicatorIOS
+		var spinner = this.state.isLoading ? (<ActivityIndicatorIOS
 		hidden='true' size='large'/>) : (<View/>);
 		return (
 			<View style = {styles.container}>
-				<TouchableHighlight 
-					style = {styles.button}
-					underlayColor = '#99d9f4'
-					onPress ={ this._onSearchPress.bind(this)}>
-					<Text style = {styles.buttonText}>Search for recipes</Text>
-				</TouchableHighlight>
+				<View style = {styles.buttonContainer}>
+					<View style = {styles.flowRight}>
+						<TextInput
+							style = {styles.textInput}
+							value = {this.state.ingredientString}
+							onChange = {this._onIngredientTextChanged.bind(this)}
+							placeholder = 'Enter ingredient' />
+						<TouchableHighlight 
+							style = {styles.button}
+							underlayColor = '#99d9f4'
+							onPress = {this._onAddPress.bind(this)}>
+							<Text style = {styles.buttonText}>Add ingredient</Text>
+						</TouchableHighlight>
+					</View>
+					<TouchableHighlight 
+						style = {styles.button}
+						underlayColor = '#99d9f4'
+						onPress = {this._onSearchPress.bind(this)}>
+						<Text style = {styles.buttonText}>Search for recipes</Text>
+					</TouchableHighlight>
+				</View>
 				{spinner}
-				<ListView
-					dataSource = {this.state.dataSource}
-					renderRow = {this.renderRow.bind(this)}
-					automaticallyAdjustContentInsets = {true}
-				/>
+				{this.state.isInitialized ? (
+					<ListView
+						dataSource = {ds.cloneWithRows(this.state.ingredients)}
+						renderRow = {this.renderRow.bind(this)}
+						automaticallyAdjustContentInsets = {true}
+					/>
+				) : (<View/>)}
 				<FMPicker ref = {'picker'}
 					options = {INGREDIENT_QUANTITIES}
-					onSubmit = {(option) => {}}
+					onSubmit = {(option) => {
+						if (option == 'empty') {
+							DB.ingredients.remove_id(this.state.currentIngredient._id, (result) => {
+								console.log(result);
+								this._refreshListView();
+							});
+						} else {
+							DB.ingredients.update_id(this.state.currentIngredient._id, {quantity: option},
+								(result) => {
+									console.log(result);
+									this._refreshListView();
+								}
+							);
+						}
+					}}
 				/>
 			</View>
 		);
@@ -133,9 +192,17 @@ class FridgeView extends Component {
 				<View>
 					<View style = {styles.cellContainer}>
 						<View style = {styles.rightContainer}>
-							<Text>{ingredient.id}</Text>
+							<Text>{ingredient.name}</Text>
 							<Text>{ingredient.quantity}</Text>
 						</View>
+						<TouchableHighlight 
+							style = {styles.button}
+							underlayColor = '#99d9f4'
+							onPress = {() => this._onSelectPress(ingredient)}>
+							<Text style = {styles.buttonText}>
+								{ingredient.isSelected ? 'Unselect' : 'Select'}
+							</Text>
+						</TouchableHighlight>
 					</View>
 					<View style = {styles.separator} />
 				</View>
@@ -145,14 +212,59 @@ class FridgeView extends Component {
 	
 	rowPressed(ingredient) {
 		this.setState({
-			selectedIngredient: ingredient,
+			currentIngredient: ingredient,
 		});
 		this.refs.picker.show();
 	}
 	
+	_onIngredientTextChanged(event) {
+		this.setState({ingredientString: event.nativeEvent.text});
+	}
+	
 	_onSearchPress() {
-		var query = 'onions, chicken, mushrooms';
+		var query = '';
+		var x;
+		var first = true;
+		for (x in this.state.ingredients) {
+			if (this.state.ingredients[x].isSelected) {
+				if (first) {
+					first = false;
+				} else {
+					query += ', ';
+				}
+				query += this.state.ingredients[x].name;
+			}
+		}
 		this._executeQuery(query);
+	}
+	
+	_onAddPress() {
+		DB.ingredients.get({name: this.state.ingredientString}, (result) => {
+			console.log(result);
+			if (result.length == 0) {
+				DB.ingredients.add({name: this.state.ingredientString,
+					quantity: 'high', isSelected: false}, (result) => {
+						console.log(result);
+						this._refreshListView();
+					}
+				);
+			} else {
+				DB.ingredients.update_id(result[0]._id, {quantity: 'high'}, (result) => {
+					console.log(result);
+					this._refreshListView();
+				});
+			}
+			this.setState({ingredientString: ''});
+		});
+	}
+	
+	_onSelectPress(ingredient) {
+		DB.ingredients.update_id(ingredient._id, {isSelected: !(ingredient.isSelected)},
+			(result) => {
+				console.log(result);
+				this._refreshListView();
+			}
+		);
 	}
 	
 	_handleResponse(response){
@@ -167,6 +279,8 @@ class FridgeView extends Component {
 		console.log(query);
     this.setState({isLoading: true});
 		var handler = function(self, responseData) {
+			resultCache.recipes = responseData.matches;
+			sortByTime(resultCache.recipes);
 			self._handleResponse(responseData);
 		}
     var errorHandler = function(error) {
@@ -178,6 +292,16 @@ class FridgeView extends Component {
     }
 		var fetch = new Fetch(this);
 		fetch.searchRequest(encodeURIComponent(query), handler, errorHandler);		
+	}
+	
+	_refreshListView() {
+		DB.ingredients.get_all((result) => {
+			console.log(result);
+			this.setState({
+				isInitialized: true,
+				ingredients: result.rows,
+			});
+		});
 	}
 	
 };
