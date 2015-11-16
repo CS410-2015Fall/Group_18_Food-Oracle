@@ -80,7 +80,7 @@ var resultCache = {
 var ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
 
 ///////// addNewFavourite: --------- CALL THIS IN RECIPE VIEW ---------
-  function addNewFavourite(recipeid, name, time) {
+  function addNewFavourite(recipeid, name, time, saulty, sour, sweet, bitter, meaty, piquant) {     //all the flavor values are floats with range of 0.0 - 1.0
     DB.favourites.get({id: recipeid}, (result) => {
       console.log(result);
       if (result.length == 0) {
@@ -88,10 +88,18 @@ var ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2})
             console.log(result);
           }
         );
+        DB.flavors.add({id: recipeid, saultyValue: saulty, sourValue: sour, sweetValue: sweet, bitterValue: bitter, meatyValue: meaty, piquantValue: piquant}, (result) => {
+            console.log(result);
+          }
+        );
       } else {
         DB.favourites.update_id(result[0]._id, {recipeName: name, totalTimeInSeconds: time}, (result) => {
           console.log(result);
         });
+        DB.flavors.update_id(result[0]._id, {saultyValue: saulty, sourValue: sour, sweetValue: sweet, bitterValue: bitter, meatyValue: meaty, piquantValue: piquant}, (result) => {
+          console.log(result);
+        });
+
       }
     });
   }
@@ -178,6 +186,9 @@ class FavouriteView extends Component {
   _onDeletePress(recipeID){
     DB.favourites.remove({id: recipeID}, (result) => {
       console.log(result);
+    });
+    DB.flavors.remove({id: recipeID}, (result) => {
+      console.log(result);
       this._refreshListView();
     });
 
@@ -228,7 +239,7 @@ class FavouriteView extends Component {
                 DB.favourites.add({id: "Crock-Pot-Japanese-Onion-Soup-1319396",
           recipeName: "Crock Pot Japanese Onion Soup", totalTimeInSeconds: 2100}, (result) => {
             console.log(result);
-            addNewFavourite("Brown-Ale-French-Onion-Soup-1318732","Brown Ale French Onion Soup", 7800);
+            addNewFavourite("Brown-Ale-French-Onion-Soup-1318732","Brown Ale French Onion Soup", 7800, 1.0, 1.0, 0.5, 0.8, 0.2, 0.0);
 
             this._refreshListView();
           }
