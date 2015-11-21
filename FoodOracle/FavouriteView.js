@@ -84,21 +84,21 @@ var ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2})
     DB.favourites.get({id: recipeid}, (result) => {
       console.log(result);
       if (result.length == 0) {
-        DB.favourites.add({id: recipeid, recipeName: name, totalTimeInSeconds: time}, (result) => {
+        DB.favourites.add({id: recipeid, recipeName: name, totalTimeInSeconds: time, saltyValue: salty, sourValue: sour, sweetValue: sweet, bitterValue: bitter, meatyValue: meaty, piquantValue: piquant}, (result) => {
             console.log(result);
           }
         );
-        DB.flavors.add({id: recipeid, saltyValue: salty, sourValue: sour, sweetValue: sweet, bitterValue: bitter, meatyValue: meaty, piquantValue: piquant}, (result) => {
+        /*DB.flavors.add({id: recipeid, saltyValue: salty, sourValue: sour, sweetValue: sweet, bitterValue: bitter, meatyValue: meaty, piquantValue: piquant}, (result) => {
             console.log(result);
           }
-        );
+        ); */
       } else {
-        DB.favourites.update_id(result[0]._id, {recipeName: name, totalTimeInSeconds: time}, (result) => {
+        DB.favourites.update_id(result[0]._id, {recipeName: name, totalTimeInSeconds: time, saltyValue: salty, sourValue: sour, sweetValue: sweet, bitterValue: bitter, meatyValue: meaty, piquantValue: piquant}, (result) => {
           console.log(result);
         });
-        DB.flavors.update_id(result[0]._id, {saltyValue: salty, sourValue: sour, sweetValue: sweet, bitterValue: bitter, meatyValue: meaty, piquantValue: piquant}, (result) => {
+        /*DB.flavors.update_id(result[0]._id, {saltyValue: salty, sourValue: sour, sweetValue: sweet, bitterValue: bitter, meatyValue: meaty, piquantValue: piquant}, (result) => {
           console.log(result);
-        });
+        }); */
 
       }
     });
@@ -187,10 +187,10 @@ class FavouriteView extends Component {
     DB.favourites.remove({id: recipeID}, (result) => {
       console.log(result);
     });
-    DB.flavors.remove({id: recipeID}, (result) => {
+    /*DB.flavors.remove({id: recipeID}, (result) => {
       console.log(result);
       this._refreshListView();
-    });
+    }); */
 
   }
 
