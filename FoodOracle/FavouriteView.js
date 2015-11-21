@@ -80,7 +80,7 @@ var resultCache = {
 var ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
 
 ///////// addNewFavourite: --------- CALL THIS IN RECIPE VIEW ---------
-  function addNewFavourite(recipeid, name, time, saulty, sour, sweet, bitter, meaty, piquant) {     //all the flavor values are floats with range of 0.0 - 1.0
+  function addNewFavourite(recipeid, name, time, salty, sour, sweet, bitter, meaty, piquant) {     //all the flavor values are floats with range of 0.0 - 1.0
     DB.favourites.get({id: recipeid}, (result) => {
       console.log(result);
       if (result.length == 0) {
@@ -88,7 +88,7 @@ var ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2})
             console.log(result);
           }
         );
-        DB.flavors.add({id: recipeid, saultyValue: saulty, sourValue: sour, sweetValue: sweet, bitterValue: bitter, meatyValue: meaty, piquantValue: piquant}, (result) => {
+        DB.flavors.add({id: recipeid, saltyValue: salty, sourValue: sour, sweetValue: sweet, bitterValue: bitter, meatyValue: meaty, piquantValue: piquant}, (result) => {
             console.log(result);
           }
         );
@@ -96,7 +96,7 @@ var ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2})
         DB.favourites.update_id(result[0]._id, {recipeName: name, totalTimeInSeconds: time}, (result) => {
           console.log(result);
         });
-        DB.flavors.update_id(result[0]._id, {saultyValue: saulty, sourValue: sour, sweetValue: sweet, bitterValue: bitter, meatyValue: meaty, piquantValue: piquant}, (result) => {
+        DB.flavors.update_id(result[0]._id, {saltyValue: salty, sourValue: sour, sweetValue: sweet, bitterValue: bitter, meatyValue: meaty, piquantValue: piquant}, (result) => {
           console.log(result);
         });
 
