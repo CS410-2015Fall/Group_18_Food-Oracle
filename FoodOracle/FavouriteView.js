@@ -161,8 +161,7 @@ class FavouriteView extends Component {
     //this._addSample();
   }
 
-  render(){ 
-    this._refreshListView();
+  render(){
 		return (
 			<View style = {styles.container}>
 				<View style = {styles.buttonContainer}>
@@ -228,7 +227,9 @@ class FavouriteView extends Component {
 
   _onDeletePress(recipeID){
     DB.favourites.remove({id: recipeID}, (result) => {
+    	console.log('_onDeletePress');
       console.log(result);
+      this._refreshListView();
     });
     /*DB.flavors.remove({id: recipeID}, (result) => {
       console.log(result);
@@ -238,13 +239,15 @@ class FavouriteView extends Component {
   }
   
   _onRecommendPress() {
-  	if (this.state.favourites.length != undefined) {
+  	console.log('_onRecommendPress');
+  	if (Object.keys(this.state.favourites).length != 0) {
   		var recommender = new Recommender(this);
   		this._executeRecommenderQuery(recommender.calculateFlavorRanges(this.state.favourites));
   	}
   }
 
   _executeQuery(query){
+  	console.log('_executeQuery');
     console.log(query)
     var handler = function(self, responseData) {
       self._handleResponse(responseData);
@@ -260,6 +263,7 @@ class FavouriteView extends Component {
   }
 
   _handleResponse(response){
+  console.log('_handleResponse');
     console.log(response)
     this.props.navigator.push({
       component: RecipeView,
@@ -267,14 +271,16 @@ class FavouriteView extends Component {
     });
   }
 
-	_handleRecommenderResponse(response){
+	_handleRecommenderResponse(response) {
+		console.log('_handleRecommenderResponse');
 		this.props.navigator.push({
 			component: SearchResults,
 			passProps: {matches: response.matches}
 		});
 	}
 
-	_executeRecommenderQuery(query){
+	_executeRecommenderQuery(query) {
+		console.log('_executeRecommenderQuery');
 		console.log(query);
 		var handler = function(self, responseData) {
 			resultCache.recipes = responseData.matches;
@@ -293,6 +299,7 @@ class FavouriteView extends Component {
 
     _refreshListView() {
     DB.favourites.get_all((result) => {
+    	console.log('_refreshListView');
       console.log(result);
       this.setState({
         isInitialized: true,
