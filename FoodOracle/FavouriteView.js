@@ -6,7 +6,8 @@ var Favouritesamples = require('./favouritesamples.json');
 var Fetch = require('./Fetch');
 var RecipeView = require('./RecipeView');
 var DB = require('./DB.js');
-
+var Recommender = require('./Recommender');
+var SearchResults = require('./SearchResults');
 
 var {
   Component,
@@ -63,19 +64,48 @@ var styles = StyleSheet.create({
       color: 'black',
       alignSelf: 'center',
     },
-      buttonContainer: {
-    flex: 0.125,
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignSelf: 'stretch',
-    backgroundColor: 'transparent',
-    marginTop: 65,
-  },
+    buttonContainer: {
+			flex: 0.125,
+			justifyContent: 'center',
+			alignItems: 'center',
+			alignSelf: 'stretch',
+			backgroundColor: 'transparent',
+			marginTop: 65,
+		},
+		button2: {
+			flex: 1,
+			flexDirection: 'row',
+			borderColor: 'rgba(72,187,236,0.2)',
+			borderWidth: 1,
+			borderRadius: 8,
+			alignSelf: 'stretch',
+			justifyContent: 'center',
+			backgroundColor: 'rgba(72,187,236,0.2)',
+		},
+		flowRight: {
+			flexDirection: 'row',
+			alignItems: 'center',
+			alignSelf: 'stretch',
+			marginLeft: 10,
+			marginRight: 10,
+		},
 });
 
 var resultCache = {
 	recipes: Favouritesamples.favourites
 } 
+
+var sortByTime = function(item) {
+  item.sort(compare);
+}
+
+var compare = function(a, b){
+	if (a.totalTimeInSeconds < b.totalTimeInSeconds)
+		return -1;
+	if (a.totalTimeInSeconds > b.totalTimeInSeconds)
+		return 1;
+	return 0;
+}
 
 var ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
 
@@ -132,16 +162,26 @@ class FavouriteView extends Component {
   render(){ 
 		return (
 			<View style = {styles.container}>
-                <View style = {styles.buttonContainer}>
-                            <TouchableHighlight 
-                                style = {styles.button}
-                                underlayColor = '#99d9f4'
-                                onPress = {() => this._refreshListView()}>
-                                <Text style = {styles.buttonText}>
-                                    Refresh
-                                </Text>
-                             </TouchableHighlight>    
-                </View>
+				<View style = {styles.buttonContainer}>
+					<View style = {styles.flowRight}>
+						<TouchableHighlight
+							style = {styles.button2}
+							underlayColor = '#99d9f4'
+							onPress = {() => this._onRecommendPress()}>
+							<Text style = {styles.buttonText}>
+								Recommend recipes
+							</Text>
+						</TouchableHighlight>
+					</View>
+					<TouchableHighlight 
+							style = {styles.button}
+							underlayColor = '#99d9f4'
+							onPress = {() => this._refreshListView()}>
+							<Text style = {styles.buttonText}>
+									Refresh
+							</Text>
+					</TouchableHighlight>    
+				</View>
 				<ListView
                 dataSource={ds.cloneWithRows(this.state.favourites)}
                 renderRow={this.renderList.bind(this)}
@@ -193,6 +233,13 @@ class FavouriteView extends Component {
     }); */
 
   }
+  
+  _onRecommendPress() {
+  	if (this.state.favourites.length != undefined) {
+  		var recommender = new Recommender(this);
+  		this._executeRecommenderQuery(recommender.calculateFlavorRanges(this.state.favourites));
+  	}
+  }
 
   _executeQuery(query){
     console.log(query)
@@ -217,6 +264,29 @@ class FavouriteView extends Component {
     });
   }
 
+	_handleRecommenderResponse(response){
+		this.props.navigator.push({
+			component: SearchResults,
+			passProps: {matches: response.matches}
+		});
+	}
+
+	_executeRecommenderQuery(query){
+		console.log(query);
+		var handler = function(self, responseData) {
+			resultCache.recipes = responseData.matches;
+			sortByTime(resultCache.recipes);
+			self._handleRecommenderResponse(responseData);
+		}
+    var errorHandler = function(error) {
+      React.AlertIOS.alert(
+				'Error',
+				'There seems to be an issue connecting to the network.  ' + error
+			);
+    }
+		var fetch = new Fetch(this);
+		fetch.recommendRequest(encodeURIComponent(query), handler, errorHandler);		
+	}
 
     _refreshListView() {
     DB.favourites.get_all((result) => {
