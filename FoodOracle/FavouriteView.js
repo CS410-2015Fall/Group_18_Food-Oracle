@@ -160,6 +160,9 @@ class FavouriteView extends Component {
     //FOR TESTING:
     //this._addSample();
   }
+  getInitialState(){
+    this._refreshListView();
+  }
 
   render(){
 		return (
@@ -175,15 +178,7 @@ class FavouriteView extends Component {
 							</Text>
 						</TouchableHighlight>
 					</View>
-					<TouchableHighlight 
-							style = {styles.button}
-							underlayColor = '#99d9f4'
-							onPress = {() => this._refreshListView()}>
-							<Text style = {styles.buttonText}>
-									Refresh
-							</Text>
-					</TouchableHighlight>    
-				</View>
+        </View>
 				<ListView
                 dataSource={ds.cloneWithRows(this.state.favourites)}
                 renderRow={this.renderList.bind(this)}
@@ -191,7 +186,7 @@ class FavouriteView extends Component {
                 automaticallyAdjustContentInsets={true}
                 
                 />
-                </View>
+          </View>
 			);
 	}
     //  if manual, instead of automaticallyAdjustContentInsets: contentInset={{top:65, bottom:-10}}

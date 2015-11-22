@@ -168,14 +168,17 @@ class RecipeView extends Component{
     var id = recipe.id;
     var name = recipe.name;
     var time = recipe.totalTimeInSeconds;
-    var salty = recipe.flavors['Salty'];
-    var meaty = recipe.flavors['Meaty'];
-    var bitter = recipe.flavors['Bitter'];
-    var sour = recipe.flavors['Sour'];
-    var sweet = recipe.flavors['Sweet'];
-    var piquant = recipe.flavors['Piquant'];
+    var salty = recipe.flavors.Salty;
+    var meaty = recipe.flavors.Meaty;
+    var bitter = recipe.flavors.Bitter;
+    var sour = recipe.flavors.Sour;
+    var sweet = recipe.flavors.Sweet;
+    var piquant = recipe.flavors.Piquant;
 
-    console.log(id + name + time + "" + salty + "" + sour + "" + sweet + "" + bitter + "" + meaty + "" + piquant)
+    var test = "SALTYYYY";
+    console.log(test);
+    console.log(recipe.flavors.Salty);
+    //console.log(id + name + time + "" + salty + "" + sour + "" + sweet + "" + bitter + "" + meaty + "" + piquant)
 
     this.addNewFavourite(id, name, time, salty, sour, sweet, bitter, meaty, piquant);
   }
