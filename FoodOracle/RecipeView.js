@@ -6,6 +6,7 @@ var Icon = require('react-native-vector-icons/Ionicons');
 var Browser = require('react-native-browser');
 var Lightbox = require('react-native-lightbox');
 var Favourites = require('./FavouriteView');
+var DB = require('./DB.js');
 
 var {
   StyleSheet,
@@ -37,12 +38,14 @@ var styles = StyleSheet.create({
 
   backdropImage: {
     alignSelf: 'stretch',
-    height: 220,
-    justifyContent: 'center'
+    height: 300,
+    width: 400,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
 
   backdropView: {
-    marginTop: 15,
+    marginTop: 45,
     marginLeft: 25,
     width: 170,
     backgroundColor: 'rgba(0,0,0,0.3)',
@@ -60,17 +63,17 @@ var styles = StyleSheet.create({
     color: 'white',
   },
 
-  description: {
+  ingredients: {
     fontSize: 20,
     margin: 5,
-    color: '#656565',
+    color: 'rgba(20,50,87,1)',
     paddingLeft: 25,
     paddingRight: 25,
   },
 
   button: {
     height: 30,
-    width: 170,
+    width: 50,
   flexDirection: 'row',
   backgroundColor: 'rgba(0,0,0,0.5)',
   borderColor: '#48BBEC',
@@ -88,13 +91,13 @@ var styles = StyleSheet.create({
   alignSelf: 'center'
 },
 flowRightButtons: {
+  flex: 4,
   flexDirection: 'row',
   backgroundColor: 'rgba(0,0,0,0)',
-  marginTop: 75,
-  marginRight: 25,
-  marginLeft: 25,
+  marginTop: 125,
   marginBottom: 50,
   justifyContent: 'center',
+  alignSelf: 'center',
   borderRadius: 8,
 },
  cellContainer: {
@@ -107,10 +110,18 @@ flowRightButtons: {
         height: 80,
         backgroundColor: 'rgba(0,0,0,0)'
     },
-
-  ingredients: {
+  
+  header: {
     flex: 1,
+    backgroundColor: 'rgba(20,50,87,1)',
+    fontSize: 25,
+    color: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'stretch',
+    paddingLeft: 25,
   },
+
   fillerView: {
       height: 49,
     },
@@ -145,10 +156,28 @@ class RecipeView extends Component{
     Browser.open(recipe.source.sourceRecipeUrl, {
                 navigationButtonsHidden: false,
                 showActionButton: false,
-                showPageTitles: false,
+                showPageTitles: true,
                 disableContextualPopupMenu: true,
                 hideWebViewBoundaries: true
                 });
+  }
+
+  pressSave(){
+    //function addNewFavourite(recipeid, name, time, salty, sour, sweet, bitter, meaty, piquant)
+    var recipe = this.props.recipe;
+    var id = recipe.id;
+    var name = recipe.name;
+    var time = recipe.totalTimeInSeconds;
+    var salty = recipe.flavors['Salty'];
+    var meaty = recipe.flavors['Meaty'];
+    var bitter = recipe.flavors['Bitter'];
+    var sour = recipe.flavors['Sour'];
+    var sweet = recipe.flavors['Sweet'];
+    var piquant = recipe.flavors['Piquant'];
+
+    console.log(id + name + time + "" + salty + "" + sour + "" + sweet + "" + bitter + "" + meaty + "" + piquant)
+
+    this.addNewFavourite(id, name, time, salty, sour, sweet, bitter, meaty, piquant);
   }
 
 	render() {
@@ -175,14 +204,21 @@ class RecipeView extends Component{
                             onPress={this.pressSource.bind(this)}
                             style={styles.button}
                             underlayColor='#99d9f4'>
-                            <Text style={styles.buttonText}>Instructions</Text>
+                            <Text style={styles.buttonText}>Cook</Text>
                           </TouchableHighlight>
                   
                           <TouchableHighlight
                             onPress={this.pressShare.bind(this)}
                             style={styles.button}
                             underlayColor='#99d9f4'>
-                            <Text style={styles.buttonText}>Share on Facebook</Text>
+                            <Text style={styles.buttonText}>Share</Text>
+                          </TouchableHighlight>
+
+                          <TouchableHighlight
+                            onPress={this.pressSave.bind(this)}
+                            style={styles.button}
+                            underlayColor='#99d9f4'>
+                            <Text style={styles.buttonText}>Save</Text>
                           </TouchableHighlight>
                   </View>
             </Image>
@@ -192,23 +228,63 @@ class RecipeView extends Component{
           <ListView
             automaticallyAdjustContentInsets={false}
             dataSource={this.state.dataSource}
-            renderRow={this.renderRow.bind(this)}/>
-          
+            renderRow={this.renderRow.bind(this)}
+            renderHeader={this.renderHeader.bind(this)}/>
         <View style={styles.fillerView}/>
       </View>
     );
   } 
 
+  renderHeader(){
+  return(
+      <Text style={styles.header}>Ingredients</Text>
+    );
+
+  }
+
   renderRow(ingredient) {
   return (
                 <View>
                     <View style={styles.cellContainer}>
-                        <Text style={styles.description}>{ingredient}</Text>
+                        <Text style={styles.ingredients}>{ingredient}</Text>
                     </View>
                     <View style={styles.separator} />
                 </View>
   );
-} 
+}
+
+addNewFavourite(recipeid, name, time, salty, sour, sweet, bitter, meaty, piquant) {     //all the flavor values are floats with range of 0.0 - 1.0
+    DB.favourites.get({id: recipeid}, (result) => {
+      console.log(result);
+      if (result.length == 0) {
+        DB.favourites.add({id: recipeid, 
+                           recipeName: name, 
+                           totalTimeInSeconds: time, 
+                           saltyValue: salty, 
+                           sourValue: sour, 
+                           sweetValue: sweet, 
+                           bitterValue: bitter, 
+                           meatyValue: meaty, 
+                           piquantValue: piquant}, 
+                           (result) => {
+                          console.log(result);
+          }
+        );
+        
+      } else {
+        DB.favourites.update_id(result[0]._id, {recipeName: name, 
+                                        totalTimeInSeconds: time, 
+                                        saltyValue: salty, 
+                                        sourValue: sour, 
+                                        sweetValue: sweet, 
+                                        bitterValue: bitter, 
+                                        meatyValue: meaty, 
+                                        piquantValue: piquant}, (result) => {
+          console.log(result);
+        });
+      }
+    });
+  } 
 }
 
 module.exports = RecipeView;

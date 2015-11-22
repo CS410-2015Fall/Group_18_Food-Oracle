@@ -80,6 +80,7 @@ var resultCache = {
 var ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
 
 ///////// addNewFavourite: --------- CALL THIS IN RECIPE VIEW ---------
+
   function addNewFavourite(recipeid, name, time, salty, sour, sweet, bitter, meaty, piquant) {     //all the flavor values are floats with range of 0.0 - 1.0
     DB.favourites.get({id: recipeid}, (result) => {
       console.log(result);
@@ -103,6 +104,7 @@ var ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2})
       }
     });
   }
+
 //////////// ----------------------------------
 
 
@@ -130,6 +132,7 @@ class FavouriteView extends Component {
   }
 
   render(){ 
+    this._refreshListView();
 		return (
 			<View style = {styles.container}>
                 <View style = {styles.buttonContainer}>
