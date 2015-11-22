@@ -131,8 +131,11 @@ class FavouriteView extends Component {
     //this._addSample();
   }
 
-  render(){ 
+  getInitialState(){
     this._refreshListView();
+  }
+  
+  render(){ 
 		return (
 			<View style = {styles.container}>
                 <View style = {styles.buttonContainer}>
