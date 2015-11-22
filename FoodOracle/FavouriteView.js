@@ -134,20 +134,10 @@ class FavouriteView extends Component {
   getInitialState(){
     this._refreshListView();
   }
-  
+
   render(){ 
 		return (
-			<View style = {styles.container}>
-                <View style = {styles.buttonContainer}>
-                            <TouchableHighlight 
-                                style = {styles.button}
-                                underlayColor = '#99d9f4'
-                                onPress = {() => this._refreshListView()}>
-                                <Text style = {styles.buttonText}>
-                                    Refresh
-                                </Text>
-                             </TouchableHighlight>    
-                </View>
+			<View style = {styles.container}>   
 				<ListView
                 dataSource={ds.cloneWithRows(this.state.favourites)}
                 renderRow={this.renderList.bind(this)}
