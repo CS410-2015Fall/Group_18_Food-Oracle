@@ -15,21 +15,24 @@
     "react-native-vector-icons": "^0.7.2"
   },
   "devDependencies": {
-    "jest-cli": "^0.7.1"
+    "babel-core": "^6.2.1",
+    "jest-cli": "^0.7.1",
+    "react": "^0.14.3"
   },
   "jest": {
-  "scriptPreprocessor": "node_modules/react-native/jestSupport/scriptPreprocess.js",
-  "setupEnvScriptFile": "node_modules/react-native/jestSupport/env.js",
-  "testPathIgnorePatterns": [
-    "/node_modules/",
-    "packager/react-packager/src/Activity/"
-  ],
-  "testFileExtensions": [
-    "js"
-  ],
-  "unmockedModulePathPatterns": [
-    "promise",
-    "source-map"
-  ]
-}
+    "scriptPreprocessor": "node_modules/react-native/jestSupport/scriptPreprocess.js",
+    "setupEnvScriptFile": "node_modules/react-native/jestSupport/env.js",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "packager/react-packager/src/Activity/"
+    ],
+    "testFileExtensions": [
+      "js"
+    ],
+    "unmockedModulePathPatterns": [
+      "react",
+      "promise",
+      "source-map"
+    ]
+  }
 }
