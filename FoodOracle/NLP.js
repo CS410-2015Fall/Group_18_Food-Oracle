@@ -12,7 +12,7 @@ function NLP(input_sentence, callback){
 	for (int i = 0, i < words.length, i++){
 
 
-    	DB.favourites.get({ingredient_name: words[i]}, (result) => {
+    	DB.ingredients.get({ingredient_name: words[i]}, (result) => {
       		console.log(result);
       		if (result.length == 0) {
       			//not found, add to no found list, ask, if yes, add to fridge and add to database ingredients table; if no, do nothing
