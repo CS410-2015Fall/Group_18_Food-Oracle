@@ -125,7 +125,7 @@ class FridgeView extends Component {
 			ingredients: false,
 			currentIngredient: false,
 			isLoading: false,
-			ingredientString: '',
+			inputString: '',
 		};
 		this._refreshListView();
 	}
@@ -139,14 +139,14 @@ class FridgeView extends Component {
 					<View style = {styles.flowRight}>
 						<TextInput
 							style = {styles.textInput}
-							value = {this.state.ingredientString}
+							value = {this.state.inputString}
 							onChange = {this._onIngredientTextChanged.bind(this)}
 							placeholder = 'Enter ingredient' />
 						<TouchableHighlight 
 							style = {styles.button}
 							underlayColor = '#99d9f4'
 							onPress = {this._onAddPress.bind(this)}>
-							<Text style = {styles.buttonText}>Add ingredient</Text>
+							<Text style = {styles.buttonText}>Add ingredients</Text>
 						</TouchableHighlight>
 					</View>
 					<View style = {styles.flowRight}>
@@ -226,7 +226,7 @@ class FridgeView extends Component {
 	}
 	
 	_onIngredientTextChanged(event) {
-		this.setState({ingredientString: event.nativeEvent.text});
+		this.setState({inputString: event.nativeEvent.text});
 	}
 	
 	_onSearchPress() {
@@ -253,24 +253,43 @@ class FridgeView extends Component {
 	}
 	
 	_onAddPress() {
-		if (this.state.ingredientString != '') {
-			DB.ingredients.get({name: this.state.ingredientString}, (result) => {
-				console.log(result);
-				if (result.length == 0) {
-					DB.ingredients.add({name: this.state.ingredientString,
-						quantity: 'high', isSelected: false}, (result) => {
-							console.log(result);
-							this._refreshListView();
-						}
-					);
-				} else {
-					DB.ingredients.update_id(result[0]._id, {quantity: 'high'}, (result) => {
-						console.log(result);
-						this._refreshListView();
-					});
+		var inputIngredients = this.state.inputString.split(/\s*\,\s*/);
+		console.log(inputIngredients);
+		var x;
+		this._recursiveAddIngredients(inputIngredients);
+		this.setState({inputString: ''});
+	}
+	
+	_recursiveAddIngredients(ingredients) {
+		console.log(ingredients);
+		if (ingredients.length != 0) {
+			var ingredient = ingredients.splice(0, 1);
+			DB.ingredients.get({name: ingredient}, (result) => {
+					if (result.length == 0) {
+						DB.ingredients.add({name: ingredient,
+							quantity: 'high', isSelected: false}, (result) => {
+								DB.ingredients.get_all((result) => {
+									this.setState({
+										isInitialized: true,
+										ingredients: result.rows,
+									});
+									this._recursiveAddIngredients(ingredients);
+								});
+							}
+						);
+					} else {
+						DB.ingredients.update_id(result[0]._id, {quantity: 'high'}, (result) => {
+							DB.ingredients.get_all((result) => {
+								this.setState({
+									isInitialized: true,
+									ingredients: result.rows,
+								});
+								this._recursiveAddIngredients(ingredients);
+							});
+						});
+					}
 				}
-				this.setState({ingredientString: ''});
-			});
+			);
 		}
 	}
 	
