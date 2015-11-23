@@ -263,11 +263,23 @@ class FridgeView extends Component {
 	_recursiveAddIngredients(ingredients) {
 		console.log(ingredients);
 		if (ingredients.length != 0) {
-			var ingredient = ingredients.splice(0, 1);
-			DB.ingredients.get({name: ingredient}, (result) => {
-					if (result.length == 0) {
-						DB.ingredients.add({name: ingredient,
-							quantity: 'high', isSelected: false}, (result) => {
+			var ingredient = ingredients.splice(0, 1)[0].trim();
+			if (ingredient != '') {
+				DB.ingredients.get({name: ingredient}, (result) => {
+						if (result.length == 0) {
+							DB.ingredients.add({name: ingredient,
+								quantity: 'high', isSelected: false}, (result) => {
+									DB.ingredients.get_all((result) => {
+										this.setState({
+											isInitialized: true,
+											ingredients: result.rows,
+										});
+										this._recursiveAddIngredients(ingredients);
+									});
+								}
+							);
+						} else {
+							DB.ingredients.update_id(result[0]._id, {quantity: 'high'}, (result) => {
 								DB.ingredients.get_all((result) => {
 									this.setState({
 										isInitialized: true,
@@ -275,21 +287,13 @@ class FridgeView extends Component {
 									});
 									this._recursiveAddIngredients(ingredients);
 								});
-							}
-						);
-					} else {
-						DB.ingredients.update_id(result[0]._id, {quantity: 'high'}, (result) => {
-							DB.ingredients.get_all((result) => {
-								this.setState({
-									isInitialized: true,
-									ingredients: result.rows,
-								});
-								this._recursiveAddIngredients(ingredients);
 							});
-						});
+						}
 					}
-				}
-			);
+				);
+			} else {
+				this._recursiveAddIngredients(ingredients);
+			}
 		}
 	}
 	
