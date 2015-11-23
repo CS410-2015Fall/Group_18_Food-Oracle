@@ -93,4 +93,3 @@ var FoodOracle = React.createClass({
 });
 
 AppRegistry.registerComponent('FoodOracle', () => FoodOracle);
-modules.exports = FoodOracle;
