@@ -268,6 +268,17 @@ class FavouriteView extends Component {
 
 	_handleRecommenderResponse(response) {
 		console.log('_handleRecommenderResponse');
+		var ids = [];
+		var x;
+		for (x in this.state.favourites) {
+			ids.push(this.state.favourites[x].id);
+		}
+		var y;
+		for (y in response.matches) {
+			if (ids.indexOf(response.matches[y].id) != -1) {
+				response.matches.splice(y, 1);
+			}
+		}
 		this.props.navigator.push({
 			component: SearchResults,
 			passProps: {matches: response.matches}
