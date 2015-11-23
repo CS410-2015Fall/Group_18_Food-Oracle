@@ -149,12 +149,20 @@ class FridgeView extends Component {
 							<Text style = {styles.buttonText}>Add ingredient</Text>
 						</TouchableHighlight>
 					</View>
-					<TouchableHighlight 
-						style = {styles.button}
-						underlayColor = '#99d9f4'
-						onPress = {this._onSearchPress.bind(this)}>
-						<Text style = {styles.buttonText}>Search for recipes</Text>
-					</TouchableHighlight>
+					<View style = {styles.flowRight}>
+						<TouchableHighlight
+							style = {styles.button}
+							underlayColor = '#99d9f4'
+							onPress = {this._onUnselectAllPress.bind(this)}>
+							<Text style = {styles.buttonText}>Unselect all ingredients</Text>
+						</TouchableHighlight>
+						<TouchableHighlight 
+							style = {styles.button}
+							underlayColor = '#99d9f4'
+							onPress = {this._onSearchPress.bind(this)}>
+							<Text style = {styles.buttonText}>Search for recipes</Text>
+						</TouchableHighlight>
+					</View>
 				</View>
 				{spinner}
 				{this.state.isInitialized ? (
@@ -238,24 +246,32 @@ class FridgeView extends Component {
 		this._executeQuery(query);
 	}
 	
+	_onUnselectAllPress() {
+		DB.ingredients.update({isSelected: true}, {isSelected: false}, (result) => {
+			this._refreshListView();
+		});
+	}
+	
 	_onAddPress() {
-		DB.ingredients.get({name: this.state.ingredientString}, (result) => {
-			console.log(result);
-			if (result.length == 0) {
-				DB.ingredients.add({name: this.state.ingredientString,
-					quantity: 'high', isSelected: false}, (result) => {
+		if (this.state.ingredientString != '') {
+			DB.ingredients.get({name: this.state.ingredientString}, (result) => {
+				console.log(result);
+				if (result.length == 0) {
+					DB.ingredients.add({name: this.state.ingredientString,
+						quantity: 'high', isSelected: false}, (result) => {
+							console.log(result);
+							this._refreshListView();
+						}
+					);
+				} else {
+					DB.ingredients.update_id(result[0]._id, {quantity: 'high'}, (result) => {
 						console.log(result);
 						this._refreshListView();
-					}
-				);
-			} else {
-				DB.ingredients.update_id(result[0]._id, {quantity: 'high'}, (result) => {
-					console.log(result);
-					this._refreshListView();
-				});
-			}
-			this.setState({ingredientString: ''});
-		});
+					});
+				}
+				this.setState({ingredientString: ''});
+			});
+		}
 	}
 	
 	_onSelectPress(ingredient) {
@@ -296,7 +312,6 @@ class FridgeView extends Component {
 	
 	_refreshListView() {
 		DB.ingredients.get_all((result) => {
-			console.log(result);
 			this.setState({
 				isInitialized: true,
 				ingredients: result.rows,
