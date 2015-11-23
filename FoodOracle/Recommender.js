@@ -14,12 +14,12 @@ function Recommender(parentContext) {
 		var piquantValues = [];
 		var i;
 		for (i in favorites) {
-			saltyValues.push(favorites[i].saltyValue);
-			sourValues.push(favorites[i].sourValue);
-			sweetValues.push(favorites[i].sweetValue);
-			bitterValues.push(favorites[i].bitterValue);
-			meatyValues.push(favorites[i].meatyValue);
-			piquantValues.push(favorites[i].piquantValue);
+			if (favorites[i].saltyValue != undefined) saltyValues.push(favorites[i].saltyValue);
+			if (favorites[i].sourValue != undefined) sourValues.push(favorites[i].sourValue);
+			if (favorites[i].sweetValue != undefined) sweetValues.push(favorites[i].sweetValue);
+			if (favorites[i].bitterValue != undefined) bitterValues.push(favorites[i].bitterValue);
+			if (favorites[i].meatyValue != undefined) meatyValues.push(favorites[i].meatyValue);
+			if (favorites[i].piquantValue != undefined) piquantValues.push(favorites[i].piquantValue);
 		}
 		
 		var saltyMean = Math.mean(saltyValues);
