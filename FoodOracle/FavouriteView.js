@@ -160,8 +160,27 @@ class FavouriteView extends Component {
     //FOR TESTING:
     //this._addSample();
   }
+
   getInitialState(){
-    this._refreshListView();
+    DB.favourites.get_all((result) => {
+      console.log('_refreshListView');
+      console.log(result);
+      this.setState({
+        isInitialized: true,
+        favourites: result.rows,
+      });
+      });
+  }
+
+  componentDidMount(){
+    DB.favourites.get_all((result) => {
+      console.log('_refreshListView');
+      console.log(result);
+      this.setState({
+        isInitialized: true,
+        favourites: result.rows,
+      });
+      });
   }
 
   render(){
