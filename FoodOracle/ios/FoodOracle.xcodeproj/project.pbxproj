@@ -24,6 +24,7 @@
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		25A8BCFA1BDF1EF50026270A /* KDSocialShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A8BCF91BDF1EF50026270A /* KDSocialShare.m */; };
 		25A8BCFC1BDF1F170026270A /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25A8BCFB1BDF1F170026270A /* Social.framework */; };
+		25CE36CE1C03C9960087B028 /* FoodOracleUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 25CE36CD1C03C9960087B028 /* FoodOracleUITests.m */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		C4356DCB1BE18EF500E66E6B /* libRCTBrowser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4356DBD1BE18EAA00E66E6B /* libRCTBrowser.a */; };
 		C4356DE61BE2B54600E66E6B /* libRNBlur.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4356DE51BE2B53400E66E6B /* libRNBlur.a */; };
@@ -104,6 +105,13 @@
 			remoteGlobalIDString = 83CBBA2E1A601D0E00E9B192;
 			remoteInfo = React;
 		};
+		25CE36D01C03C9960087B028 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
+			remoteInfo = FoodOracle;
+		};
 		78C398B81ACF4ADC00677621 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */;
@@ -178,6 +186,9 @@
 		25A8BCF81BDF1EF50026270A /* KDSocialShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KDSocialShare.h; path = "../node_modules/react-native-social-share/iOS/KDSocialShare.h"; sourceTree = "<group>"; };
 		25A8BCF91BDF1EF50026270A /* KDSocialShare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KDSocialShare.m; path = "../node_modules/react-native-social-share/iOS/KDSocialShare.m"; sourceTree = "<group>"; };
 		25A8BCFB1BDF1F170026270A /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		25CE36CB1C03C9960087B028 /* FoodOracleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodOracleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		25CE36CD1C03C9960087B028 /* FoodOracleUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FoodOracleUITests.m; sourceTree = "<group>"; };
+		25CE36CF1C03C9960087B028 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		C4356DB61BE18EA900E66E6B /* RCTBrowser.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBrowser.xcodeproj; path = "../node_modules/react-native-browser/RCTBrowser.xcodeproj"; sourceTree = "<group>"; };
@@ -221,6 +232,13 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		25CE36C81C03C9960087B028 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,6 +340,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		25CE36CC1C03C9960087B028 /* FoodOracleUITests */ = {
+			isa = PBXGroup;
+			children = (
+				25CE36CD1C03C9960087B028 /* FoodOracleUITests.m */,
+				25CE36CF1C03C9960087B028 /* Info.plist */,
+			);
+			path = FoodOracleUITests;
+			sourceTree = "<group>";
+		};
 		78C398B11ACF4ADC00677621 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -369,6 +396,7 @@
 				13B07FAE1A68108700A75B9A /* FoodOracle */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* FoodOracleTests */,
+				25CE36CC1C03C9960087B028 /* FoodOracleUITests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 			);
 			indentWidth = 2;
@@ -380,6 +408,7 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* FoodOracle.app */,
 				00E356EE1AD99517003FC87E /* FoodOracleTests.xctest */,
+				25CE36CB1C03C9960087B028 /* FoodOracleUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -471,6 +500,24 @@
 			productReference = 13B07F961A680F5B00A75B9A /* FoodOracle.app */;
 			productType = "com.apple.product-type.application";
 		};
+		25CE36CA1C03C9960087B028 /* FoodOracleUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 25CE36D21C03C9960087B028 /* Build configuration list for PBXNativeTarget "FoodOracleUITests" */;
+			buildPhases = (
+				25CE36C71C03C9960087B028 /* Sources */,
+				25CE36C81C03C9960087B028 /* Frameworks */,
+				25CE36C91C03C9960087B028 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				25CE36D11C03C9960087B028 /* PBXTargetDependency */,
+			);
+			name = FoodOracleUITests;
+			productName = FoodOracleUITests;
+			productReference = 25CE36CB1C03C9960087B028 /* FoodOracleUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -486,6 +533,10 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = HWX4W24X6V;
+					};
+					25CE36CA1C03C9960087B028 = {
+						CreatedOnToolsVersion = 7.1.1;
+						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 				};
 			};
@@ -562,6 +613,7 @@
 			targets = (
 				13B07F861A680F5B00A75B9A /* FoodOracle */,
 				00E356ED1AD99517003FC87E /* FoodOracleTests */,
+				25CE36CA1C03C9960087B028 /* FoodOracleUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -701,6 +753,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		25CE36C91C03C9960087B028 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -722,6 +781,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		25CE36C71C03C9960087B028 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				25CE36CE1C03C9960087B028 /* FoodOracleUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -729,6 +796,11 @@
 			isa = PBXTargetDependency;
 			target = 13B07F861A680F5B00A75B9A /* FoodOracle */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
+		};
+		25CE36D11C03C9960087B028 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 13B07F861A680F5B00A75B9A /* FoodOracle */;
+			targetProxy = 25CE36D01C03C9960087B028 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -809,6 +881,38 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = FoodOracle;
 				PROVISIONING_PROFILE = "";
+			};
+			name = Release;
+		};
+		25CE36D31C03C9960087B028 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = FoodOracleUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.devrandy.FoodOracleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = FoodOracle;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		25CE36D41C03C9960087B028 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = FoodOracleUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.devrandy.FoodOracleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = FoodOracle;
+				USES_XCTRUNNER = YES;
 			};
 			name = Release;
 		};
@@ -915,6 +1019,15 @@
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
 				13B07F951A680F5B00A75B9A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		25CE36D21C03C9960087B028 /* Build configuration list for PBXNativeTarget "FoodOracleUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				25CE36D31C03C9960087B028 /* Debug */,
+				25CE36D41C03C9960087B028 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

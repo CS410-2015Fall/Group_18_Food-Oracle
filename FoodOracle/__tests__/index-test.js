@@ -1,11 +1,16 @@
 jest.dontMock('../index.ios');
-var TestUtils = require('react-addons-test-utils');
-var React = require('react-native');
+jest.setMock('react-native', {
+    NativeModules: {}
+});
+var React = require('react/addons');
+var TestUtils = React.addons.TestUtils;
+
+const i = require('../index.ios.js');
 
 describe('Search', function() {
 
  
   it('should exists', function() {
- 	true;   
+ 	
   });
 });
