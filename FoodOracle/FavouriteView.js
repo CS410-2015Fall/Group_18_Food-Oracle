@@ -141,8 +141,16 @@ class FavouriteView extends Component {
     this._refreshListView(() => {}, []);
   }
 
-  render(){
-  	
+  render() {
+  	DB.preferences.get({key: 'areFavoritesUpdated'}, (result) => {
+  		if (result.length == 0) {
+  			DB.preferences.add({key: 'areFavoritesUpdated', value: false}, (result) => {});
+  		} else if (result[0].value) {
+  			DB.preferences.update({key: 'areFavoritesUpdated'}, {value: false}, (result) => {
+  				this._refreshListView(() => {}, []);
+  			});
+  		}
+  	});
 		return (
 			<View style = {styles.container}>
 				<View style = {styles.buttonContainer}>
@@ -156,20 +164,18 @@ class FavouriteView extends Component {
 							</Text>
 						</TouchableHighlight>
 					</View>
-        </View>
+				</View>
 				<ListView
-                dataSource={ds.cloneWithRows(this.state.favourites)}
-                renderRow={this.renderList.bind(this)}
-                style={styles.listView}
-                automaticallyAdjustContentInsets={true}
-                
-                />
-          </View>
-			);
-	}
-    //  if manual, instead of automaticallyAdjustContentInsets: contentInset={{top:65, bottom:-10}}
+					dataSource={ds.cloneWithRows(this.state.favourites)}
+					renderRow={this.renderList.bind(this)}
+					style={styles.listView}
+					automaticallyAdjustContentInsets={true}
+				/>
+			</View>
+		);
+  }
 	
-      renderList(recipe){  
+  	renderList(recipe) {  
   		return (
   			<TouchableOpacity onPress={() => this.rowPressed(recipe.id)}>
                 <View>
@@ -193,12 +199,12 @@ class FavouriteView extends Component {
   			);
   	}
   	
-  rowPressed(recipeID){
+  rowPressed(recipeID) {
         this._executeQuery(recipeID); 
 
   }
 
-  _onDeletePress(recipeID){
+  _onDeletePress(recipeID) {
     DB.favourites.remove({id: recipeID}, (result) => {
     	console.log('_onDeletePress');
       console.log(result);
@@ -214,7 +220,7 @@ class FavouriteView extends Component {
   	}
   }
 
-  _executeQuery(query){
+  _executeQuery(query) {
   	console.log('_executeQuery');
     console.log(query)
     var handler = function(self, responseData) {
@@ -230,7 +236,7 @@ class FavouriteView extends Component {
     fetch.getRequest(encodeURIComponent(query), handler, errorHandler);    
   }
 
-  _handleResponse(response){
+  _handleResponse(response) {
   console.log('_handleResponse');
     console.log(response)
     this.props.navigator.push({
@@ -276,7 +282,7 @@ class FavouriteView extends Component {
 		fetch.recommendRequest(encodeURIComponent(query), handler, errorHandler);		
 	}
 
-    _refreshListView(func, args) {
+  _refreshListView(func, args) {
     DB.favourites.get_all((result) => {
     	console.log('_refreshListView');
       console.log(result);
