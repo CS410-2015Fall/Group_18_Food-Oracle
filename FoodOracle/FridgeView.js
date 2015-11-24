@@ -127,7 +127,7 @@ class FridgeView extends Component {
 			isLoading: false,
 			inputString: '',
 		};
-		this._refreshListView();
+		this._refreshListView(() => {}, []);
 	}
 	
 	render() {
@@ -178,13 +178,13 @@ class FridgeView extends Component {
 						if (option == 'empty') {
 							DB.ingredients.remove_id(this.state.currentIngredient._id, (result) => {
 								console.log(result);
-								this._refreshListView();
+								this._refreshListView(() => {}, []);
 							});
 						} else {
 							DB.ingredients.update_id(this.state.currentIngredient._id, {quantity: option},
 								(result) => {
 									console.log(result);
-									this._refreshListView();
+									this._refreshListView(() => {}, []);
 								}
 							);
 						}
@@ -248,7 +248,7 @@ class FridgeView extends Component {
 	
 	_onUnselectAllPress() {
 		DB.ingredients.update({isSelected: true}, {isSelected: false}, (result) => {
-			this._refreshListView();
+			this._refreshListView(() => {}, []);
 		});
 	}
 	
@@ -269,24 +269,12 @@ class FridgeView extends Component {
 						if (result.length == 0) {
 							DB.ingredients.add({name: ingredient,
 								quantity: 'high', isSelected: false}, (result) => {
-									DB.ingredients.get_all((result) => {
-										this.setState({
-											isInitialized: true,
-											ingredients: result.rows,
-										});
-										this._recursiveAddIngredients(ingredients);
-									});
+									this._refreshListView(this._recursiveAddIngredients, [ingredients]);
 								}
 							);
 						} else {
 							DB.ingredients.update_id(result[0]._id, {quantity: 'high'}, (result) => {
-								DB.ingredients.get_all((result) => {
-									this.setState({
-										isInitialized: true,
-										ingredients: result.rows,
-									});
-									this._recursiveAddIngredients(ingredients);
-								});
+								this._refreshListView(this._recursiveAddIngredients, [ingredients]);
 							});
 						}
 					}
@@ -301,7 +289,7 @@ class FridgeView extends Component {
 		DB.ingredients.update_id(ingredient._id, {isSelected: !(ingredient.isSelected)},
 			(result) => {
 				console.log(result);
-				this._refreshListView();
+				this._refreshListView(() => {}, []);
 			}
 		);
 	}
@@ -333,12 +321,13 @@ class FridgeView extends Component {
 		fetch.searchRequest(encodeURIComponent(query), handler, errorHandler);		
 	}
 	
-	_refreshListView() {
+	_refreshListView(func, args) {
 		DB.ingredients.get_all((result) => {
 			this.setState({
 				isInitialized: true,
 				ingredients: result.rows,
 			});
+			func.apply(this, args);
 		});
 	}
 	

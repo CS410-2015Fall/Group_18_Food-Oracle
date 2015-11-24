@@ -2,7 +2,6 @@
 
 var React = require('react-native');
 var Icon = require('react-native-vector-icons/Ionicons');
-var Favouritesamples = require('./favouritesamples.json');
 var Fetch = require('./Fetch');
 var RecipeView = require('./RecipeView');
 var DB = require('./DB.js');
@@ -92,7 +91,7 @@ var styles = StyleSheet.create({
 });
 
 var resultCache = {
-	recipes: Favouritesamples.favourites
+	recipes: false,
 } 
 
 var sortByTime = function(item) {
@@ -119,18 +118,10 @@ var ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2})
             console.log(result);
           }
         );
-        /*DB.flavors.add({id: recipeid, saltyValue: salty, sourValue: sour, sweetValue: sweet, bitterValue: bitter, meatyValue: meaty, piquantValue: piquant}, (result) => {
-            console.log(result);
-          }
-        ); */
       } else {
         DB.favourites.update_id(result[0]._id, {recipeName: name, totalTimeInSeconds: time, saltyValue: salty, sourValue: sour, sweetValue: sweet, bitterValue: bitter, meatyValue: meaty, piquantValue: piquant}, (result) => {
           console.log(result);
         });
-        /*DB.flavors.update_id(result[0]._id, {saltyValue: salty, sourValue: sour, sweetValue: sweet, bitterValue: bitter, meatyValue: meaty, piquantValue: piquant}, (result) => {
-          console.log(result);
-        }); */
-
       }
     });
   }
@@ -139,15 +130,6 @@ var ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2})
 
 
 class FavouriteView extends Component {
-//var FavouriteView = React.createClass ({
-	/*getInitialState: function() {
-		var ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
-		return {
-			dataSource: ds.cloneWithRows(resultCache.recipes),
-		};
-	},
-  */
-
 
     constructor(props) {
     super(props);
@@ -156,34 +138,19 @@ class FavouriteView extends Component {
       favourites: false,
   
     };
-    this._refreshListView();
-    //FOR TESTING:
-    //this._addSample();
+    this._refreshListView(() => {}, []);
   }
 
-  getInitialState(){
-    DB.favourites.get_all((result) => {
-      console.log('_refreshListView');
-      console.log(result);
-      this.setState({
-        isInitialized: true,
-        favourites: result.rows,
-      });
-      });
-  }
-
-  componentDidMount(){
-    DB.favourites.get_all((result) => {
-      console.log('_refreshListView');
-      console.log(result);
-      this.setState({
-        isInitialized: true,
-        favourites: result.rows,
-      });
-      });
-  }
-
-  render(){
+  render() {
+  	DB.preferences.get({key: 'areFavoritesUpdated'}, (result) => {
+  		if (result.length == 0) {
+  			DB.preferences.add({key: 'areFavoritesUpdated', value: false}, (result) => {});
+  		} else if (result[0].value) {
+  			DB.preferences.update({key: 'areFavoritesUpdated'}, {value: false}, (result) => {
+  				this._refreshListView(() => {}, []);
+  			});
+  		}
+  	});
 		return (
 			<View style = {styles.container}>
 				<View style = {styles.buttonContainer}>
@@ -197,20 +164,18 @@ class FavouriteView extends Component {
 							</Text>
 						</TouchableHighlight>
 					</View>
-        </View>
+				</View>
 				<ListView
-                dataSource={ds.cloneWithRows(this.state.favourites)}
-                renderRow={this.renderList.bind(this)}
-                style={styles.listView}
-                automaticallyAdjustContentInsets={true}
-                
-                />
-          </View>
-			);
-	}
-    //  if manual, instead of automaticallyAdjustContentInsets: contentInset={{top:65, bottom:-10}}
+					dataSource={ds.cloneWithRows(this.state.favourites)}
+					renderRow={this.renderList.bind(this)}
+					style={styles.listView}
+					automaticallyAdjustContentInsets={true}
+				/>
+			</View>
+		);
+  }
 	
-      renderList(recipe){  
+  	renderList(recipe) {  
   		return (
   			<TouchableOpacity onPress={() => this.rowPressed(recipe.id)}>
                 <View>
@@ -234,22 +199,17 @@ class FavouriteView extends Component {
   			);
   	}
   	
-  rowPressed(recipeID){
+  rowPressed(recipeID) {
         this._executeQuery(recipeID); 
 
   }
 
-  _onDeletePress(recipeID){
+  _onDeletePress(recipeID) {
     DB.favourites.remove({id: recipeID}, (result) => {
     	console.log('_onDeletePress');
       console.log(result);
-      this._refreshListView();
+      this._refreshListView(() => {}, []);
     });
-    /*DB.flavors.remove({id: recipeID}, (result) => {
-      console.log(result);
-      this._refreshListView();
-    }); */
-
   }
   
   _onRecommendPress() {
@@ -260,7 +220,7 @@ class FavouriteView extends Component {
   	}
   }
 
-  _executeQuery(query){
+  _executeQuery(query) {
   	console.log('_executeQuery');
     console.log(query)
     var handler = function(self, responseData) {
@@ -276,7 +236,7 @@ class FavouriteView extends Component {
     fetch.getRequest(encodeURIComponent(query), handler, errorHandler);    
   }
 
-  _handleResponse(response){
+  _handleResponse(response) {
   console.log('_handleResponse');
     console.log(response)
     this.props.navigator.push({
@@ -322,7 +282,7 @@ class FavouriteView extends Component {
 		fetch.recommendRequest(encodeURIComponent(query), handler, errorHandler);		
 	}
 
-    _refreshListView() {
+  _refreshListView(func, args) {
     DB.favourites.get_all((result) => {
     	console.log('_refreshListView');
       console.log(result);
@@ -330,30 +290,10 @@ class FavouriteView extends Component {
         isInitialized: true,
         favourites: result.rows,
       });
+      func.apply(this, args);
     });
-  }
-//// FOR TESTING:
-    _addSample(){
-          DB.favourites.add({id: "The-Best-French-Onion-Soup-A-love-story-1319267",
-          recipeName: "The Best French Onion Soup – A love story", totalTimeInSeconds: 2400}, (result) => {
-            console.log(result);
-            this._addSample1();
-          });
-    }
-    _addSample1(){
-                DB.favourites.add({id: "Crock-Pot-Japanese-Onion-Soup-1319396",
-          recipeName: "Crock Pot Japanese Onion Soup", totalTimeInSeconds: 2100}, (result) => {
-            console.log(result);
-            addNewFavourite("Brown-Ale-French-Onion-Soup-1318732","Brown Ale French Onion Soup", 7800, 1.0, 1.0, 0.5, 0.8, 0.2, 0.0);
-
-            this._refreshListView();
-          }
-          );
-    }
-    
-
-
-  };	
+  } 
+};	
 
 
 
