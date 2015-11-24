@@ -169,7 +169,7 @@ class FridgeView extends Component {
 					<ListView
 						dataSource = {ds.cloneWithRows(this.state.ingredients)}
 						renderRow = {this.renderRow.bind(this)}
-						automaticallyAdjustContentInsets = {true}
+						automaticallyAdjustContentInsets = {false}
 					/>
 				) : (<View/>)}
 				<FMPicker ref = {'picker'}

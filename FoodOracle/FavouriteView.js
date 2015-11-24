@@ -169,7 +169,7 @@ class FavouriteView extends Component {
           dataSource={ds.cloneWithRows(this.state.favourites)}
           renderRow={this.renderList.bind(this)}
           style={styles.listView}
-          automaticallyAdjustContentInsets={true}
+          automaticallyAdjustContentInsets={false}
         />
       </View>
     );
