@@ -6,7 +6,8 @@ var Favouritesamples = require('./favouritesamples.json');
 var Fetch = require('./Fetch');
 var RecipeView = require('./RecipeView');
 var DB = require('./DB.js');
-
+var Recommender = require('./Recommender');
+var SearchResults = require('./SearchResults');
 
 var {
   Component,
@@ -63,19 +64,48 @@ var styles = StyleSheet.create({
       color: 'black',
       alignSelf: 'center',
     },
-      buttonContainer: {
-    flex: 0.125,
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignSelf: 'stretch',
-    backgroundColor: 'transparent',
-    marginTop: 65,
-  },
+    buttonContainer: {
+			flex: 0.125,
+			justifyContent: 'center',
+			alignItems: 'center',
+			alignSelf: 'stretch',
+			backgroundColor: 'transparent',
+			marginTop: 65,
+		},
+		button2: {
+			flex: 1,
+			flexDirection: 'row',
+			borderColor: 'rgba(72,187,236,0.2)',
+			borderWidth: 1,
+			borderRadius: 8,
+			alignSelf: 'stretch',
+			justifyContent: 'center',
+			backgroundColor: 'rgba(72,187,236,0.2)',
+		},
+		flowRight: {
+			flexDirection: 'row',
+			alignItems: 'center',
+			alignSelf: 'stretch',
+			marginLeft: 10,
+			marginRight: 10,
+		},
 });
 
 var resultCache = {
 	recipes: Favouritesamples.favourites
 } 
+
+var sortByTime = function(item) {
+  item.sort(compare);
+}
+
+var compare = function(a, b){
+	if (a.totalTimeInSeconds < b.totalTimeInSeconds)
+		return -1;
+	if (a.totalTimeInSeconds > b.totalTimeInSeconds)
+		return 1;
+	return 0;
+}
 
 var ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
 
@@ -130,14 +160,25 @@ class FavouriteView extends Component {
     //FOR TESTING:
     //this._addSample();
   }
-
   getInitialState(){
     this._refreshListView();
   }
 
-  render(){ 
+  render(){
 		return (
-			<View style = {styles.container}>   
+			<View style = {styles.container}>
+				<View style = {styles.buttonContainer}>
+					<View style = {styles.flowRight}>
+						<TouchableHighlight
+							style = {styles.button2}
+							underlayColor = '#99d9f4'
+							onPress = {() => this._onRecommendPress()}>
+							<Text style = {styles.buttonText}>
+								Recommend recipes
+							</Text>
+						</TouchableHighlight>
+					</View>
+        </View>
 				<ListView
                 dataSource={ds.cloneWithRows(this.state.favourites)}
                 renderRow={this.renderList.bind(this)}
@@ -145,7 +186,7 @@ class FavouriteView extends Component {
                 automaticallyAdjustContentInsets={true}
                 
                 />
-                </View>
+          </View>
 			);
 	}
     //  if manual, instead of automaticallyAdjustContentInsets: contentInset={{top:65, bottom:-10}}
@@ -181,7 +222,9 @@ class FavouriteView extends Component {
 
   _onDeletePress(recipeID){
     DB.favourites.remove({id: recipeID}, (result) => {
+    	console.log('_onDeletePress');
       console.log(result);
+      this._refreshListView();
     });
     /*DB.flavors.remove({id: recipeID}, (result) => {
       console.log(result);
@@ -189,8 +232,17 @@ class FavouriteView extends Component {
     }); */
 
   }
+  
+  _onRecommendPress() {
+  	console.log('_onRecommendPress');
+  	if (Object.keys(this.state.favourites).length != 0) {
+  		var recommender = new Recommender(this);
+  		this._executeRecommenderQuery(recommender.calculateFlavorRanges(this.state.favourites));
+  	}
+  }
 
   _executeQuery(query){
+  	console.log('_executeQuery');
     console.log(query)
     var handler = function(self, responseData) {
       self._handleResponse(responseData);
@@ -206,6 +258,7 @@ class FavouriteView extends Component {
   }
 
   _handleResponse(response){
+  console.log('_handleResponse');
     console.log(response)
     this.props.navigator.push({
       component: RecipeView,
@@ -213,9 +266,46 @@ class FavouriteView extends Component {
     });
   }
 
+	_handleRecommenderResponse(response) {
+		console.log('_handleRecommenderResponse');
+		var ids = [];
+		var x;
+		for (x in this.state.favourites) {
+			ids.push(this.state.favourites[x].id);
+		}
+		var y;
+		for (y in response.matches) {
+			if (ids.indexOf(response.matches[y].id) != -1) {
+				response.matches.splice(y, 1);
+			}
+		}
+		this.props.navigator.push({
+			component: SearchResults,
+			passProps: {matches: response.matches}
+		});
+	}
+
+	_executeRecommenderQuery(query) {
+		console.log('_executeRecommenderQuery');
+		console.log(query);
+		var handler = function(self, responseData) {
+			resultCache.recipes = responseData.matches;
+			sortByTime(resultCache.recipes);
+			self._handleRecommenderResponse(responseData);
+		}
+    var errorHandler = function(error) {
+      React.AlertIOS.alert(
+				'Error',
+				'There seems to be an issue connecting to the network.  ' + error
+			);
+    }
+		var fetch = new Fetch(this);
+		fetch.recommendRequest(encodeURIComponent(query), handler, errorHandler);		
+	}
 
     _refreshListView() {
     DB.favourites.get_all((result) => {
+    	console.log('_refreshListView');
       console.log(result);
       this.setState({
         isInitialized: true,
