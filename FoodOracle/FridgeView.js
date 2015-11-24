@@ -146,7 +146,7 @@ class FridgeView extends Component {
 							style = {styles.button}
 							underlayColor = '#99d9f4'
 							onPress = {this._onAddPress.bind(this)}>
-							<Text style = {styles.buttonText}>Add ingredients</Text>
+							<Text style = {styles.buttonText}>Add</Text>
 						</TouchableHighlight>
 					</View>
 					<View style = {styles.flowRight}>
@@ -154,13 +154,13 @@ class FridgeView extends Component {
 							style = {styles.button}
 							underlayColor = '#99d9f4'
 							onPress = {this._onUnselectAllPress.bind(this)}>
-							<Text style = {styles.buttonText}>Unselect all ingredients</Text>
+							<Text style = {styles.buttonText}>Unselect All</Text>
 						</TouchableHighlight>
 						<TouchableHighlight 
 							style = {styles.button}
 							underlayColor = '#99d9f4'
 							onPress = {this._onSearchPress.bind(this)}>
-							<Text style = {styles.buttonText}>Search for recipes</Text>
+							<Text style = {styles.buttonText}>Search recipes</Text>
 						</TouchableHighlight>
 					</View>
 				</View>

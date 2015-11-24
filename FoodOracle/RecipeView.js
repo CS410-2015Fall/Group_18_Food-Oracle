@@ -175,8 +175,6 @@ class RecipeView extends Component{
     var sweet = recipe.flavors.Sweet;
     var piquant = recipe.flavors.Piquant;
 
-    var test = "SALTYYYY";
-    console.log(test);
     console.log(recipe.flavors.Salty);
     //console.log(id + name + time + "" + salty + "" + sour + "" + sweet + "" + bitter + "" + meaty + "" + piquant)
 
