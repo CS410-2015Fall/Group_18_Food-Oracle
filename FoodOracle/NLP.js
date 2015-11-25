@@ -5,14 +5,14 @@ var DB = require('./DB.js');
 //a dictionary of food ingredients that we will test the input words against. Added so far: starts with A, B, C,
 
 
-function NLP(input_sentence, callback){
-	var words = input_sentence.split(" ");
+function NLP(words, callback){
+	//var words = input_sentence.split(" ");
 	var noFound = [];
 	var foundIngredients[];
 	for (int i = 0, i < words.length, i++){
 
 
-    	DB.ingredients.get({ingredient_name: words[i]}, (result) => {
+    	DB.ingredients.get({ingredient_name: words[i].toLowerCase()}, (result) => {
       		console.log(result);
       		if (result.length == 0) {
       			//not found, add to no found list, ask, if yes, add to fridge and add to database ingredients table; if no, do nothing
