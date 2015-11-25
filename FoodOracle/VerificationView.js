@@ -1,6 +1,6 @@
 'use strict'
 
-var COMMONWORDS = ["I", "have", "some", "and", "also", "a", "too", "in", "my", "fridge", "refridgerator"];
+var COMMONWORDS = ["i", "have", "some", "and", "also", "a", "too", "in", "my", "fridge", "refridgerator", "no", "couple", "of"];
 var React = require('react-native');
 var Icon = require('react-native-vector-icons/Ionicons');
 //var Favouritesamples = require('./favouritesamples.json');
@@ -19,6 +19,7 @@ var {
 	ListView,
 	TouchableHighlight,
 	TouchableOpacity,
+  TextInput,
 } = React;
 
 var styles = StyleSheet.create({
@@ -46,6 +47,16 @@ var styles = StyleSheet.create({
         height: 1,
         backgroundColor: '#dddddd'
     },
+      button1: {
+    flex: 1,
+    flexDirection: 'row',
+    borderColor: 'rgba(72,187,236,0.2)',
+    borderWidth: 1,
+    borderRadius: 8,
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(72,187,236,0.2)',
+  },
     button: {
       position: 'absolute',
       right: 10,
@@ -71,7 +82,7 @@ var styles = StyleSheet.create({
 			alignItems: 'center',
 			alignSelf: 'stretch',
 			backgroundColor: 'transparent',
-			marginTop: 65,
+			marginTop: 0,
 		},
 		button2: {
 			flex: 1,
@@ -90,6 +101,20 @@ var styles = StyleSheet.create({
 			marginLeft: 10,
 			marginRight: 10,
 		},
+      textInput: {
+    height: 35,
+    paddingLeft: 5,
+    marginRight: 5,
+    flex: 2,
+    fontSize: 18,
+    borderWidth: 1,
+    borderColor: '#48BBEC',
+    borderRadius: 8,
+    color: 'rgba(20,50,87,1)',
+    justifyContent: 'center',
+    backgroundColor: '#FFFFFF',
+  },
+
 });
 
 var resultCache = {
@@ -112,40 +137,57 @@ class VerificationView extends Component {
     constructor(props) {
     super(props);
     this.state = {
-      //dataSource: ds.cloneWithRows(this.props.noFound)  
     };
+
+    this.filterCommonWords();
     this._refreshListView();
 
   }
   getInitialState(){
+        this.filterCommonWords();
     this._refreshListView();
+
   }
 
   render(){
-  	console.log(this.props.noFound);
-    this.filterCommonWords();
+  	//console.log(this.props.noFound);
+
 		return (
 			<View style = {styles.container}>
-				<View style = {styles.buttonContainer}>
-					<View style = {styles.flowRight}>
-						<TouchableHighlight
-							style = {styles.button2}
-							underlayColor = '#99d9f4'
-							onPress = {() => _refreshListView()}> 
-							<Text style = {styles.buttonText}>
-								Recommend recipes
-							</Text>
-						</TouchableHighlight>
-					</View>
-        </View>
+
 				<ListView
                 dataSource={ds.cloneWithRows(datasourceInput)}
                 renderRow={this.renderList.bind(this)}
                 style={styles.listView}
-                automaticallyAdjustContentInsets={true}
-                
-                />
+                automaticallyAdjustContentInsets={true}/>
+        <View style = {styles.buttonContainer}>
+          <View style = {styles.flowRight}>
+            <TextInput
+              style = {styles.textInput}
+              value = {this.state.inputString}
+              onChange = {this._onIngredientTextChanged.bind(this)}
+              placeholder = 'Enter ingredient' />
+            <TouchableHighlight 
+              style = {styles.button1}
+              underlayColor = '#99d9f4'
+              onPress = {this._addPressed.bind(this)}>
+              <Text style = {styles.buttonText}>Add</Text>
+            </TouchableHighlight>
           </View>
+          </View>
+                        <View style = {styles.buttonContainer}>
+          <View style = {styles.flowRight}>
+            <TouchableHighlight
+              style = {styles.button2}
+              underlayColor = '#99d9f4'
+              onPress = {() => this._okPressed()}> 
+              <Text style = {styles.buttonText}>
+                OK
+              </Text>
+            </TouchableHighlight>
+          </View>
+        </View>
+        </View>
 			);
 	}
     //  if manual, instead of automaticallyAdjustContentInsets: contentInset={{top:65, bottom:-10}}
@@ -155,19 +197,18 @@ class VerificationView extends Component {
     // () => this._onDeletePress(recipe.id)  //onPress
 
 
-      renderList(recipe){  
+      renderList(word){  
   		return (
   			<TouchableOpacity onPress={() => {}}>
                 <View>
                     <View style={styles.cellContainer}>
                         <View style={styles.rightContainer}>
-                    		<Text>{recipe.recipeName}</Text>
-                        	<Text>{recipe.totalTimeInSeconds/60} Minutes</Text>
+                    		<Text>{word}</Text>
                         </View>
                             <TouchableHighlight 
                                 style = {styles.button}
                                 underlayColor = '#99d9f4'
-                                onPress = {() => {}}>
+                                onPress = {() => this._onDeletePress(word)}>
                                 <Text style = {styles.buttonText}>
                                     Delete
                                 </Text>
@@ -179,53 +220,97 @@ class VerificationView extends Component {
   			);
   	}
   	
-  rowPressed(recipeID){
-        this._executeQuery(recipeID); 
 
-  }
+
+    _addPressed(){
+      var inputAdd = this.state.inputString;
+      datasourceInput.push(inputAdd);
+      this._refreshListView();
+    }
 
   filterCommonWords(){
+    console.log("-------------- filter running -----------------");
     var input = this.props.noFound;
     var i;
+    datasourceInput = [];
     for (i=0; i<input.length; i++) {
           var COMMONWORDS_index = COMMONWORDS.indexOf(input[i].toLowerCase());
           if(COMMONWORDS_index == -1){
             //add to datasource
             datasourceInput.push(input[i].toLowerCase());
+            console.log(i);
+            console.log(datasourceInput);
           }
 
     }
+    console.log(datasourceInput);
   }
 
   _onDeletePress(ingredientName){
-    DB.favourites.remove({name: recipeID}, (result) => {
-    	console.log('_onDeletePress');
-      console.log(result);
-      this._refreshListView();
-    });
+    console.log("---------------delete pressed-------------------");
+    console.log(ingredientName);
+    var index = datasourceInput.indexOf(ingredientName);
+    if (index >-1){
+      datasourceInput.splice(index, 1);
+    }
+
+    this._refreshListView();
   }
   
+  _okPressed(){
 
+    this._recursiveAddIngredients(datasourceInput);
+    DB.ingredients.get_all((result) => {
+      console.log("----------DB RESULT---------");
+      console.log(result);
+    });
+      this.props.navigator.pop({
+      //component: SearchResults,
+      //passProps: {matches: response.matches}
+    });
+  }
 
+    _recursiveAddIngredients(ingredients) {
+    console.log("----------recursive add---------");
+    console.log(ingredients);
+    if (ingredients.length != 0) {
+      var ingredient = ingredients.splice(0, 1)[0].trim();
+      if (ingredient != '') {
+        DB.ingredients.get({name: ingredient}, (result) => {
+            if (result.length == 0) {
+              DB.ingredients.add({name: ingredient,
+                quantity: 'high', isSelected: false}, (result) => {
+                  //this._refreshListView(this._recursiveAddIngredients, [ingredients]);
+                }
+              );
+            } else {
+              DB.ingredients.update_id(result[0]._id, {quantity: 'high'}, (result) => {
+                //this._refreshListView(this._recursiveAddIngredients, [ingredients]);
+              });
+            }
+          }
+        );
+      } else {
+        this._recursiveAddIngredients(ingredients);
+      }
+    }
+  }
+
+  _onIngredientTextChanged(event) {
+    this.setState({inputString: event.nativeEvent.text});
+  }
 
 
 
   /*
-      this.props.navigator.push({
-      component: SearchResults,
-      passProps: {matches: response.matches}
-    });
+
   */
 
 
-    _refreshListView() {
-    DB.favourites.get_all((result) => {
-    	console.log('_refreshListView');
-      console.log(result);
+    _refreshListView() {      
       this.setState({
-        
       });
-    });
+
   }
 
     
