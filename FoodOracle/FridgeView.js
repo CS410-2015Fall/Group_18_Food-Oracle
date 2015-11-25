@@ -4,6 +4,7 @@ var React = require('react-native');
 var FMPicker = require('react-native-fm-picker');
 var Fetch = require('./Fetch');
 var SearchResults = require('./SearchResults');
+var VerificationView = require('./VerificationView');
 var DB = require('./DB.js');
 
 var {
@@ -253,10 +254,14 @@ class FridgeView extends Component {
 	}
 	
 	_onAddPress() {
-		var inputIngredients = this.state.inputString.split(/\s*\,\s*/);
+		var inputIngredients = this.state.inputString.split(/\,|\s+/);
 		console.log(inputIngredients);
 		var x;
-		this._recursiveAddIngredients(inputIngredients);
+		// this._recursiveAddIngredients(inputIngredients);
+		this.props.navigator.push({
+			component: VerificationView,
+			passProps: {noFound: inputIngredients}
+		});
 		this.setState({inputString: ''});
 	}
 	

@@ -93,7 +93,7 @@ var styles = StyleSheet.create({
 });
 
 var resultCache = {
-	recipes: Favouritesamples.favourites
+	recipes: false
 } 
 
 
@@ -122,7 +122,8 @@ class VerificationView extends Component {
   }
 
   render(){
-    filterCommonWords();
+  	console.log(this.props.noFound);
+    this.filterCommonWords();
 		return (
 			<View style = {styles.container}>
 				<View style = {styles.buttonContainer}>
@@ -156,7 +157,7 @@ class VerificationView extends Component {
 
       renderList(recipe){  
   		return (
-  			<TouchableOpacity onPress={}>
+  			<TouchableOpacity onPress={() => {}}>
                 <View>
                     <View style={styles.cellContainer}>
                         <View style={styles.rightContainer}>
@@ -166,7 +167,7 @@ class VerificationView extends Component {
                             <TouchableHighlight 
                                 style = {styles.button}
                                 underlayColor = '#99d9f4'
-                                onPress = {}>
+                                onPress = {() => {}}>
                                 <Text style = {styles.buttonText}>
                                     Delete
                                 </Text>
@@ -185,7 +186,8 @@ class VerificationView extends Component {
 
   filterCommonWords(){
     var input = this.props.noFound;
-    for (i=0, i<input.length, i++){
+    var i;
+    for (i=0; i<input.length; i++) {
           var COMMONWORDS_index = COMMONWORDS.indexOf(input[i].toLowerCase());
           if(COMMONWORDS_index == -1){
             //add to datasource
