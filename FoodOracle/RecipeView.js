@@ -175,8 +175,6 @@ class RecipeView extends Component{
     var sweet = recipe.flavors.Sweet;
     var piquant = recipe.flavors.Piquant;
 
-    var test = "SALTYYYY";
-    console.log(test);
     console.log(recipe.flavors.Salty);
     //console.log(id + name + time + "" + salty + "" + sour + "" + sweet + "" + bitter + "" + meaty + "" + piquant)
 
@@ -253,40 +251,53 @@ class RecipeView extends Component{
                     </View>
                     <View style={styles.separator} />
                 </View>
-  );
-}
+		);
+	}
 
-addNewFavourite(recipeid, name, time, salty, sour, sweet, bitter, meaty, piquant) {     //all the flavor values are floats with range of 0.0 - 1.0
-    DB.favourites.get({id: recipeid}, (result) => {
-      console.log(result);
-      if (result.length == 0) {
-        DB.favourites.add({id: recipeid, 
-                           recipeName: name, 
-                           totalTimeInSeconds: time, 
-                           saltyValue: salty, 
-                           sourValue: sour, 
-                           sweetValue: sweet, 
-                           bitterValue: bitter, 
-                           meatyValue: meaty, 
-                           piquantValue: piquant}, 
-                           (result) => {
-                          console.log(result);
-          }
-        );
-        
-      } else {
-        DB.favourites.update_id(result[0]._id, {recipeName: name, 
-                                        totalTimeInSeconds: time, 
-                                        saltyValue: salty, 
-                                        sourValue: sour, 
-                                        sweetValue: sweet, 
-                                        bitterValue: bitter, 
-                                        meatyValue: meaty, 
-                                        piquantValue: piquant}, (result) => {
-          console.log(result);
-        });
-      }
-    });
+	addNewFavourite(recipeid, name, time, salty, sour, sweet, bitter, meaty, piquant) {     //all the flavor values are floats with range of 0.0 - 1.0
+		var updateFavorites = function() {
+			DB.favourites.get({id: recipeid}, (result) => {
+				console.log(result);
+				if (result.length == 0) {
+					DB.favourites.add({id: recipeid, 
+														 recipeName: name, 
+														 totalTimeInSeconds: time, 
+														 saltyValue: salty, 
+														 sourValue: sour, 
+														 sweetValue: sweet, 
+														 bitterValue: bitter, 
+														 meatyValue: meaty, 
+														 piquantValue: piquant}, 
+														 (result) => {
+														console.log(result);
+						}
+					);
+				
+				} else {
+					DB.favourites.update_id(result[0]._id, {recipeName: name, 
+																					totalTimeInSeconds: time, 
+																					saltyValue: salty, 
+																					sourValue: sour, 
+																					sweetValue: sweet, 
+																					bitterValue: bitter, 
+																					meatyValue: meaty, 
+																					piquantValue: piquant}, (result) => {
+						console.log(result);
+					});
+				}
+			});
+		}
+		DB.preferences.get({key: 'areFavoritesUpdated'}, (result) => {
+			if (result.length == 0) {
+				DB.preferences.add({key: 'areFavoritesUpdated', value: true}, (result) => {
+					updateFavorites();
+				});
+			} else {
+				DB.preferences.update({key: 'areFavoritesUpdated'}, {value: true}, (result) => {
+					updateFavorites();
+				});
+			}
+		});
   } 
 }
 
