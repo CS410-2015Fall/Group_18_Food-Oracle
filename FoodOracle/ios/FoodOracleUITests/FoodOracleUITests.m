@@ -61,12 +61,12 @@
   [quickFoodSearchTextField typeText:@"Chicken"];
   [app.otherElements[@" Search"] tap];
   
-  //Pass test if below is executable (UI dependent)
-  XCUIElement *table = app.otherElements[@"     Grilled Balsamic Glazed Chicken Rating: 4/5 Time: 25 Minutes      Garlic Chicken Rating: 4/5 Time: 35 Minutes      Chicken Cheesy Parmesan Rating: 4/5 Time: 35 Minutes      Crockpot BBQ Chicken Rating: 4/5 Time: 40 Minutes      BBQ Chicken Taquitos Rating: 4/5 Time: 40 Minutes      Rosemary Lemon Chicken Rating: 3/5 Time: 45 Minutes      One Pan Cajun Chicken Dinner Rating: 4/5 Time: 55 Minutes      Cola Chicken Rating: 4/5 Time: 60 Minutes      Roast Chicken Rating: 3/5 Time: 95 Minutes      The Best, Most Amazingly Moist Roast Chicken Rating: 4/5 Time: 105 Minutes "];
-  [table.otherElements[@"    Grilled Balsamic Glazed Chicken Rating: 4/5 Time: 25 Minutes "] tap];
+  XCUIElementQuery *scrollView = [app scrollViews];
+
+  [scrollView.otherElements[@"    Grilled Balsamic Glazed Chicken Rating: 4/5 Time: 25 Minutes "] tap];
+  
   [[[[app.navigationBars[@"RCTWrapperView"] childrenMatchingType:XCUIElementTypeButton] matchingIdentifier:@"Back"] elementBoundByIndex:0] tap];
-  [table.otherElements[@"    Garlic Chicken Rating: 4/5 Time: 35 Minutes "] tap];
- 
+  [scrollView.otherElements[@"    Garlic Chicken Rating: 4/5 Time: 35 Minutes "] tap];
   
   
 }
@@ -100,17 +100,71 @@
   
   XCUIApplication *app = [[XCUIApplication alloc] init];
   [app.otherElements[@"  Breakfast   \uf3d3"] tap];
-  [app.otherElements[@"     Breakfast Frittata Rating: 4/5 Time: 5 Minutes      The Ultimate Breakfast Sandwich Rating: 3/5 Time: 20 Minutes      Sunrise Breakfast Bowls Rating: 3/5 Time: 30 Minutes      Sausage, Egg and Cheese Breakfast Roll-Ups Rating: 3/5 Time: 35 Minutes      Breakfast Sticks Rating: 4/5 Time: 35 Minutes      English Breakfast Frittata Rating: 4/5 Time: 45 Minutes      Breakfast Pizza Rating: 4/5 Time: 45 Minutes      Breakfast Stromboli Rating: 4/5 Time: 45 Minutes      Breakfast Lasagna Rating: 3/5 Time: 50 Minutes      Breakfast Nests Rating: 3/5 Time: 65 Minutes "].otherElements[@"    Breakfast Frittata Rating: 4/5 Time: 5 Minutes "] tap];
+  XCUIElementQuery *scrollView = [app scrollViews];
+  
+  
+  [scrollView.otherElements[@"    Breakfast Frittata Rating: 4/5 Time: 5 Minutes "] tap];
+  
   [[[[app.navigationBars[@"RCTWrapperView"] childrenMatchingType:XCUIElementTypeButton] matchingIdentifier:@"Back"] elementBoundByIndex:0] tap];
   [app.navigationBars[@"RCTWrapperView"].buttons[@"Food Oracle"] tap];
   [app.otherElements[@"  Lunch  \uf3d3"] tap];
-  [app.otherElements[@"     Cranberry Cheese and Prosciutto Sandwich Rating: 4/5 Time: 10 Minutes      Easy Lunch Idea for Kids Rating: 4/5 Time: 15 Minutes      5 Minute No Cook Lunch Salad Rating: 3/5 Time: 15 Minutes      Gipsy Lunch Rating: 3/5 Time: 15 Minutes      Smoked Turkey Corn Quesadilla Slider Rating: 3/5 Time: 20 Minutes      Avocado, Spinach and Egg Salad Rating: 4/5 Time: 25 Minutes      5 Minute Caramel Popcorn Rating: 4/5 Time: 25 Minutes      Taco Quesadillas ~ The Make-Ahead Lunch Box Rating: 4/5 Time: 25 Minutes      Lunch Time Tacos II Rating: 4/5 Time: 30 Minutes      Organic School Lunch Pasta Rating: 4/5 Time: 35 Minutes "].otherElements[@"    Cranberry Cheese and Prosciutto Sandwich Rating: 4/5 Time: 10 Minutes "] tap];
+  
+  [scrollView.otherElements[@"    Snack Tray Rating: 4/5 Time: 5 Minutes "] tap];
+
+
   [[[[app.navigationBars[@"RCTWrapperView"] childrenMatchingType:XCUIElementTypeButton] matchingIdentifier:@"Back"] elementBoundByIndex:0] tap];
   [app.navigationBars[@"RCTWrapperView"].buttons[@"Food Oracle"] tap];
   [app.otherElements[@"  Dinner  \uf3d3"] tap];
-  [app.otherElements[@"     Leftover Turkey Dinner Stack Rating: 4/5 Time: 25 Minutes      One-Pan Taco Rice Dinner Rating: 4/5 Time: 30 Minutes      Chicken Cheesy Parmesan Rating: 4/5 Time: 35 Minutes      Crockpot Thanksgiving Dinner Rating: 4/5 Time: 35 Minutes      One Pan Cajun Chicken Dinner Rating: 4/5 Time: 55 Minutes      Quick Dinner Rolls Rating: 4/5 Time: 55 Minutes      Pumpkin Dinner Rolls Rating: 4/5 Time: 60 Minutes      Homemade Dinner Rolls + Tutorial Rating: 3/5 Time: 65 Minutes      30 Minute Dinner Rolls Rating: 4/5 Time: 65 Minutes      Dinner Rolls Rating: 4/5 Time: 105 Minutes "].otherElements[@"    Leftover Turkey Dinner Stack Rating: 4/5 Time: 25 Minutes "] tap];
+  
+  [scrollView.otherElements[@"    Breaded Pork Chops Rating: 4/5 Time: 25 Minutes "] tap];
+  
   [[[[app.navigationBars[@"RCTWrapperView"] childrenMatchingType:XCUIElementTypeButton] matchingIdentifier:@"Back"] elementBoundByIndex:0] tap];
   [app.navigationBars[@"RCTWrapperView"].buttons[@"Food Oracle"] tap];
+  
+  
+}
+
+- (void)testRecipeDetail {
+  
+  
+  XCUIApplication *app = [[XCUIApplication alloc] init];
+  [app.otherElements[@"  Breakfast   \uf3d3"] tap];
+  XCUIElementQuery *scrollView = [app scrollViews];
+  [scrollView.otherElements[@"    The Ultimate Breakfast Sandwich Rating: 3/5 Time: 20 Minutes "] tap];
+  [app.otherElements[@" Cook"] tap];
+  [app.navigationBars[@"Recipe: The Ultimate Breakfast Sandwich"].buttons[@"Done"] tap];
+  
+  //Check ingreidents are populated
+  scrollView = [app scrollViews];
+  XCTAssertGreaterThan([[scrollView otherElements] count], 0);
+  
+  XCTAssert(app.otherElements[@"    The Ultimate Breakfast Sandwich "].exists);
+  
+}
+
+- (void)testSaveToFavourite {
+  
+  XCUIApplication *app = [[XCUIApplication alloc] init];
+  [app.otherElements[@"  Breakfast   \uf3d3"] tap];
+  XCUIElementQuery *scrollView = [app scrollViews];
+  [scrollView.otherElements[@"    The Ultimate Breakfast Sandwich Rating: 3/5 Time: 20 Minutes "] tap];
+  [app.otherElements[@" Save"] tap];
+  
+  
+  [app.tabBars.buttons[@"Favourite"] tap];
+  
+  XCUIElement *i = [[[app scrollViews] otherElements]  elementBoundByIndex:0];
+  XCTAssert(i.exists);
+  
+  XCUICoordinate *co = [i coordinateWithNormalizedOffset:CGVectorMake(0.96, 0.45)];
+  [co tap];
+  
+  [app.tabBars.buttons[@"Preference"] tap];
+  [app.tabBars.buttons[@"Favourite"] tap];
+  
+  i = [app scrollViews].otherElements[@"    The Ultimate Breakfast Sandwich 20 Minutes  Delete "];
+  XCTAssert(!i.exists);
+ 
   
 }
 
