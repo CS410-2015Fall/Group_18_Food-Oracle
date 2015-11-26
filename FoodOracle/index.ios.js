@@ -20,6 +20,7 @@ var Preference = require('./Preference');
 var Favourite = require('./Favourite');
 var Home = require('./Home');
 var Refrigerator = require('./Refrigerator');
+var Drawer = require('react-native-drawer')
 
 
 var FoodOracle = React.createClass({
@@ -31,6 +32,13 @@ var FoodOracle = React.createClass({
   render: function() {
     return (
       
+    <Drawer
+      type="static"
+      content={<Refrigerator />}
+      openDrawerOffset={50}
+      styles={{main: {shadowColor: "#000000", shadowOpacity: 0.4, shadowRadius: 3}}}
+                      tweenHandler={Drawer.tweenPresets.parallax}
+      >
       <TabBarIOS 
       selectedTab={this.state.selectedTab ==='home'}
       tintColor="rgba(20,50,87,0.8)"
@@ -47,19 +55,6 @@ var FoodOracle = React.createClass({
       }}>
       <Home/>
       </Icon.TabBarItem>      
-
-      <Icon.TabBarItem
-      selected={this.state.selectedTab === 'refrigerator'}
-      title="Refrigerator"
-      iconName="ios-list"
-      selectedIconName="ios-list"
-      onPress={() => {
-        this.setState({
-          selectedTab: 'refrigerator'
-        });
-      }}>
-      <Refrigerator/>
-      </Icon.TabBarItem>
 
       <Icon.TabBarItem
       selected={this.state.selectedTab === 'favourite'}
@@ -88,6 +83,7 @@ var FoodOracle = React.createClass({
       </Icon.TabBarItem>
 
       </TabBarIOS>
+    </Drawer>
       );
   }
 });
