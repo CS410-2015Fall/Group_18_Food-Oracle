@@ -91,14 +91,10 @@ var styles = StyleSheet.create({
   alignSelf: 'center'
 },
 flowRightButtons: {
-  flex: 4,
+  
   flexDirection: 'row',
   backgroundColor: 'rgba(0,0,0,0)',
-  marginTop: 125,
-  marginBottom: 50,
-  justifyContent: 'center',
-  alignSelf: 'center',
-  borderRadius: 8,
+  
 },
  cellContainer: {
         flex: 1,
@@ -202,7 +198,11 @@ class RecipeView extends Component{
                     <Text style={styles.title}>{recipe.name}</Text>
                   </View>
               
-                  <View style={styles.flowRightButtons}>
+                  
+            </Image>
+            </Lightbox>
+        </View> 
+        <View style={styles.flowRightButtons}>
                           <TouchableHighlight 
                             onPress={this.pressSource.bind(this)}
                             style={styles.button}
@@ -224,11 +224,7 @@ class RecipeView extends Component{
                             <Text style={styles.buttonText}>Save</Text>
                           </TouchableHighlight>
                   </View>
-            </Image>
-            </Lightbox>
-        </View> 
-          
-          <ListView
+        <ListView
             automaticallyAdjustContentInsets={false}
             dataSource={this.state.dataSource}
             renderRow={this.renderRow.bind(this)}
