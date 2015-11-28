@@ -1,7 +1,21 @@
 
 var DB = require('./DB.js');
 
-//var INGREDIENTS = ["almond", "almonds","apple", "apples", "artichoke", "artichokes", "asparagus","avocado", "bacon", "banana", "bananas", "beef", "blueberry", "blueberries", "bouillon", "broccoli", "butter", "buttermilk", "cabbage", "cabbages", "carrot", "carrots", "cauliflower", "celery", "cheese", "cheddar", "cherry", "chicken", "chives", "bok choy", "cinnamon", "cod", "corn", "cucumber", "egg"]; 
+/*var INGREDIENTS = ["almond", "almonds","apple", "apples", "artichoke", "artichokes", "asparagus","avocado", 
+"bacon", "banana", "bananas", "bay", "beef", "bean", "blueberry", "blueberries", "bouillon", "broccoli", "butter", "buttermilk", 
+"cabbage", "cabbages", "carrot", "carrots", "cauliflower", "celery", "cheese", "cheddar", "cherry", "chicken", "chives", "bok choy", "cinnamon", "cod", "corn", "cucumber", 
+"date", "duck", "dumplings", "durian", 
+"edamame", "edamames", "eel", "egg", "eggs", "eggplant", 
+"fennel", "flour", "fries",
+"garlic", "ginger", "goose", "grape", "grapefruit", "guava", 
+"ham", "halibut", "herb", "honey", "horseradish", 
+"icecream", 
+"jicama",
+"kale", "ketchup", "kiwi", 
+"lamb", "lavender", "leek", "lemon", "lettuce", "lime", "lobster", 
+"macaroni", "mango", "marshmallow", "mayonnaise", "melon", "milk", "mint", "miso", "mozzarella", "mushroom", "mussel"]; 
+*/
+
 //a dictionary of food ingredients that we will test the input words against. Added so far: starts with A, B, C,
 
 
