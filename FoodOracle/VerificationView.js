@@ -260,14 +260,7 @@ class VerificationView extends Component {
   _okPressed(){
 
     this._recursiveAddIngredients(datasourceInput);
-    DB.ingredients.get_all((result) => {
-      console.log("----------DB RESULT---------");
-      console.log(result);
-    });
-      this.props.navigator.pop({
-      //component: SearchResults,
-      //passProps: {matches: response.matches}
-    });
+      
   }
 
     _recursiveAddIngredients(ingredients) {
@@ -280,12 +273,12 @@ class VerificationView extends Component {
             if (result.length == 0) {
               DB.ingredients.add({name: ingredient,
                 quantity: 'high', isSelected: false}, (result) => {
-                  //this._refreshListView(this._recursiveAddIngredients, [ingredients]);
+                  this._recursiveAddIngredients(ingredients);
                 }
               );
             } else {
               DB.ingredients.update_id(result[0]._id, {quantity: 'high'}, (result) => {
-                //this._refreshListView(this._recursiveAddIngredients, [ingredients]);
+                this._recursiveAddIngredients(ingredients);
               });
             }
           }
@@ -293,6 +286,18 @@ class VerificationView extends Component {
       } else {
         this._recursiveAddIngredients(ingredients);
       }
+    } else {
+    	DB.preferences.get({key: 'isFridgeUpdated'}, (result) => {
+				if (result.length == 0) {
+					DB.preferences.add({key: 'isFridgeUpdated', value: true}, (result) => {
+						this.props.navigator.pop();
+					});
+				} else {
+					DB.preferences.update({key: 'isFridgeUpdated'}, {value: true}, (result) => {
+						this.props.navigator.pop();
+					});
+				}
+			});
     }
   }
 

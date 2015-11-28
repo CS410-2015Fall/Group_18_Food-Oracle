@@ -132,6 +132,15 @@ class FridgeView extends Component {
 	}
 	
 	render() {
+		DB.preferences.get({key: 'isFridgeUpdated'}, (result) => {
+      if (result.length == 0) {
+        DB.preferences.add({key: 'isFridgeUpdated', value: false}, (result) => {});
+      } else if (result[0].value) {
+        DB.preferences.update({key: 'isFridgeUpdated'}, {value: false}, (result) => {
+          this._refreshListView(() => {}, []);
+        });
+      }
+    });
 		var spinner = this.state.isLoading ? (<ActivityIndicatorIOS
 		hidden='true' size='large'/>) : (<View/>);
 		return (
@@ -257,37 +266,11 @@ class FridgeView extends Component {
 		var inputIngredients = this.state.inputString.split(/\,|\s+/);
 		console.log(inputIngredients);
 		var x;
-		// this._recursiveAddIngredients(inputIngredients);
 		this.props.navigator.push({
 			component: VerificationView,
 			passProps: {noFound: inputIngredients}
 		});
 		this.setState({inputString: ''});
-	}
-	
-	_recursiveAddIngredients(ingredients) {
-		console.log(ingredients);
-		if (ingredients.length != 0) {
-			var ingredient = ingredients.splice(0, 1)[0].trim();
-			if (ingredient != '') {
-				DB.ingredients.get({name: ingredient}, (result) => {
-						if (result.length == 0) {
-							DB.ingredients.add({name: ingredient,
-								quantity: 'high', isSelected: false}, (result) => {
-									this._refreshListView(this._recursiveAddIngredients, [ingredients]);
-								}
-							);
-						} else {
-							DB.ingredients.update_id(result[0]._id, {quantity: 'high'}, (result) => {
-								this._refreshListView(this._recursiveAddIngredients, [ingredients]);
-							});
-						}
-					}
-				);
-			} else {
-				this._recursiveAddIngredients(ingredients);
-			}
-		}
 	}
 	
 	_onSelectPress(ingredient) {
