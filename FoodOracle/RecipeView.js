@@ -7,6 +7,8 @@ var Browser = require('react-native-browser');
 var Lightbox = require('react-native-lightbox');
 var Favourites = require('./FavouriteView');
 var DB = require('./DB.js');
+var Dimensions = require('Dimensions');
+var {width, height} = Dimensions.get('window');
 
 var {
   StyleSheet,
@@ -38,8 +40,8 @@ var styles = StyleSheet.create({
 
   backdropImage: {
     alignSelf: 'stretch',
-    height: 300,
-    width: 400,
+    height: 250,
+    width: width,
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -102,7 +104,7 @@ flowRightButtons: {
         alignItems: 'center',
         alignSelf: 'center',
         backgroundColor: '#F5FCFF',
-        width: 400,
+        width: width,
         height: 80,
         backgroundColor: 'rgba(0,0,0,0)'
     },
