@@ -40,13 +40,11 @@
   XCUIElementQuery *query =  app.tabBars.buttons;
   
   [query[@"Favourite"] tap];
-  [query[@"Refrigerator"] tap];
   [query[@"Preference"] tap];
   [query[@"Home"] tap];
   
   XCTAssertTrue([query[@"Favourite"] exists]);
   XCTAssertTrue([query[@"Home"] exists]);
-  XCTAssertTrue([query[@"Refrigerator"] exists]);
   XCTAssertTrue([query[@"Preference"] exists]);
   XCTAssertFalse([query[@"Not Button"] exists]);
   
@@ -109,14 +107,14 @@
   [app.navigationBars[@"RCTWrapperView"].buttons[@"Food Oracle"] tap];
   [app.otherElements[@"  Lunch  \uf3d3"] tap];
   
-  [scrollView.otherElements[@"    Snack Tray Rating: 4/5 Time: 5 Minutes "] tap];
+  [scrollView.otherElements[@"    5 Minute No Cook Lunch Salad Rating: 3/5 Time: 15 Minutes "] tap];
 
 
   [[[[app.navigationBars[@"RCTWrapperView"] childrenMatchingType:XCUIElementTypeButton] matchingIdentifier:@"Back"] elementBoundByIndex:0] tap];
   [app.navigationBars[@"RCTWrapperView"].buttons[@"Food Oracle"] tap];
   [app.otherElements[@"  Dinner  \uf3d3"] tap];
   
-  [scrollView.otherElements[@"    Breaded Pork Chops Rating: 4/5 Time: 25 Minutes "] tap];
+  [scrollView.otherElements[@"    Quick Granny's Dinner Rating: 4/5 Time: 40 Minutes "] tap];
   
   [[[[app.navigationBars[@"RCTWrapperView"] childrenMatchingType:XCUIElementTypeButton] matchingIdentifier:@"Back"] elementBoundByIndex:0] tap];
   [app.navigationBars[@"RCTWrapperView"].buttons[@"Food Oracle"] tap];
@@ -153,10 +151,10 @@
   
   [app.tabBars.buttons[@"Favourite"] tap];
   
-  XCUIElement *i = [[[app scrollViews] otherElements]  elementBoundByIndex:0];
+  XCUIElement *i = [[[[app scrollViews] elementBoundByIndex:1] otherElements]  elementBoundByIndex:0];
   XCTAssert(i.exists);
   
-  XCUICoordinate *co = [i coordinateWithNormalizedOffset:CGVectorMake(0.96, 0.45)];
+  XCUICoordinate *co = [i coordinateWithNormalizedOffset:CGVectorMake(0.80, 0.40)];
   [co tap];
   
   [app.tabBars.buttons[@"Preference"] tap];
@@ -165,6 +163,21 @@
   i = [app scrollViews].otherElements[@"    The Ultimate Breakfast Sandwich 20 Minutes  Delete "];
   XCTAssert(!i.exists);
  
+  
+}
+
+- (void)testFridge {
+  
+  XCUIApplication *app = [[XCUIApplication alloc] init];
+  
+  XCUIElement *dragElement = app.textFields[@"Enter ingredient"];
+  XCUICoordinate *s = [dragElement coordinateWithNormalizedOffset:CGVectorMake(0, 0)];
+  XCUICoordinate *f = [dragElement coordinateWithNormalizedOffset:CGVectorMake(6, 0)];
+  [s pressForDuration:0 thenDragToCoordinate:f];
+  
+  
+  
+
   
 }
 
