@@ -13,7 +13,12 @@ var DB = require('./DB.js');
 "jicama",
 "kale", "ketchup", "kiwi", 
 "lamb", "lavender", "leek", "lemon", "lettuce", "lime", "lobster", 
-"macaroni", "mango", "marshmallow", "mayonnaise", "melon", "milk", "mint", "miso", "mozzarella", "mushroom", "mussel"]; 
+"macaroni", "mango", "marshmallow", "mayonnaise", "melon", "milk", "mint", "miso", "mozzarella", "mushroom", "mussel", "mustard",
+"nori", 
+"oatmeal", "octopus", "oil", "olive", "olives", "onion", "onions", "orange", "oranges", 
+"panko", "papaya", "paprika", "pepper", "parsley", "pasta", "pea", "peach", "peanut", "pecan", "pickle", "pineapple", "plum", "pomegranate", "ponzu", "pork", "portabella", "potato", "prawn", "pumpkin", 
+"radish", "raspberry", "rhubarb", "rice", "rosemary", 
+"saffron", "sage", "salmon", "salsa", "salt", "sauerkraut", "sausage", "scallop", "scallops", "sesame", "shrimp", "shitake", "soba", "soymilk", "spinach", "sprouts", "squash", "squid", "steak", "strawberry", "sugar", "syrup"]; 
 */
 
 //a dictionary of food ingredients that we will test the input words against. Added so far: starts with A, B, C,
