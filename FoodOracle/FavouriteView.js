@@ -8,6 +8,7 @@ var DB = require('./DB.js');
 var Recommender = require('./Recommender');
 var SearchResults = require('./SearchResults');
 var Dimensions = require('Dimensions');
+var RefreshableListView = require('react-native-refreshable-listview')
 var {width, height} = Dimensions.get('window');
 
 var {
@@ -174,11 +175,13 @@ class FavouriteView extends Component {
     });
     return (
       <View style = {styles.container}>
-        <ListView
+        <RefreshableListView
           dataSource={ds.cloneWithRows(this.state.favourites)}
           renderRow={this.renderList.bind(this)}
+          loadData={this._refreshListView.bind(this)}
           style={styles.listView}
           automaticallyAdjustContentInsets={true}
+          refreshDescription="Refreshing CookBook"
         />
         <View style = {styles.buttonContainer}>
           <View style = {styles.flowRight}>

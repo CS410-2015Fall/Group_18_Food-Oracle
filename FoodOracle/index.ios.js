@@ -58,7 +58,7 @@ var FoodOracle = React.createClass({
 
       <Icon.TabBarItem
       selected={this.state.selectedTab === 'favourite'}
-      title="My Cook Book"
+      title="CookBook"
       iconName="ios-list"
       selectedIconName="ios-list"
       onPress={() => {
