@@ -97,6 +97,16 @@ cellContainer: {
     ingredientText: {
     fontSize:23,
     fontFamily: 'Arial',
+    color: 'rgba(20,56,86,1)',
+  },
+  recipeSeparator: {
+    height: 2,
+    width: 120,
+    backgroundColor: 'rgba(72,187,236,0.3)',
+  },
+  extraText: {
+    fontSize:15,
+    fontFamily: 'Arial',
     color: 'rgba(20,56,86,0.8)',
   },
 });
@@ -194,7 +204,8 @@ class FavouriteView extends Component {
                     <View style={styles.cellContainer}>
                         <View style={styles.leftContainer}>
                           <Text style = {styles.ingredientText}>{recipe.recipeName}</Text>
-                          <Text style = {styles.ingredientText}>{recipe.totalTimeInSeconds/60} Minutes</Text>
+                          <View style={styles.recipeSeparator} />
+                          <Text style = {styles.extraText}>Time: {recipe.totalTimeInSeconds/60} Minutes</Text>
                         </View>
                         <View style = {styles.buttonContainerRight}>
                             <TouchableHighlight 

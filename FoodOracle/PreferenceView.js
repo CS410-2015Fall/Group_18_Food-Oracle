@@ -22,7 +22,8 @@ var styles = StyleSheet.create({
   	flex: 1,
   	justifyContent: 'center',
         alignItems: 'center',
-    marginTop: 65
+    marginTop: 65,
+    backgroundColor: 'rgba(72,187,236,0.3)',
   },
   instruction: {
   	fontSize: 18,
