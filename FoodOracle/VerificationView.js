@@ -137,6 +137,7 @@ class VerificationView extends Component {
     constructor(props) {
     super(props);
     this.state = {
+    	inputString: '',
     };
 
     this.filterCommonWords();
@@ -224,8 +225,10 @@ class VerificationView extends Component {
 
     _addPressed(){
       var inputAdd = this.state.inputString;
-      datasourceInput.push(inputAdd);
-      this._refreshListView();
+      if (inputAdd != '') {
+      	datasourceInput.push(inputAdd);
+      	this._refreshListView();
+      }
     }
 
   filterCommonWords(){

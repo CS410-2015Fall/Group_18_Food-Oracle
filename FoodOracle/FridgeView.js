@@ -275,11 +275,13 @@ class FridgeView extends Component {
 				console.log('-------after adding found ingredients-------');
 				console.log(noFound);
 				this._refreshListView(() => {
-					// this.setState({inputString: ''});
-					this.props.navigator.push({
-						component: VerificationView,
-						passProps: {noFound: noFound}
-					});
+					this.setState({inputString: ''});
+					if (noFound.length != 0) {
+						this.props.navigator.push({
+							component: VerificationView,
+							passProps: {noFound: noFound}
+						});
+					}
 				}, []);
 			}, [noFound]);
 		});
@@ -300,14 +302,13 @@ class FridgeView extends Component {
 					foundIngredients.push(words[i]);
 				}
 			}
-			callback(noFound, foundIngredients);
+			callback(noFound.filter(value => value != ''), foundIngredients.filter(value => value != ''));
 		});
 	}
 	
 	_recursiveAddIngredients(ingredients, func, args) {
     console.log("----------recursive add---------");
-    console.log(ingredients.length);
-    console.log(ingredients);
+    console.log(ingredients + ', ' + args);
     if (ingredients.length != 0) {
       var ingredient = ingredients.splice(0, 1)[0].trim();
       if (ingredient != '') {
@@ -315,18 +316,18 @@ class FridgeView extends Component {
             if (result.length == 0) {
               DB.ingredients.add({name: ingredient,
                 quantity: 'high', isSelected: false}, (result) => {
-                  this._recursiveAddIngredients(ingredients);
+                  this._recursiveAddIngredients(ingredients, func, args);
                 }
               );
             } else {
               DB.ingredients.update_id(result[0]._id, {quantity: 'high'}, (result) => {
-                this._recursiveAddIngredients(ingredients);
+                this._recursiveAddIngredients(ingredients, func, args);
               });
             }
           }
         );
       } else {
-        this._recursiveAddIngredients(ingredients);
+        this._recursiveAddIngredients(ingredients, func, args);
       }
     } else {
     	console.log('------func-------');
