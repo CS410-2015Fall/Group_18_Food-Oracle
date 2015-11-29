@@ -32,7 +32,8 @@ var Favourite = React.createClass({
 			tintColor="rgba(20,50,87,1)"
 			titleTextColor="rgba(20,50,87,1)"
 			initialRoute={{
-				title: 'Favourite',
+				leftButtonTitle: '>>>',
+				title: 'CookBook',
 				component: FavouriteView
 			}}/>  //new
         );

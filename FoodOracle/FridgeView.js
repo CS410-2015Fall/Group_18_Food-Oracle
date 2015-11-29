@@ -4,7 +4,11 @@ var React = require('react-native');
 var FMPicker = require('react-native-fm-picker');
 var Fetch = require('./Fetch');
 var SearchResults = require('./SearchResults');
+var VerificationView = require('./VerificationView');
+var RefreshableListView = require('react-native-refreshable-listview')
 var DB = require('./DB.js');
+var Dimensions = require('Dimensions');
+var {width, height} = Dimensions.get('window');
 
 var {
 	Component,
@@ -24,28 +28,111 @@ var {
 var styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		backgroundColor: 'rgba(72,187,236,0.2)',
   },
   flowRight: {
   	flexDirection: 'row',
   	alignItems: 'center',
   	alignSelf: 'stretch',
+  	justifyContent: 'center',
     marginLeft: 10,
     marginRight: 10,
+    height: 49,
+
   },
-	button: {
-		flex: 1,
+  flowRightSearch: {
+  	flexDirection: 'row',
+  	alignItems: 'center',
+  	alignSelf: 'stretch',
+  	justifyContent: 'center',
+    marginLeft: 10,
+    marginRight: 10,
+    marginBottom: 10,
+    marginTop: 10,
+  },
+
+  flowRightButtonLeft: {
 		flexDirection: 'row',
-		borderColor: 'rgba(72,187,236,0.2)',
+		borderColor: 'rgba(72,187,236,0.5)',
 		borderWidth: 1,
 		borderRadius: 8,
-		alignSelf: 'stretch',
+		marginRight: 3,
+		marginTop: 15,
+		marginBottom: 10,
+		height: 30,
+    	width: 106,
 		justifyContent: 'center',
-		backgroundColor: 'rgba(72,187,236,0.2)',
+		backgroundColor: 'rgba(20,56,86,0.8)',
+ 	},
+ 	flowRightButtonRight: {
+		flexDirection: 'row',
+		borderColor: 'rgba(72,187,236,0.5)',
+		borderWidth: 1,
+		borderRadius: 8,
+		marginLeft: 3,
+		marginTop: 15,
+		marginBottom: 10, 
+		height: 30,
+    	width: 140,
+		justifyContent: 'center',
+		backgroundColor: 'rgba(20,56,86,0.8)',
+ 	},
+	buttonSelect: {
+		flexDirection: 'row',
+		borderColor: 'rgba(20,56,86,0.8)',
+		borderWidth: 2,
+		borderRadius: 2,
+		height: 33,
+    	width: 30,
+    	alignSelf: 'center',
+		justifyContent: 'center',
+		backgroundColor: 'rgba(72,187,236,0.5)',
+ 	},
+ 	buttonAdd: {
+		flexDirection: 'row',
+		borderColor: 'rgba(72,187,236,1)',
+		borderWidth: 1,
+		borderRadius: 8,
+		height: 33,
+    	width: 60,
+    	alignSelf: 'center',
+		justifyContent: 'center',
+		backgroundColor: 'rgba(20,56,86,0.8)',
  	},
 	buttonText: {
 		fontSize: 18,
 		fontFamily: 'Arial',
-		color: 'black',
+		color: 'white',
+		alignSelf: 'center',
+	},
+	ingredientText: {
+		fontSize:35,
+		fontFamily: 'Arial',
+		color: 'rgba(20,56,86,0.8)',
+		alignSelf: 'center',
+	},
+	fridgeHeader: {
+  		alignItems: 'center',
+  		alignSelf: 'stretch',
+  		justifyContent: 'center',
+  		backgroundColor: 'rgba(20,56,86,0.8)',
+	},
+	fridgeHeaderText: {
+		fontSize:25,
+		fontFamily: 'Arial',
+		color: 'white',
+		alignSelf: 'center',
+	},
+	quantityText: {
+		fontSize:20,
+		fontFamily: 'Arial',
+		color: 'rgba(20,56,86,0.8)',
+		alignSelf: 'center',
+	},
+	buttonTextAdd: {
+		fontSize: 25,
+		fontFamily: 'Arial',
+		color: 'white',
 		alignSelf: 'center',
 	},
 	buttonContainer: {
@@ -54,11 +141,10 @@ var styles = StyleSheet.create({
 		alignItems: 'center',
 		alignSelf: 'stretch',
 		backgroundColor: 'transparent',
-		marginTop: 65,
+		marginTop: 75,
+		height: 100,
 	},
-	fillerView: {
-    height: 49,
-  },
+	
 	textContainer: {
 		flex: 1
 	},
@@ -71,7 +157,7 @@ var styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: '#F5FCFF',
+		backgroundColor: 'rgba(72,187,236,0.2)',
 		padding: 20,
 	},
 	rightContainer: {
@@ -91,9 +177,26 @@ var styles = StyleSheet.create({
 		backgroundColor: '#FFFFFF',
 	},
 	separator: {
-		height: 1,
-		backgroundColor: '#dddddd',
+		height: 2,
+		backgroundColor: 'rgba(72,187,236,1)',
 	},
+	ingredientSeparator: {
+		height: 2,
+		width: 80,
+		marginTop: 5,
+		marginBottom: 5,
+		alignSelf: 'center',
+		backgroundColor: 'rgba(72,187,236,1)',
+	},
+	headerSeparator: {
+		height: 2,
+		alignSelf: 'stretch',
+		backgroundColor: 'rgba(72,187,236,1)',
+	},
+	listPanel: {
+		flex: 1,
+		marginTop: 15,
+	}
 });
 
 var resultCache = {
@@ -127,50 +230,55 @@ class FridgeView extends Component {
 			isLoading: false,
 			inputString: '',
 		};
-		this._refreshListView(() => {}, []);
+		this._refreshListView(() => {
+			// DB.dictionary.erase_db((result) => {console.log(result);});
+		}, []);
 	}
 	
 	render() {
+		DB.preferences.get({key: 'isFridgeUpdated'}, (result) => {
+      if (result.length == 0) {
+        DB.preferences.add({key: 'isFridgeUpdated', value: false}, (result) => {});
+      } else if (result[0].value) {
+        DB.preferences.update({key: 'isFridgeUpdated'}, {value: false}, (result) => {
+          this._refreshListView(() => {}, []);
+        });
+      }
+    });
 		var spinner = this.state.isLoading ? (<ActivityIndicatorIOS
 		hidden='true' size='large'/>) : (<View/>);
 		return (
 			<View style = {styles.container}>
 				<View style = {styles.buttonContainer}>
-					<View style = {styles.flowRight}>
+					<View style = {styles.flowRightSearch}>
 						<TextInput
 							style = {styles.textInput}
 							value = {this.state.inputString}
 							onChange = {this._onIngredientTextChanged.bind(this)}
 							placeholder = 'Enter ingredient' />
 						<TouchableHighlight 
-							style = {styles.button}
+							style = {styles.buttonAdd}
 							underlayColor = '#99d9f4'
 							onPress = {this._onAddPress.bind(this)}>
-							<Text style = {styles.buttonText}>Add</Text>
+							<Text style = {styles.buttonTextAdd}>＋</Text>
 						</TouchableHighlight>
 					</View>
-					<View style = {styles.flowRight}>
-						<TouchableHighlight
-							style = {styles.button}
-							underlayColor = '#99d9f4'
-							onPress = {this._onUnselectAllPress.bind(this)}>
-							<Text style = {styles.buttonText}>Unselect All</Text>
-						</TouchableHighlight>
-						<TouchableHighlight 
-							style = {styles.button}
-							underlayColor = '#99d9f4'
-							onPress = {this._onSearchPress.bind(this)}>
-							<Text style = {styles.buttonText}>Search recipes</Text>
-						</TouchableHighlight>
+					<View style = {styles.fridgeHeader}>
+						<View style = {styles.headerSeparator} />
+						<Text style ={styles.fridgeHeaderText}>Ingredients</Text>
+						<View style = {styles.headerSeparator} />
 					</View>
 				</View>
 				{spinner}
 				{this.state.isInitialized ? (
-					<ListView
+					<View style = {styles.listPanel}>
+					<RefreshableListView
 						dataSource = {ds.cloneWithRows(this.state.ingredients)}
 						renderRow = {this.renderRow.bind(this)}
+						loadData={this._refreshListView.bind(this)}
 						automaticallyAdjustContentInsets = {false}
 					/>
+					</View>
 				) : (<View/>)}
 				<FMPicker ref = {'picker'}
 					options = {INGREDIENT_QUANTITIES}
@@ -190,6 +298,20 @@ class FridgeView extends Component {
 						}
 					}}
 				/>
+				<View style = {styles.flowRight}>
+						<TouchableHighlight
+							style = {styles.flowRightButtonLeft}
+							underlayColor = '#99d9f4'
+							onPress = {this._onUnselectAllPress.bind(this)}>
+							<Text style = {styles.buttonText}>Unselect All</Text>
+						</TouchableHighlight>
+						<TouchableHighlight 
+							style = {styles.flowRightButtonRight}
+							underlayColor = '#99d9f4'
+							onPress = {this._onSearchPress.bind(this)}>
+							<Text style = {styles.buttonText}>Search Selected</Text>
+						</TouchableHighlight>
+					</View>
 			</View>
 		);
 	}
@@ -200,15 +322,16 @@ class FridgeView extends Component {
 				<View>
 					<View style = {styles.cellContainer}>
 						<View style = {styles.rightContainer}>
-							<Text>{ingredient.name}</Text>
-							<Text>{ingredient.quantity}</Text>
+							<Text style = {styles.ingredientText}>{ingredient.name}</Text>
+							<View style = {styles.ingredientSeparator} />
+							<Text style = {styles.quantityText}> quantity: {ingredient.quantity}</Text>
 						</View>
 						<TouchableHighlight 
-							style = {styles.button}
+							style = {styles.buttonSelect}
 							underlayColor = '#99d9f4'
 							onPress = {() => this._onSelectPress(ingredient)}>
 							<Text style = {styles.buttonText}>
-								{ingredient.isSelected ? 'Unselect' : 'Select'}
+								{ingredient.isSelected ? '✔' : ''}
 							</Text>
 						</TouchableHighlight>
 					</View>
@@ -253,38 +376,77 @@ class FridgeView extends Component {
 	}
 	
 	_onAddPress() {
-		var inputIngredients = this.state.inputString.split(/\s*\,\s*/);
-		console.log(inputIngredients);
-		var x;
-		this._recursiveAddIngredients(inputIngredients);
-		this.setState({inputString: ''});
-	}
 	
-	_recursiveAddIngredients(ingredients) {
-		console.log(ingredients);
-		if (ingredients.length != 0) {
-			var ingredient = ingredients.splice(0, 1)[0].trim();
-			if (ingredient != '') {
-				DB.ingredients.get({name: ingredient}, (result) => {
-						if (result.length == 0) {
-							DB.ingredients.add({name: ingredient,
-								quantity: 'high', isSelected: false}, (result) => {
-									this._refreshListView(this._recursiveAddIngredients, [ingredients]);
-								}
-							);
-						} else {
-							DB.ingredients.update_id(result[0]._id, {quantity: 'high'}, (result) => {
-								this._refreshListView(this._recursiveAddIngredients, [ingredients]);
-							});
-						}
+		var inputIngredients = this.state.inputString.split(/\,|\s+/);
+		console.log('inputIngredients: ' + inputIngredients);
+		this._NLP(inputIngredients, (noFound, foundIngredients) => {
+			console.log('noFound: ' + noFound);
+			console.log('foundIngredients: ' + foundIngredients);
+			this._recursiveAddIngredients(foundIngredients, (noFound) => {
+				console.log('-------after adding found ingredients-------');
+				console.log(noFound);
+				this._refreshListView(() => {
+					this.setState({inputString: ''});
+					if (noFound.length != 0) {
+						this.props.navigator.push({
+							component: VerificationView,
+							passProps: {noFound: noFound}
+						});
 					}
-				);
-			} else {
-				this._recursiveAddIngredients(ingredients);
+				}, []);
+			}, [noFound]);
+		});
+	}
+
+	_NLP(words, callback) {
+		var noFound = [];
+		var foundIngredients = [];
+		DB.dictionary.get_all((result) => {
+			console.log(result);
+			var dictWords = Object.keys(result.rows).map(key => result.rows[key].name);
+			var i;
+			for (i = 0; i < words.length; i++) {
+				console.log(words[i]);
+				if (dictWords.indexOf(words[i].toLowerCase()) == -1) {
+					noFound.push(words[i]);
+				} else {
+					foundIngredients.push(words[i]);
+				}
 			}
-		}
+			callback(noFound.filter(value => value != ''), foundIngredients.filter(value => value != ''));
+		});
 	}
 	
+	_recursiveAddIngredients(ingredients, func, args) {
+    console.log("----------recursive add---------");
+    console.log(ingredients + ', ' + args);
+    if (ingredients.length != 0) {
+      var ingredient = ingredients.splice(0, 1)[0].trim();
+      if (ingredient != '') {
+        DB.ingredients.get({name: ingredient}, (result) => {
+            if (result.length == 0) {
+              DB.ingredients.add({name: ingredient,
+                quantity: 'high', isSelected: false}, (result) => {
+                  this._recursiveAddIngredients(ingredients, func, args);
+                }
+              );
+            } else {
+              DB.ingredients.update_id(result[0]._id, {quantity: 'high'}, (result) => {
+                this._recursiveAddIngredients(ingredients, func, args);
+              });
+            }
+          }
+        );
+      } else {
+        this._recursiveAddIngredients(ingredients, func, args);
+      }
+    } else {
+    	console.log('------func-------');
+    	console.log(args);
+    	func.apply(this, args);
+    }
+  }
+
 	_onSelectPress(ingredient) {
 		DB.ingredients.update_id(ingredient._id, {isSelected: !(ingredient.isSelected)},
 			(result) => {
@@ -293,6 +455,7 @@ class FridgeView extends Component {
 			}
 		);
 	}
+
 	
 	_handleResponse(response){
     this.setState({isLoading: false,});

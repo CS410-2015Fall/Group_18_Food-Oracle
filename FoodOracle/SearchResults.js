@@ -20,10 +20,6 @@ var styles = StyleSheet.create({
   textContainer: {
     flex: 1
   },
-  separator: {
-    height: 1,
-    backgroundColor: '#dddddd'
-  },
   title: {
     fontSize: 20,
     color: '#656565'
@@ -43,16 +39,32 @@ var styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#F5FCFF',
+        backgroundColor: 'rgba(72,187,236,0.3)',
         padding: 10
     },
     rightContainer: {
       flex: 1
     },
+
     separator: {
-        height: 1,
-        backgroundColor: '#dddddd'
-    },
+    height: 2,
+    backgroundColor: 'rgba(72,187,236,1)',
+  },
+  recipeSeparator: {
+    height: 2,
+    width: 120,
+    backgroundColor: 'rgba(72,187,236,0.3)',
+  },
+  recipeText: {
+    fontSize:23,
+    fontFamily: 'Arial',
+    color: 'rgba(20,56,86,1)',
+  },
+  extraText: {
+    fontSize:15,
+    fontFamily: 'Arial',
+    color: 'rgba(20,56,86,0.8)',
+  },
 });
 
 class SearchResults extends Component {
@@ -73,9 +85,10 @@ renderRow(recipeData) {
                             source={{uri: recipeData.imageUrlsBySize['90']}}
                             style={styles.thumbnail} />
                         <View style={styles.rightContainer}>
-                        <Text>{recipeData.recipeName}</Text>
-                        <Text>Rating: {recipeData.rating}/5</Text>
-                        <Text>Time: {recipeData.totalTimeInSeconds/60} Minutes</Text>
+                        <Text style={styles.recipeText}>{recipeData.recipeName}</Text>
+                        <View style={styles.recipeSeparator} />
+                        <Text style={styles.extraText}>Time: {recipeData.totalTimeInSeconds/60} Minutes</Text>
+                        <Text style={styles.extraText}>Rating: {recipeData.rating}/5</Text>
                         </View>
                     </View>
                     <View style={styles.separator} />

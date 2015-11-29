@@ -7,6 +7,8 @@ var Browser = require('react-native-browser');
 var Lightbox = require('react-native-lightbox');
 var Favourites = require('./FavouriteView');
 var DB = require('./DB.js');
+var Dimensions = require('Dimensions');
+var {width, height} = Dimensions.get('window');
 
 var {
   StyleSheet,
@@ -28,32 +30,29 @@ var styles = StyleSheet.create({
   },
 
   heading: {
-    backgroundColor: '#F8F8F8',
+    backgroundColor: '#FFFFFF',
   },
 
   separator: {
-    height: 1,
-    backgroundColor: 'rgba(20,50,87,1)'
+    height: 2,
+    backgroundColor: 'rgba(72,187,236,1)',
   },
 
   backdropImage: {
     alignSelf: 'stretch',
-    height: 300,
-    width: 400,
-    justifyContent: 'center',
-    alignItems: 'center'
+    height: height/3,
+    width: width,
   },
 
   backdropView: {
-    marginTop: 45,
-    marginLeft: 25,
-    width: 170,
-    backgroundColor: 'rgba(0,0,0,0.3)',
+    width: width/2,
+    backgroundColor: 'rgba(0,0,0,0.6)',
     justifyContent: 'center',
     alignItems: 'center',
-    alignSelf: 'center',
     borderColor: '#48BBEC',
     borderWidth: 1,
+    margin: 10,
+
   },
 
   title: {
@@ -66,26 +65,24 @@ var styles = StyleSheet.create({
   ingredients: {
     fontSize: 20,
     margin: 5,
-    color: 'rgba(20,50,87,1)',
-    paddingLeft: 25,
-    paddingRight: 25,
+    color: 'rgba(20,56,86,1)',
+    paddingLeft: 20,
+    paddingRight: 20,
   },
 
   button: {
-    height: 30,
-    width: 50,
+  flex: 1,
   flexDirection: 'row',
-  backgroundColor: 'rgba(0,0,0,0.5)',
-  borderColor: '#48BBEC',
-  borderWidth: 1,
-  borderRadius: 8,
-  justifyContent: 'center',
-  marginRight: 10,
-  marginLeft: 10,
+    borderColor: 'rgba(72,187,236,0.5)',
+    borderWidth: 1,
+    height: height/16,
+    width: width/3,
+    justifyContent: 'center',
+    backgroundColor: 'rgba(20,56,86,0.8)',
  },
 
  buttonText: {
-  fontSize: 18,
+  fontSize: 23,
   fontFamily: 'Arial',
   color: 'white',
   alignSelf: 'center'
@@ -96,13 +93,16 @@ flowRightButtons: {
   backgroundColor: 'rgba(0,0,0,0)',
   
 },
+flowRight: {
+  flexDirection: 'row',
+},
  cellContainer: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',
         backgroundColor: '#F5FCFF',
-        width: 400,
+        width: width,
         height: 80,
         backgroundColor: 'rgba(0,0,0,0)'
     },
@@ -121,6 +121,9 @@ flowRightButtons: {
   fillerView: {
       height: 49,
     },
+    listPanel: {
+    flex: 1,
+  }
 });
 
 class RecipeView extends Component{
@@ -205,43 +208,46 @@ class RecipeView extends Component{
                             onPress={this.pressSource.bind(this)}
                             style={styles.button}
                             underlayColor='#99d9f4'>
-                            <Text style={styles.buttonText}>Cook</Text>
+                            <View style={styles.flowRight}>
+                              <Text style={styles.buttonText}>Cook </Text>
+                              <Icon name="fork" size={26} color="#FFFFFF" />
+                              <Icon name="knife" size={26} color="#FFFFFF" />
+                              <Icon name="spoon" size={26} color="#FFFFFF" />
+                            </View>
                           </TouchableHighlight>
                   
                           <TouchableHighlight
                             onPress={this.pressShare.bind(this)}
                             style={styles.button}
                             underlayColor='#99d9f4'>
-                            <Text style={styles.buttonText}>Share</Text>
+                            <View style={styles.flowRight}>
+                              <Text style={styles.buttonText}>Share </Text>
+                              <Icon name="social-facebook" size={26} color="#FFFFFF" />
+                            </View>
                           </TouchableHighlight>
 
                           <TouchableHighlight
                             onPress={this.pressSave.bind(this)}
                             style={styles.button}
                             underlayColor='#99d9f4'>
-                            <Text style={styles.buttonText}>Save</Text>
+                            <View style={styles.flowRight}>
+                              <Text style={styles.buttonText}>Save </Text>
+                              <Icon name="bookmark" size={26} color="#FFFFFF" />
+                            </View>
                           </TouchableHighlight>
                   </View>
         <ListView
             automaticallyAdjustContentInsets={false}
             dataSource={this.state.dataSource}
-            renderRow={this.renderRow.bind(this)}
-            renderHeader={this.renderHeader.bind(this)}/>
+            renderRow={this.renderRow.bind(this)}/>
         <View style={styles.fillerView}/>
       </View>
     );
   } 
 
-  renderHeader(){
-  return(
-      <Text style={styles.header}>Ingredients</Text>
-    );
-
-  }
-
   renderRow(ingredient) {
   return (
-                <View>
+                <View style={styles.listPanel}>
                     <View style={styles.cellContainer}>
                         <Text style={styles.ingredients}>{ingredient}</Text>
                     </View>

@@ -26,6 +26,7 @@ class Preference extends Component{
 			tintColor="rgba(20,50,87,1)"
 			titleTextColor="rgba(20,50,87,1)"
 			initialRoute={{
+				leftButtonTitle: '>>>',
 				title: 'Preference',
 				component: PreferenceView
 			}}/>       
