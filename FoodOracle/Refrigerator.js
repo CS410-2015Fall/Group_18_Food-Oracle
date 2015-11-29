@@ -26,6 +26,7 @@ var Fridge = React.createClass ({
 			tintColor="rgba(20,50,87,1)"
 			titleTextColor="rgba(20,50,87,1)"
 				initialRoute = {{
+					rightButtonTitle: '<<<',
 					title: 'Fridge',
 					component: FridgeView
 				}}

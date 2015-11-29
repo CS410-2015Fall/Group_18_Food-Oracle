@@ -26,6 +26,7 @@ var Home = React.createClass({
 			tintColor="rgba(20,50,87,1)"
 			titleTextColor="rgba(20,50,87,1)"
 			initialRoute={{
+				leftButtonTitle: '>>>',
 				title: 'Food Oracle',
 				component: HomeView,
 			}}/>       
