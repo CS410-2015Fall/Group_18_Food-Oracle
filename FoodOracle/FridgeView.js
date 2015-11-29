@@ -128,10 +128,21 @@ class FridgeView extends Component {
 			isLoading: false,
 			inputString: '',
 		};
-		this._refreshListView(() => {}, []);
+		this._refreshListView(() => {
+			// DB.dictionary.erase_db((result) => {console.log(result);});
+		}, []);
 	}
 	
 	render() {
+		DB.preferences.get({key: 'isFridgeUpdated'}, (result) => {
+      if (result.length == 0) {
+        DB.preferences.add({key: 'isFridgeUpdated', value: false}, (result) => {});
+      } else if (result[0].value) {
+        DB.preferences.update({key: 'isFridgeUpdated'}, {value: false}, (result) => {
+          this._refreshListView(() => {}, []);
+        });
+      }
+    });
 		var spinner = this.state.isLoading ? (<ActivityIndicatorIOS
 		hidden='true' size='large'/>) : (<View/>);
 		return (
@@ -254,42 +265,76 @@ class FridgeView extends Component {
 	}
 	
 	_onAddPress() {
+	
 		var inputIngredients = this.state.inputString.split(/\,|\s+/);
-		console.log(inputIngredients);
-		var x;
-		// this._recursiveAddIngredients(inputIngredients);
-		this.props.navigator.push({
-			component: VerificationView,
-			passProps: {noFound: inputIngredients}
+		console.log('inputIngredients: ' + inputIngredients);
+		this._NLP(inputIngredients, (noFound, foundIngredients) => {
+			console.log('noFound: ' + noFound);
+			console.log('foundIngredients: ' + foundIngredients);
+			this._recursiveAddIngredients(foundIngredients, (noFound) => {
+				console.log('-------after adding found ingredients-------');
+				console.log(noFound);
+				this._refreshListView(() => {
+					// this.setState({inputString: ''});
+					this.props.navigator.push({
+						component: VerificationView,
+						passProps: {noFound: noFound}
+					});
+				}, []);
+			}, [noFound]);
 		});
-		this.setState({inputString: ''});
 	}
-	
-	_recursiveAddIngredients(ingredients) {
-		console.log(ingredients);
-		if (ingredients.length != 0) {
-			var ingredient = ingredients.splice(0, 1)[0].trim();
-			if (ingredient != '') {
-				DB.ingredients.get({name: ingredient}, (result) => {
-						if (result.length == 0) {
-							DB.ingredients.add({name: ingredient,
-								quantity: 'high', isSelected: false}, (result) => {
-									this._refreshListView(this._recursiveAddIngredients, [ingredients]);
-								}
-							);
-						} else {
-							DB.ingredients.update_id(result[0]._id, {quantity: 'high'}, (result) => {
-								this._refreshListView(this._recursiveAddIngredients, [ingredients]);
-							});
-						}
-					}
-				);
-			} else {
-				this._recursiveAddIngredients(ingredients);
+
+	_NLP(words, callback) {
+		var noFound = [];
+		var foundIngredients = [];
+		DB.dictionary.get_all((result) => {
+			console.log(result);
+			var dictWords = Object.keys(result.rows).map(key => result.rows[key].name);
+			var i;
+			for (i = 0; i < words.length; i++) {
+				console.log(words[i]);
+				if (dictWords.indexOf(words[i].toLowerCase()) == -1) {
+					noFound.push(words[i]);
+				} else {
+					foundIngredients.push(words[i]);
+				}
 			}
-		}
+			callback(noFound, foundIngredients);
+		});
 	}
 	
+	_recursiveAddIngredients(ingredients, func, args) {
+    console.log("----------recursive add---------");
+    console.log(ingredients.length);
+    console.log(ingredients);
+    if (ingredients.length != 0) {
+      var ingredient = ingredients.splice(0, 1)[0].trim();
+      if (ingredient != '') {
+        DB.ingredients.get({name: ingredient}, (result) => {
+            if (result.length == 0) {
+              DB.ingredients.add({name: ingredient,
+                quantity: 'high', isSelected: false}, (result) => {
+                  this._recursiveAddIngredients(ingredients);
+                }
+              );
+            } else {
+              DB.ingredients.update_id(result[0]._id, {quantity: 'high'}, (result) => {
+                this._recursiveAddIngredients(ingredients);
+              });
+            }
+          }
+        );
+      } else {
+        this._recursiveAddIngredients(ingredients);
+      }
+    } else {
+    	console.log('------func-------');
+    	console.log(args);
+    	func.apply(this, args);
+    }
+  }
+
 	_onSelectPress(ingredient) {
 		DB.ingredients.update_id(ingredient._id, {isSelected: !(ingredient.isSelected)},
 			(result) => {
@@ -298,6 +343,7 @@ class FridgeView extends Component {
 			}
 		);
 	}
+
 	
 	_handleResponse(response){
     this.setState({isLoading: false,});
