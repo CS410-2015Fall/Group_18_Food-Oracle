@@ -4,6 +4,26 @@
  */
  'use strict';
 
+var ingredient_dictionary = ["almond", "almonds","apple", "apples", "artichoke", "artichokes", "asparagus","avocado", 
+"bacon", "banana", "bananas", "bay", "beef", "bean", "blueberry", "blueberries", "bouillon", "broccoli", "butter", "buttermilk", 
+"cabbage", "cabbages", "carrot", "carrots", "cauliflower", "celery", "cheese", "cheddar", "cherry", "chicken", "chives", "bok choy", "cinnamon", "cod", "corn", "cucumber", 
+"date", "duck", "dumplings", "durian", 
+"edamame", "edamames", "eel", "egg", "eggs", "eggplant", 
+"fennel", "flour", "fries",
+"garlic", "ginger", "goose", "grape", "grapefruit", "guava", 
+"ham", "halibut", "herb", "honey", "horseradish", 
+"icecream", 
+"jicama",
+"kale", "ketchup", "kiwi", 
+"lamb", "lavender", "leek", "lemon", "lettuce", "lime", "lobster", 
+"macaroni", "mango", "marshmallow", "mayonnaise", "melon", "milk", "mint", "miso", "mozzarella", "mushroom", "mussel", "mustard",
+"nori", 
+"oatmeal", "octopus", "oil", "olive", "olives", "onion", "onions", "orange", "oranges", 
+"panko", "papaya", "paprika", "pepper", "parsley", "pasta", "pea", "peach", "peanut", "pecan", "pickle", "pineapple", "plum", "pomegranate", "ponzu", "pork", "portabella", "potato", "prawn", "pumpkin", 
+"radish", "raspberry", "rhubarb", "rice", "rosemary", 
+"saffron", "sage", "salmon", "salsa", "salt", "sauerkraut", "sausage", "scallop", "scallops", "sesame", "shrimp", "shitake", "soba", "soymilk", "spinach", "sprouts", "squash", "squid", "steak", "strawberry", "sugar", "syrup"]; 
+
+
  var React = require('react-native');
  var {
   AppRegistry,
@@ -21,6 +41,7 @@ var Favourite = require('./Favourite');
 var Home = require('./Home');
 var Refrigerator = require('./Refrigerator');
 var Drawer = require('react-native-drawer')
+var DB = require('./DB.js');
 
 
 var FoodOracle = React.createClass({
@@ -30,6 +51,27 @@ var FoodOracle = React.createClass({
     };
   },
   render: function() {
+
+   /* DB.dictionary.erase_db(function(removed_data){
+        console.log(removed_data);
+    }); 
+
+    DB.dictionary.get({name: 'isDictionaryInitialized'}, (result) => {
+      console.log('----------Im RUNNING--------'+result);
+      if (result.length == 0) {
+        console.log('----------LENGTH IS ZERO--------'+result);
+        DB.dictionary.add({name: 'isDictionaryInitialized'}, (result) => {
+                  _recursiveAddIngredients(ingredient_dictionary);
+        });
+      }
+    });
+
+    DB.dictionary.get_all(function(result){
+            console.log('----------dictionary GET ALL--------'+result);
+        });
+
+    */
+
     return (
       
     <Drawer
@@ -85,7 +127,34 @@ var FoodOracle = React.createClass({
       </TabBarIOS>
     </Drawer>
       );
+  },
+
+
+  _recursiveAddIngredients: function(ingredients) {
+    console.log("----------recursive add---------");
+    console.log(ingredients + ', ' + args);
+    if (ingredients.length != 0) {
+      var ingredient = ingredients.splice(0, 1)[0].trim();
+      if (ingredient != '') {
+        DB.dictionary.get({name: ingredient}, (result) => {
+            if (result.length == 0) {
+              DB.dictionary.add({name: ingredient}, (result) => {
+                  this._recursiveAddIngredients(ingredients);
+                }
+              );
+            } 
+          }
+        );
+      } else {
+        this._recursiveAddIngredients(ingredients);
+      }
+    } else {
+      console.log('------func-------');
+      console.log(args);
+      func.apply(this, args);
+    }
   }
-});
+
+  });
 
 AppRegistry.registerComponent('FoodOracle', () => FoodOracle);
