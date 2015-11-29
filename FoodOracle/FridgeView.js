@@ -5,6 +5,7 @@ var FMPicker = require('react-native-fm-picker');
 var Fetch = require('./Fetch');
 var SearchResults = require('./SearchResults');
 var VerificationView = require('./VerificationView');
+var RefreshableListView = require('react-native-refreshable-listview')
 var DB = require('./DB.js');
 
 var {
@@ -269,9 +270,10 @@ class FridgeView extends Component {
 				{spinner}
 				{this.state.isInitialized ? (
 					<View style = {styles.listPanel}>
-					<ListView
+					<RefreshableListView
 						dataSource = {ds.cloneWithRows(this.state.ingredients)}
 						renderRow = {this.renderRow.bind(this)}
+						loadData={this._refreshListView.bind(this)}
 						automaticallyAdjustContentInsets = {false}
 					/>
 					</View>
