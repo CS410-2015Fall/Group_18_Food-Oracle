@@ -231,6 +231,7 @@ class VerificationView extends Component {
   filterCommonWords(){
     console.log("-------------- filter running -----------------");
     var input = this.props.noFound;
+    console.log(input);
     var i;
     datasourceInput = [];
     for (i=0; i<input.length; i++) {
@@ -273,12 +274,18 @@ class VerificationView extends Component {
             if (result.length == 0) {
               DB.ingredients.add({name: ingredient,
                 quantity: 'high', isSelected: false}, (result) => {
-                  this._recursiveAddIngredients(ingredients);
+                	DB.dictionary.add({name: ingredient}, (result) => {
+                		console.log(result);
+                		this._recursiveAddIngredients(ingredients);
+                	});
                 }
               );
             } else {
               DB.ingredients.update_id(result[0]._id, {quantity: 'high'}, (result) => {
-                this._recursiveAddIngredients(ingredients);
+                DB.dictionary.add({name: ingredient}, (result) => {
+									console.log(result);
+									this._recursiveAddIngredients(ingredients);
+								});
               });
             }
           }
