@@ -1,6 +1,6 @@
 'use strict'
 
-var COMMONWORDS = ["i", "have", "some", "and", "also", "a", "too", "in", "my", "fridge", "refridgerator", "no", "couple", "of"];
+var COMMONWORDS = ["i", "have", "some", "and", "add", "please", " ", "  ", "also", "a", "too", "in", "my", "fridge", "refridgerator", "no", "couple", "of"];
 var React = require('react-native');
 var Icon = require('react-native-vector-icons/Ionicons');
 //var Favouritesamples = require('./favouritesamples.json');
@@ -25,75 +25,82 @@ var {
 var styles = StyleSheet.create({
 	container: {
 		flex: 1,
+    backgroundColor: 'rgba(72,187,236,0.2)',
   },
 	topMargin: {
 		marginTop: 65,
 		
 	},
-	cellContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-        padding: 30,
 
-
-    },
+ cellContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(72,187,236,0.2)',
+    padding: 20,
+  },
     rightContainer: {
     	flex: 1
     },
     separator: {
-        height: 1,
-        backgroundColor: '#dddddd'
-    },
-      button1: {
-    flex: 1,
+    height: 2,
+    backgroundColor: 'rgba(72,187,236,1)',
+  },
+      buttonAdd: {
     flexDirection: 'row',
-    borderColor: 'rgba(72,187,236,0.2)',
+    borderColor: 'rgba(72,187,236,1)',
     borderWidth: 1,
     borderRadius: 8,
-    alignSelf: 'stretch',
+    height: 33,
+      width: 60,
+      alignSelf: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(72,187,236,0.2)',
+    backgroundColor: 'rgba(20,56,86,0.8)',
   },
-    button: {
-      position: 'absolute',
-      right: 10,
-      width: 90,
+    buttonRemove: {
+      flexDirection: 'row',
+    borderColor: 'rgba(72,187,236,0.5)',
+    borderWidth: 2,
+    borderRadius: 8,
+    alignSelf: 'stretch',
+    marginLeft: 35,
+    marginTop: 15,
+    marginBottom: 10, 
+    height: 30,
+      width: 95,
+    justifyContent: 'center',
+    backgroundColor: 'rgba(20,56,86,0.8)',
+    },
+
+    buttonAddListed: {
       flex: 1,
       flexDirection: 'row',
-      borderColor: 'rgba(72,187,236,0.2)',
-      borderWidth: 1,
+      borderColor: 'rgba(72,187,236,0.5)',
+      borderWidth: 2,
       borderRadius: 8,
-      alignSelf: 'center',
+      width: 130,
+      height: 30,
+      alignSelf: 'stretch',
       justifyContent: 'center',
-      backgroundColor: 'rgba(72,187,236,0.2)',
+      backgroundColor: 'rgba(20,56,86,0.8)',
     },
+
     buttonText: {
-      fontSize: 16,
+      fontSize: 23,
       fontFamily: 'Arial',
-      color: 'black',
+      color: 'white',
       alignSelf: 'center',
     },
     buttonContainer: {
-			flex: 0.125,
+			flex: 0.0833,
 			justifyContent: 'center',
 			alignItems: 'center',
 			alignSelf: 'stretch',
 			backgroundColor: 'transparent',
 			marginTop: 0,
 		},
-		button2: {
-			flex: 1,
-			flexDirection: 'row',
-			borderColor: 'rgba(72,187,236,0.2)',
-			borderWidth: 1,
-			borderRadius: 8,
-			alignSelf: 'stretch',
-			justifyContent: 'center',
-			backgroundColor: 'rgba(72,187,236,0.2)',
-		},
+		
 		flowRight: {
 			flexDirection: 'row',
 			alignItems: 'center',
@@ -114,7 +121,12 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#FFFFFF',
   },
-
+  ingredientText: {
+    fontSize:35,
+    fontFamily: 'Arial',
+    color: 'rgba(20,56,86,0.8)',
+    alignSelf: 'center',
+  },
 });
 
 var resultCache = {
@@ -155,35 +167,37 @@ class VerificationView extends Component {
 
 		return (
 			<View style = {styles.container}>
-
+        <View style={styles.separator} />
 				<ListView
                 dataSource={ds.cloneWithRows(datasourceInput)}
                 renderRow={this.renderList.bind(this)}
                 style={styles.listView}
                 automaticallyAdjustContentInsets={true}/>
+        <View style={styles.separator} />
         <View style = {styles.buttonContainer}>
+        
           <View style = {styles.flowRight}>
             <TextInput
               style = {styles.textInput}
               value = {this.state.inputString}
               onChange = {this._onIngredientTextChanged.bind(this)}
-              placeholder = 'Enter ingredient' />
+              placeholder = 'Enter additional ingredient' />
             <TouchableHighlight 
-              style = {styles.button1}
+              style = {styles.buttonAdd}
               underlayColor = '#99d9f4'
               onPress = {this._addPressed.bind(this)}>
-              <Text style = {styles.buttonText}>Add</Text>
+              <Text style = {styles.buttonText}>＋</Text>
             </TouchableHighlight>
           </View>
           </View>
                         <View style = {styles.buttonContainer}>
           <View style = {styles.flowRight}>
             <TouchableHighlight
-              style = {styles.button2}
+              style = {styles.buttonAddListed}
               underlayColor = '#99d9f4'
               onPress = {() => this._okPressed()}> 
               <Text style = {styles.buttonText}>
-                OK
+                Add Ingredients Listed
               </Text>
             </TouchableHighlight>
           </View>
@@ -204,14 +218,14 @@ class VerificationView extends Component {
                 <View>
                     <View style={styles.cellContainer}>
                         <View style={styles.rightContainer}>
-                    		<Text>{word}</Text>
+                    		<Text style = {styles.ingredientText}>{word}</Text>
                         </View>
                             <TouchableHighlight 
-                                style = {styles.button}
+                                style = {styles.buttonRemove}
                                 underlayColor = '#99d9f4'
                                 onPress = {() => this._onDeletePress(word)}>
                                 <Text style = {styles.buttonText}>
-                                    Delete
+                                    Remove
                                 </Text>
                              </TouchableHighlight>
                     </View>

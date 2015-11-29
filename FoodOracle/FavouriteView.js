@@ -7,6 +7,8 @@ var RecipeView = require('./RecipeView');
 var DB = require('./DB.js');
 var Recommender = require('./Recommender');
 var SearchResults = require('./SearchResults');
+var Dimensions = require('Dimensions');
+var {width, height} = Dimensions.get('window');
 
 var {
   Component,
@@ -22,72 +24,81 @@ var {
 var styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'rgba(72,187,236,0.2)',
   },
   topMargin: {
     marginTop: 65,
     
   },
-  cellContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-        padding: 30,
-
-
-    },
-    rightContainer: {
-      flex: 1
+cellContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    backgroundColor: 'rgba(72,187,236,0.2)',
+    padding: 20,
+    width: width,
+  },
+    leftContainer: {
+      flex: 4,
     },
     separator: {
-        height: 1,
-        backgroundColor: '#dddddd'
-    },
-    button: {
-      position: 'absolute',
-      right: 10,
+    height: 2,
+    backgroundColor: 'rgba(72,187,236,1)',
+  },
+    buttonRemove: {
+    flex: 1,
+    borderColor: 'rgba(72,187,236,0.5)',
+    borderWidth: 2,
+    borderRadius: 8,
+    height: 30,
       width: 90,
-      flex: 1,
-      flexDirection: 'row',
-      borderColor: 'rgba(72,187,236,0.2)',
-      borderWidth: 1,
-      borderRadius: 8,
-      alignSelf: 'center',
-      justifyContent: 'center',
-      backgroundColor: 'rgba(72,187,236,0.2)',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(20,56,86,0.8)',
     },
     buttonText: {
-      fontSize: 16,
+      fontSize: 21,
       fontFamily: 'Arial',
-      color: 'black',
+      color: 'white',
       alignSelf: 'center',
     },
+    buttonContainerRight: {
+      flex: 1,
+      alignSelf: 'center',
+      marginRight: 15,
+    },
     buttonContainer: {
-      flex: 0.125,
+      flex: 0.0833,
       justifyContent: 'center',
       alignItems: 'center',
       alignSelf: 'stretch',
       backgroundColor: 'transparent',
-      marginTop: 65,
     },
-    button2: {
+    buttonRecommend: {
       flex: 1,
-      flexDirection: 'row',
-      borderColor: 'rgba(72,187,236,0.2)',
-      borderWidth: 1,
+      borderColor: 'rgba(72,187,236,0.5)',
+      borderWidth: 3,
       borderRadius: 8,
-      alignSelf: 'stretch',
+      alignSelf: 'center',
       justifyContent: 'center',
-      backgroundColor: 'rgba(72,187,236,0.2)',
+      backgroundColor: 'rgba(20,56,86,0.8)',
     },
     flowRight: {
       flexDirection: 'row',
       alignItems: 'center',
-      alignSelf: 'stretch',
       marginLeft: 10,
       marginRight: 10,
+      marginBottom: 5,
+      height: 49,
     },
+
+  fillerView: {
+      height: 49,
+    },
+
+    ingredientText: {
+    fontSize:23,
+    fontFamily: 'Arial',
+    color: 'rgba(20,56,86,0.8)',
+  },
 });
 
 var resultCache = {
@@ -153,24 +164,25 @@ class FavouriteView extends Component {
     });
     return (
       <View style = {styles.container}>
-        <View style = {styles.buttonContainer}>
-          <View style = {styles.flowRight}>
-            <TouchableHighlight
-              style = {styles.button2}
-              underlayColor = '#99d9f4'
-              onPress = {() => this._onRecommendPress()}>
-              <Text style = {styles.buttonText}>
-                Recommend recipes
-              </Text>
-            </TouchableHighlight>
-          </View>
-        </View>
         <ListView
           dataSource={ds.cloneWithRows(this.state.favourites)}
           renderRow={this.renderList.bind(this)}
           style={styles.listView}
-          automaticallyAdjustContentInsets={false}
+          automaticallyAdjustContentInsets={true}
         />
+        <View style = {styles.buttonContainer}>
+          <View style = {styles.flowRight}>
+            <TouchableHighlight
+              style = {styles.buttonRecommend}
+              underlayColor = '#99d9f4'
+              onPress = {() => this._onRecommendPress()}>
+              <Text style = {styles.buttonText}>
+                Recommend Recipes
+              </Text>
+            </TouchableHighlight>
+          </View>
+        </View>
+        <View style={styles.fillerView}/>
       </View>
     );
   }
@@ -180,18 +192,20 @@ class FavouriteView extends Component {
         <TouchableOpacity onPress={() => this.rowPressed(recipe.id)}>
                 <View>
                     <View style={styles.cellContainer}>
-                        <View style={styles.rightContainer}>
-                        <Text>{recipe.recipeName}</Text>
-                          <Text>{recipe.totalTimeInSeconds/60} Minutes</Text>
+                        <View style={styles.leftContainer}>
+                          <Text style = {styles.ingredientText}>{recipe.recipeName}</Text>
+                          <Text style = {styles.ingredientText}>{recipe.totalTimeInSeconds/60} Minutes</Text>
                         </View>
+                        <View style = {styles.buttonContainerRight}>
                             <TouchableHighlight 
-                                style = {styles.button}
+                                style = {styles.buttonRemove}
                                 underlayColor = '#99d9f4'
                                 onPress = {() => this._onDeletePress(recipe.id)}>
                                 <Text style = {styles.buttonText}>
-                                    Delete
+                                    Remove
                                 </Text>
                              </TouchableHighlight>
+                          </View>
                     </View>
                     <View style={styles.separator} />
                 </View>
