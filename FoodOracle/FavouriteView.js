@@ -64,7 +64,7 @@ cellContainer: {
     buttonContainerRight: {
       flex: 1,
       alignSelf: 'center',
-      marginRight: 15,
+      marginRight: 35,
     },
     buttonContainer: {
       flex: 0.0833,

@@ -7,6 +7,8 @@ var SearchResults = require('./SearchResults');
 var VerificationView = require('./VerificationView');
 var RefreshableListView = require('react-native-refreshable-listview')
 var DB = require('./DB.js');
+var Dimensions = require('Dimensions');
+var {width, height} = Dimensions.get('window');
 
 var {
 	Component,
@@ -54,7 +56,7 @@ var styles = StyleSheet.create({
 		borderColor: 'rgba(72,187,236,0.5)',
 		borderWidth: 1,
 		borderRadius: 8,
-		marginRight: 30,
+		marginRight: 7,
 		marginTop: 15,
 		marginBottom: 10,
 		height: 30,
@@ -67,7 +69,7 @@ var styles = StyleSheet.create({
 		borderColor: 'rgba(72,187,236,0.5)',
 		borderWidth: 1,
 		borderRadius: 8,
-		marginLeft: 35,
+		marginLeft: 7,
 		marginTop: 15,
 		marginBottom: 10, 
 		height: 30,
