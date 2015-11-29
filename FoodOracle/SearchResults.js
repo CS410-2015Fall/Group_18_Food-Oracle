@@ -39,7 +39,7 @@ var styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#F5FCFF',
+        backgroundColor: 'rgba(72,187,236,0.3)',
         padding: 10
     },
     rightContainer: {
