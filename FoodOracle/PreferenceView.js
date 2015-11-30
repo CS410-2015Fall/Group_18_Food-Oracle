@@ -23,7 +23,7 @@ var styles = StyleSheet.create({
   	justifyContent: 'center',
         alignItems: 'center',
     marginTop: 65,
-    backgroundColor: 'rgba(72,187,236,0.3)',
+    backgroundColor: 'rgba(74,255,160,0.4)',
   },
   instruction: {
   	fontSize: 18,

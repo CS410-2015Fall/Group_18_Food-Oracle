@@ -7,6 +7,8 @@ var SearchResults = require('./SearchResults');
 var VerificationView = require('./VerificationView');
 var RefreshableListView = require('react-native-refreshable-listview')
 var DB = require('./DB.js');
+var Dimensions = require('Dimensions');
+var {width, height} = Dimensions.get('window');
 
 var {
 	Component,
@@ -26,7 +28,7 @@ var {
 var styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: 'rgba(72,187,236,0.2)',
+		backgroundColor: 'rgba(74,255,160,0.4)',
   },
   flowRight: {
   	flexDirection: 'row',
@@ -54,11 +56,11 @@ var styles = StyleSheet.create({
 		borderColor: 'rgba(72,187,236,0.5)',
 		borderWidth: 1,
 		borderRadius: 8,
-		marginRight: 30,
+		marginRight: 3,
 		marginTop: 15,
 		marginBottom: 10,
 		height: 30,
-    	width: 104,
+    	width: 106,
 		justifyContent: 'center',
 		backgroundColor: 'rgba(20,56,86,0.8)',
  	},
@@ -67,11 +69,11 @@ var styles = StyleSheet.create({
 		borderColor: 'rgba(72,187,236,0.5)',
 		borderWidth: 1,
 		borderRadius: 8,
-		marginLeft: 35,
+		marginLeft: 3,
 		marginTop: 15,
 		marginBottom: 10, 
 		height: 30,
-    	width: 138,
+    	width: 140,
 		justifyContent: 'center',
 		backgroundColor: 'rgba(20,56,86,0.8)',
  	},
@@ -155,8 +157,8 @@ var styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: 'rgba(72,187,236,0.2)',
 		padding: 20,
+		backgroundColor: 'rgba(0,0,0,0)'
 	},
 	rightContainer: {
 		flex: 1
@@ -176,7 +178,7 @@ var styles = StyleSheet.create({
 	},
 	separator: {
 		height: 2,
-		backgroundColor: 'rgba(72,187,236,1)',
+		backgroundColor: 'rgba(72,187,236,0.5)',
 	},
 	ingredientSeparator: {
 		height: 2,
@@ -193,7 +195,7 @@ var styles = StyleSheet.create({
 	},
 	listPanel: {
 		flex: 1,
-		marginTop: 15,
+		marginTop: 20,
 	}
 });
 

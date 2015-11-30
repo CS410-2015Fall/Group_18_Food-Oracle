@@ -25,7 +25,7 @@ var {
 var styles = StyleSheet.create({
 	container: {
 		flex: 1,
-    backgroundColor: 'rgba(72,187,236,0.2)',
+    backgroundColor: 'rgba(74,255,160,0.4)',
   },
 	topMargin: {
 		marginTop: 65,
@@ -37,7 +37,6 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(72,187,236,0.2)',
     padding: 20,
   },
     rightContainer: {
@@ -45,7 +44,7 @@ var styles = StyleSheet.create({
     },
     separator: {
     height: 2,
-    backgroundColor: 'rgba(72,187,236,1)',
+    backgroundColor: 'rgba(72,187,236,0.4)',
   },
       buttonAdd: {
     flexDirection: 'row',
@@ -58,19 +57,16 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: 'rgba(20,56,86,0.8)',
   },
+    
     buttonRemove: {
       flexDirection: 'row',
-    borderColor: 'rgba(72,187,236,0.5)',
-    borderWidth: 2,
-    borderRadius: 8,
-    alignSelf: 'stretch',
+      alignSelf: 'stretch',
     marginLeft: 35,
     marginTop: 15,
-    marginBottom: 10, 
-    height: 30,
-      width: 95,
+    marginBottom: 10,
+    flex: 1,
     justifyContent: 'center',
-    backgroundColor: 'rgba(20,56,86,0.8)',
+    marginLeft: 35,
     },
 
     buttonAddListed: {
@@ -224,9 +220,7 @@ class VerificationView extends Component {
                                 style = {styles.buttonRemove}
                                 underlayColor = '#99d9f4'
                                 onPress = {() => this._onDeletePress(word)}>
-                                <Text style = {styles.buttonText}>
-                                    Remove
-                                </Text>
+                                <Icon name="trash-a" size={42} color='rgba(20,56,86,0.8)' />
                              </TouchableHighlight>
                     </View>
                     <View style={styles.separator} />
