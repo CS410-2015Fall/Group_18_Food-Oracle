@@ -236,6 +236,9 @@ class FavouriteView extends Component {
     if (Object.keys(this.state.favourites).length != 0) {
       var recommender = new Recommender(this);
       this._executeRecommenderQuery(recommender.calculateFlavorRanges(this.state.favourites));
+    } else {
+      var non_personalize_query = 'recommend';
+      this._executeRecommenderQuery(non_personalize_query);
     }
   }
 

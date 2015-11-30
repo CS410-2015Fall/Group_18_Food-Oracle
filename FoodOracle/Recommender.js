@@ -22,43 +22,73 @@ function Recommender(parentContext) {
 			if (favorites[i].piquantValue != undefined) piquantValues.push(favorites[i].piquantValue);
 		}
 		
-		var saltyMean = Math.mean(saltyValues);
-		var saltySTD = Math.std(saltyValues, 'uncorrected');
+		if (saltyValues.length != 0) {
+			var saltyMean = Math.mean(saltyValues);
+			var saltySTD = Math.std(saltyValues, 'uncorrected');
+		} else {
+			var saltyMean = 0.5;
+			var saltySTD = 0.5;
+		}
 		var saltyMin = saltyMean - saltySTD;
 		if (saltyMin < 0) {saltyMin = 0;}
 		var saltyMax = saltyMean + saltySTD;
 		if (saltyMax > 1) {saltyMax = 1;}
 		
-		var sourMean = Math.mean(sourValues);
-		var sourSTD = Math.std(sourValues, 'uncorrected');
+		if (sourValues.length != 0) {
+			var sourMean = Math.mean(sourValues);
+			var sourSTD = Math.std(sourValues, 'uncorrected');
+		} else {
+			var sourMean = 0.5;
+			var sourSTD = 0.5;
+		}
 		var sourMin = sourMean - sourSTD;
 		if (sourMin < 0) {sourMin = 0;}
 		var sourMax = sourMean + sourSTD;
 		if (sourMax > 1) {sourMax = 1;}
 		
-		var sweetMean = Math.mean(sweetValues);
-		var sweetSTD = Math.std(sweetValues, 'uncorrected');
+		if (sweetValues.length != 0) {
+			var sweetMean = Math.mean(sweetValues);
+			var sweetSTD = Math.std(sweetValues, 'uncorrected');
+		} else {
+			var sweetMean = 0.5;
+			var sweetSTD = 0.5;
+		}
 		var sweetMin = sweetMean - sweetSTD;
 		if (sweetMin < 0) {sweetMin = 0;}
 		var sweetMax = sweetMean + sweetSTD;
 		if (sweetMax > 1) {sweetMax = 1;}
 		
-		var bitterMean = Math.mean(bitterValues);
-		var bitterSTD = Math.std(bitterValues, 'uncorrected');
+		if (bitterValues.length != 0) {
+			var bitterMean = Math.mean(bitterValues);
+			var bitterSTD = Math.std(bitterValues, 'uncorrected');
+		} else {
+			var bitterMean = 0.5;
+			var bitterSTD = 0.5;
+		}
 		var bitterMin = bitterMean - bitterSTD;
 		if (bitterMin < 0) {bitterMin = 0;}
 		var bitterMax = bitterMean + bitterSTD;
 		if (bitterMax > 1) {bitterMax = 1;}
 		
-		var meatyMean = Math.mean(meatyValues);
-		var meatySTD = Math.std(meatyValues, 'uncorrected');
+		if (meatyValues.length != 0) {
+			var meatyMean = Math.mean(meatyValues);
+			var meatySTD = Math.std(meatyValues, 'uncorrected');
+		} else {
+			var meatyMean = 0.5;
+			var meatySTD = 0.5;
+		}
 		var meatyMin = meatyMean - meatySTD;
 		if (meatyMin < 0) {meatyMin = 0;}
 		var meatyMax = meatyMean + meatySTD;
 		if (meatyMax > 1) {meatyMax = 1;}
 		
-		var piquantMean = Math.mean(piquantValues);
-		var piquantSTD = Math.std(piquantValues, 'uncorrected');
+		if (piquantValues.length != 0) {
+			var piquantMean = Math.mean(piquantValues);
+			var piquantSTD = Math.std(piquantValues, 'uncorrected');
+		} else {
+			var piquantMean = 0.5;
+			var piquantSTD = 0.5;
+		}
 		var piquantMin = piquantMean - piquantSTD;
 		if (piquantMin < 0) {piquantMin = 0;}
 		var piquantMax = piquantMean + piquantSTD;
