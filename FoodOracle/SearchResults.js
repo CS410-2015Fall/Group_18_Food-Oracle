@@ -18,7 +18,8 @@ var {
 var styles = StyleSheet.create({
   
   textContainer: {
-    flex: 1
+    flex: 1,
+
   },
   title: {
     fontSize: 20,
@@ -39,8 +40,8 @@ var styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(72,187,236,0.3)',
-        padding: 10
+        padding: 10,
+        backgroundColor: 'rgba(74,255,160,0.3)',
     },
     rightContainer: {
       flex: 1
@@ -48,7 +49,7 @@ var styles = StyleSheet.create({
 
     separator: {
     height: 2,
-    backgroundColor: 'rgba(72,187,236,1)',
+    backgroundColor: 'rgba(72,187,236,0.5)',
   },
   recipeSeparator: {
     height: 2,

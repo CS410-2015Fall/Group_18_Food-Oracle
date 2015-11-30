@@ -4,6 +4,7 @@ var React = require('react-native');
 var FavouriteView = require("./FavouriteView"); //new
 var Icon = require('react-native-vector-icons/Ionicons');
 
+
 var {
 	StyleSheet,
 	NavigatorIOS,

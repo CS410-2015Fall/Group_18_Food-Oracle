@@ -10,7 +10,7 @@ var SearchResults = require('./SearchResults');
 var Dimensions = require('Dimensions');
 var RefreshableListView = require('react-native-refreshable-listview')
 var {width, height} = Dimensions.get('window');
-
+//backgroundColor: 'rgba(74,255,160,0.4)',
 var {
   Component,
   StyleSheet,
@@ -25,7 +25,7 @@ var {
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'rgba(72,187,236,0.2)',
+    backgroundColor: 'rgba(74,255,160,0.4)',
   },
   topMargin: {
     marginTop: 65,
@@ -34,7 +34,6 @@ var styles = StyleSheet.create({
 cellContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    backgroundColor: 'rgba(72,187,236,0.2)',
     padding: 20,
     width: width,
   },
@@ -43,17 +42,12 @@ cellContainer: {
     },
     separator: {
     height: 2,
-    backgroundColor: 'rgba(72,187,236,1)',
+    backgroundColor: 'rgba(72,187,236,0.5)',
   },
     buttonRemove: {
     flex: 1,
-    borderColor: 'rgba(72,187,236,0.5)',
-    borderWidth: 2,
-    borderRadius: 8,
-    height: 30,
-      width: 90,
     justifyContent: 'center',
-    backgroundColor: 'rgba(20,56,86,0.8)',
+    marginLeft: 35,
     },
     buttonText: {
       fontSize: 21,
@@ -64,14 +58,13 @@ cellContainer: {
     buttonContainerRight: {
       flex: 1,
       alignSelf: 'center',
-      marginRight: 35,
     },
     buttonContainer: {
       flex: 0.0833,
       justifyContent: 'center',
       alignItems: 'center',
       alignSelf: 'stretch',
-      backgroundColor: 'transparent',
+      backgroundColor: 'rgba(74,255,160,0)',
     },
     buttonRecommend: {
       flex: 1,
@@ -215,9 +208,7 @@ class FavouriteView extends Component {
                                 style = {styles.buttonRemove}
                                 underlayColor = '#99d9f4'
                                 onPress = {() => this._onDeletePress(recipe.id)}>
-                                <Text style = {styles.buttonText}>
-                                    Remove
-                                </Text>
+                                <Icon name="trash-a" size={42} color='rgba(20,56,86,0.8)' />
                              </TouchableHighlight>
                           </View>
                     </View>

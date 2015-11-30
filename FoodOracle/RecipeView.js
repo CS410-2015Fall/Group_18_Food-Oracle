@@ -26,7 +26,7 @@ var styles = StyleSheet.create({
     marginTop: 64,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: 'rgba(72,187,236,0.3)',
+    backgroundColor: 'rgba(74,255,160,0.4)',
   },
 
   heading: {
@@ -35,7 +35,7 @@ var styles = StyleSheet.create({
 
   separator: {
     height: 2,
-    backgroundColor: 'rgba(72,187,236,1)',
+    backgroundColor: 'rgba(72,187,236,0.5)',
   },
 
   backdropImage: {

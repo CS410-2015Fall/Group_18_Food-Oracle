@@ -28,7 +28,7 @@ var {
 var styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: 'rgba(72,187,236,0.2)',
+		backgroundColor: 'rgba(74,255,160,0.4)',
   },
   flowRight: {
   	flexDirection: 'row',
@@ -157,8 +157,8 @@ var styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: 'rgba(72,187,236,0.2)',
 		padding: 20,
+		backgroundColor: 'rgba(0,0,0,0)'
 	},
 	rightContainer: {
 		flex: 1
@@ -178,7 +178,7 @@ var styles = StyleSheet.create({
 	},
 	separator: {
 		height: 2,
-		backgroundColor: 'rgba(72,187,236,1)',
+		backgroundColor: 'rgba(72,187,236,0.5)',
 	},
 	ingredientSeparator: {
 		height: 2,
@@ -195,7 +195,7 @@ var styles = StyleSheet.create({
 	},
 	listPanel: {
 		flex: 1,
-		marginTop: 15,
+		marginTop: 20,
 	}
 });
 
