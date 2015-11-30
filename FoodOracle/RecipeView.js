@@ -17,7 +17,8 @@ var {
   Text,
   Component,
   TouchableHighlight,
-  ListView
+  ListView,
+  AlertIOS,
 } = React;
 
 var styles = StyleSheet.create({
@@ -163,6 +164,10 @@ class RecipeView extends Component{
 
   pressSave(){
     //function addNewFavourite(recipeid, name, time, salty, sour, sweet, bitter, meaty, piquant)
+    React.AlertIOS.alert(
+          'Recipe Saved',
+          'Check your CookBook'
+        );
     var recipe = this.props.recipe;
     var id = recipe.id;
     var name = recipe.name;
