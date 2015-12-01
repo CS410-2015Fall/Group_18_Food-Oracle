@@ -47,13 +47,12 @@ function Fetch(parentContext) {
 
 	this.recommendRequest = function(request, callback) {
 		DB.preferences.get({key: 'cuisine'}, (result) => {
-			var cuisine;
-			if (result.length == 0) {
-				cuisine = '';
-			} else {
+			var cuisine = '';
+			if (result.length != 0 && result[0].value != 'none') {
 				cuisine = '&q=' + result[0].value;
 			}
 			var fetchURL = baseURL + subURL + cuisine +'&requirePictures=true' + request;
+			console.log(fetchURL);
 			fetch(fetchURL)
 			.then((response) => response.json())
 			.then((responseData) => {
