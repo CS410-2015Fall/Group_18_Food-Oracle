@@ -114,6 +114,82 @@
   
 }
 
+- (void)testFridgeCheckBox {
+  XCUIApplication *app = [[XCUIApplication alloc] init];
+  
+  XCUIElement *dragElement = app.textFields[@"Enter ingredient"];
+  XCUICoordinate *s = [dragElement coordinateWithNormalizedOffset:CGVectorMake(0, 0)];
+  XCUICoordinate *f = [dragElement coordinateWithNormalizedOffset:CGVectorMake(6, 0)];
+  [s pressForDuration:0 thenDragToCoordinate:f];
+  
+  XCUIElement *enterIngredientTextField = app.textFields[@"Enter ingredient"];
+  [enterIngredientTextField tap];
+  [app.textFields[@"Enter ingredient"] typeText:@"Apple, Cookie"];
+  [app typeText:@"\n"];
+  [app.otherElements[@" \uff0b"] tap];
+  sleep(2);
+  
+  XCUIElement *appleElement =[app scrollViews].otherElements[@"    Apple   quantity: high   "];
+  XCTAssert(appleElement.exists);
+  XCUICoordinate *co = [appleElement coordinateWithNormalizedOffset:CGVectorMake(0.87, 0.5)];
+  [co tap];
+  
+  XCUIElement *cookieElement =[app scrollViews].otherElements[@"    Cookie   quantity: high   "];
+  XCTAssert(cookieElement.exists);
+  co = [cookieElement coordinateWithNormalizedOffset:CGVectorMake(0.87, 0.5)];
+  [co tap];
+  
+  sleep(1);
+  XCUIElement *appleCheckedElement =[app scrollViews].otherElements[@"    Apple   quantity: high  ✔ "];
+  XCTAssert(appleCheckedElement.exists);
+  
+  XCUIElement *cookieCheckedElement =[app scrollViews].otherElements[@"    Cookie   quantity: high  ✔ "];
+  XCTAssert(cookieCheckedElement.exists);
+  
+  [app.otherElements[@" Unselect All"] tap];
+  sleep(1);
+  appleElement =[app scrollViews].otherElements[@"    Apple   quantity: high   "];
+  XCTAssert(appleElement.exists);
+  
+  cookieElement =[app scrollViews].otherElements[@"    Cookie   quantity: high   "];
+  XCTAssert(cookieElement.exists);
+}
+
+- (void) testRecommendation {
+  
+  XCUIApplication *app = [[XCUIApplication alloc] init];
+  [app.tabBars.buttons[@"CookBook"] tap];
+  [app.otherElements[@" Recommend Recipes"] tap];
+  sleep(3);
+  
+  NSString *recipeName = [[[[app scrollViews] otherElements] elementBoundByIndex:1] label];
+  XCTAssert(recipeName);
+  
+  [app.navigationBars[@"RCTWrapperView"].buttons[@"CookBook"] tap];
+  [app.tabBars.buttons[@"Home"] tap];
+  [app.otherElements[@"  Breakfast   \uf3d3"] tap];
+  XCUIElementQuery *scrollView = [app scrollViews];
+  [[[scrollView otherElements] elementBoundByIndex:2] tap];
+  [app.otherElements[@"  Save   \uf26b"] tap];
+  [app.alerts[@"Recipe Saved"].collectionViews.buttons[@"OK"] tap];
+  
+  [app.tabBars.buttons[@"CookBook"] tap];
+  [app.otherElements[@" Recommend Recipes"] tap];
+  
+  sleep(3);
+  
+  XCUIElement *nonExisitngElement = [app scrollViews].otherElements[recipeName];
+  XCTAssertFalse([nonExisitngElement exists]);
+  [app.navigationBars[@"RCTWrapperView"].buttons[@"CookBook"] tap];
+  
+  XCUIElement *i = [[[[app scrollViews] elementBoundByIndex:1] otherElements]  elementBoundByIndex:0];
+  XCTAssert(i.exists);
+  
+  XCUICoordinate *co = [i coordinateWithNormalizedOffset:CGVectorMake(0.90, 0.50)];
+  [co tap];
+}
+
+
 - (void)testSaveToFavouriteStory {
   
   XCUIApplication *app = [[XCUIApplication alloc] init];
@@ -228,43 +304,5 @@
   
 }
 
-- (void)testFridgeCheckBox {
-  XCUIApplication *app = [[XCUIApplication alloc] init];
-  
-  XCUIElement *dragElement = app.textFields[@"Enter ingredient"];
-  XCUICoordinate *s = [dragElement coordinateWithNormalizedOffset:CGVectorMake(0, 0)];
-  XCUICoordinate *f = [dragElement coordinateWithNormalizedOffset:CGVectorMake(6, 0)];
-  [s pressForDuration:0 thenDragToCoordinate:f];
-  
-  XCUIElement *enterIngredientTextField = app.textFields[@"Enter ingredient"];
-  [enterIngredientTextField tap];
-  [app.textFields[@"Enter ingredient"] typeText:@"Apple, Cookie"];
-  [app typeText:@"\n"];
-  [app.otherElements[@" \uff0b"] tap];
-  
-  XCUIElement *appleElement =[app scrollViews].otherElements[@"    Apple   quantity: high   "];
-  XCTAssert(appleElement.exists);
-  XCUICoordinate *co = [appleElement coordinateWithNormalizedOffset:CGVectorMake(0.87, 0.5)];
-  [co tap];
-  
-  XCUIElement *cookieElement =[app scrollViews].otherElements[@"    Cookie   quantity: high   "];
-  XCTAssert(cookieElement.exists);
-  co = [cookieElement coordinateWithNormalizedOffset:CGVectorMake(0.87, 0.5)];
-  [co tap];
-  
-  XCUIElement *appleCheckedElement =[app scrollViews].otherElements[@"    Apple   quantity: high  ✔ "];
-  XCTAssert(appleCheckedElement.exists);
-  
-  XCUIElement *cookieCheckedElement =[app scrollViews].otherElements[@"    Cookie   quantity: high  ✔ "];
-  XCTAssert(cookieCheckedElement.exists);
-  
-  [app.otherElements[@" Unselect All"] tap];
-  
-  appleElement =[app scrollViews].otherElements[@"    Apple   quantity: high   "];
-  XCTAssert(appleElement.exists);
-  
-  cookieElement =[app scrollViews].otherElements[@"    Cookie   quantity: high   "];
-  XCTAssert(cookieElement.exists);
-}
 
 @end
