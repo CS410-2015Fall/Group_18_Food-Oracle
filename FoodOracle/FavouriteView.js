@@ -301,7 +301,7 @@ class FavouriteView extends Component {
       );
     }
     var fetch = new Fetch(this);
-    fetch.recommendRequest(encodeURIComponent(query), handler, errorHandler);   
+    fetch.recommendRequest(query, handler, errorHandler);   
   }
 
   _refreshListView(func, args) {

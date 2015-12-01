@@ -29,9 +29,9 @@ function Recommender(parentContext) {
 			var saltyMean = 0.5;
 			var saltySTD = 0.5;
 		}
-		var saltyMin = saltyMean - saltySTD;
+		var saltyMin = saltyMean - saltySTD - 0.1;
 		if (saltyMin < 0) {saltyMin = 0;}
-		var saltyMax = saltyMean + saltySTD;
+		var saltyMax = saltyMean + saltySTD + 0.1;
 		if (saltyMax > 1) {saltyMax = 1;}
 		
 		if (sourValues.length != 0) {
@@ -41,9 +41,9 @@ function Recommender(parentContext) {
 			var sourMean = 0.5;
 			var sourSTD = 0.5;
 		}
-		var sourMin = sourMean - sourSTD;
+		var sourMin = sourMean - sourSTD - 0.1;
 		if (sourMin < 0) {sourMin = 0;}
-		var sourMax = sourMean + sourSTD;
+		var sourMax = sourMean + sourSTD + 0.1;
 		if (sourMax > 1) {sourMax = 1;}
 		
 		if (sweetValues.length != 0) {
@@ -53,9 +53,9 @@ function Recommender(parentContext) {
 			var sweetMean = 0.5;
 			var sweetSTD = 0.5;
 		}
-		var sweetMin = sweetMean - sweetSTD;
+		var sweetMin = sweetMean - sweetSTD - 0.1;
 		if (sweetMin < 0) {sweetMin = 0;}
-		var sweetMax = sweetMean + sweetSTD;
+		var sweetMax = sweetMean + sweetSTD + 0.1;
 		if (sweetMax > 1) {sweetMax = 1;}
 		
 		if (bitterValues.length != 0) {
@@ -65,9 +65,9 @@ function Recommender(parentContext) {
 			var bitterMean = 0.5;
 			var bitterSTD = 0.5;
 		}
-		var bitterMin = bitterMean - bitterSTD;
+		var bitterMin = bitterMean - bitterSTD - 0.1;
 		if (bitterMin < 0) {bitterMin = 0;}
-		var bitterMax = bitterMean + bitterSTD;
+		var bitterMax = bitterMean + bitterSTD + 0.1;
 		if (bitterMax > 1) {bitterMax = 1;}
 		
 		if (meatyValues.length != 0) {
@@ -77,9 +77,9 @@ function Recommender(parentContext) {
 			var meatyMean = 0.5;
 			var meatySTD = 0.5;
 		}
-		var meatyMin = meatyMean - meatySTD;
+		var meatyMin = meatyMean - meatySTD - 0.1;
 		if (meatyMin < 0) {meatyMin = 0;}
-		var meatyMax = meatyMean + meatySTD;
+		var meatyMax = meatyMean + meatySTD + 0.1;
 		if (meatyMax > 1) {meatyMax = 1;}
 		
 		if (piquantValues.length != 0) {
@@ -89,9 +89,9 @@ function Recommender(parentContext) {
 			var piquantMean = 0.5;
 			var piquantSTD = 0.5;
 		}
-		var piquantMin = piquantMean - piquantSTD;
+		var piquantMin = piquantMean - piquantSTD - 0.1;
 		if (piquantMin < 0) {piquantMin = 0;}
-		var piquantMax = piquantMean + piquantSTD;
+		var piquantMax = piquantMean + piquantSTD + 0.1;
 		if (piquantMax > 1) {piquantMax = 1;}
 		
 		var query = '&flavor.salty.min=' + saltyMin + '&flavor.salty.max=' + saltyMax
