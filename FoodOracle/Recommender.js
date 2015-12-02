@@ -29,9 +29,10 @@ function Recommender(parentContext) {
 			var saltyMean = 0.5;
 			var saltySTD = 0.5;
 		}
-		var saltyMin = saltyMean - saltySTD - 0.1;
+		var saltyRangeBoost = 0.1*Math.pow(0.5, saltySTD/0.1);
+		var saltyMin = saltyMean - saltySTD - saltyRangeBoost;
 		if (saltyMin < 0) {saltyMin = 0;}
-		var saltyMax = saltyMean + saltySTD + 0.1;
+		var saltyMax = saltyMean + saltySTD + saltyRangeBoost;
 		if (saltyMax > 1) {saltyMax = 1;}
 		
 		if (sourValues.length != 0) {
@@ -41,9 +42,10 @@ function Recommender(parentContext) {
 			var sourMean = 0.5;
 			var sourSTD = 0.5;
 		}
-		var sourMin = sourMean - sourSTD - 0.1;
+		var sourRangeBoost = 0.1*Math.pow(0.5, sourSTD/0.1);
+		var sourMin = sourMean - sourSTD - sourRangeBoost;
 		if (sourMin < 0) {sourMin = 0;}
-		var sourMax = sourMean + sourSTD + 0.1;
+		var sourMax = sourMean + sourSTD + sourRangeBoost;
 		if (sourMax > 1) {sourMax = 1;}
 		
 		if (sweetValues.length != 0) {
@@ -53,9 +55,10 @@ function Recommender(parentContext) {
 			var sweetMean = 0.5;
 			var sweetSTD = 0.5;
 		}
-		var sweetMin = sweetMean - sweetSTD - 0.1;
+		var sweetRangeBoost = 0.1*Math.pow(0.5, sweetSTD/0.1);
+		var sweetMin = sweetMean - sweetSTD - sweetRangeBoost;
 		if (sweetMin < 0) {sweetMin = 0;}
-		var sweetMax = sweetMean + sweetSTD + 0.1;
+		var sweetMax = sweetMean + sweetSTD + sweetRangeBoost;
 		if (sweetMax > 1) {sweetMax = 1;}
 		
 		if (bitterValues.length != 0) {
@@ -65,9 +68,10 @@ function Recommender(parentContext) {
 			var bitterMean = 0.5;
 			var bitterSTD = 0.5;
 		}
-		var bitterMin = bitterMean - bitterSTD - 0.1;
+		var bitterRangeBoost = 0.1*Math.pow(0.5, bitterSTD/0.1);
+		var bitterMin = bitterMean - bitterSTD - bitterRangeBoost;
 		if (bitterMin < 0) {bitterMin = 0;}
-		var bitterMax = bitterMean + bitterSTD + 0.1;
+		var bitterMax = bitterMean + bitterSTD + bitterRangeBoost;
 		if (bitterMax > 1) {bitterMax = 1;}
 		
 		if (meatyValues.length != 0) {
@@ -77,9 +81,10 @@ function Recommender(parentContext) {
 			var meatyMean = 0.5;
 			var meatySTD = 0.5;
 		}
-		var meatyMin = meatyMean - meatySTD - 0.1;
+		var meatyRangeBoost = 0.1*Math.pow(0.5, meatySTD/0.1);
+		var meatyMin = meatyMean - meatySTD - meatyRangeBoost;
 		if (meatyMin < 0) {meatyMin = 0;}
-		var meatyMax = meatyMean + meatySTD + 0.1;
+		var meatyMax = meatyMean + meatySTD + meatyRangeBoost;
 		if (meatyMax > 1) {meatyMax = 1;}
 		
 		if (piquantValues.length != 0) {
@@ -89,9 +94,10 @@ function Recommender(parentContext) {
 			var piquantMean = 0.5;
 			var piquantSTD = 0.5;
 		}
-		var piquantMin = piquantMean - piquantSTD - 0.1;
+		var piquantRangeBoost = 0.1*Math.pow(0.5, piquantSTD/0.1);
+		var piquantMin = piquantMean - piquantSTD - piquantRangeBoost;
 		if (piquantMin < 0) {piquantMin = 0;}
-		var piquantMax = piquantMean + piquantSTD + 0.1;
+		var piquantMax = piquantMean + piquantSTD + piquantRangeBoost;
 		if (piquantMax > 1) {piquantMax = 1;}
 		
 		var query = '&flavor.salty.min=' + saltyMin + '&flavor.salty.max=' + saltyMax
