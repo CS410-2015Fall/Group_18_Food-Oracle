@@ -66,7 +66,7 @@
   [scrollView.otherElements[@"    Tomato Bisque  Time: 35 Minutes Rating: 4/5 "] tap];
   
   [[[[app.navigationBars[@"RCTWrapperView"] childrenMatchingType:XCUIElementTypeButton] matchingIdentifier:@"Back"] elementBoundByIndex:0] tap];
-  [scrollView.otherElements[@"    The Best Tomato Soup  Time: 40 Minutes Rating: 4/5 "] tap];
+
   
   
 }
@@ -306,5 +306,70 @@
   
 }
 
+- (void)testSearchStrings{
+  XCUIApplication *app = [[XCUIApplication alloc] init];
+  XCUIElement *quickFoodSearchTextField = app.textFields[@"Quick food search"];
+  [quickFoodSearchTextField tap];
+  
+  [quickFoodSearchTextField typeText:@"12345"];
+  [app.otherElements[@" Search"] tap];
+  [[[[app.navigationBars[@"RCTWrapperView"] childrenMatchingType:XCUIElementTypeButton] matchingIdentifier:@"Back"] elementBoundByIndex:0] tap];
+  
+  XCUIElement *deleteKey = app.keys[@"delete"];
+  [deleteKey pressForDuration:3];
+  
+  [quickFoodSearchTextField typeText:@"!,@%$(<."];
+  [app.otherElements[@" Search"] tap];
+  [[[[app.navigationBars[@"RCTWrapperView"] childrenMatchingType:XCUIElementTypeButton] matchingIdentifier:@"Back"] elementBoundByIndex:0] tap];
+  [deleteKey pressForDuration:3];
+  
+  [quickFoodSearchTextField typeText:@"Cookies"];
+  [app.otherElements[@" Search"] tap];
+  [[[[app.navigationBars[@"RCTWrapperView"] childrenMatchingType:XCUIElementTypeButton] matchingIdentifier:@"Back"] elementBoundByIndex:0] tap];
+  [deleteKey pressForDuration:3];
+  
+  [quickFoodSearchTextField typeText:@"Apple"];
+  [quickFoodSearchTextField typeText:@" "];
+  [quickFoodSearchTextField typeText:@"Orange"];
+  [app.otherElements[@" Search"] tap];
+  [[[[app.navigationBars[@"RCTWrapperView"] childrenMatchingType:XCUIElementTypeButton] matchingIdentifier:@"Back"] elementBoundByIndex:0] tap];
+  
+
+}
+
+- (void)testPreferencePicker {
+  
+  XCUIApplication *app = [[XCUIApplication alloc] init];
+  [app.tabBars.buttons[@"Preference"] tap];
+  
+  [app.staticTexts[@"Tap here to change choice"] tap];
+  [[app.pickerWheels element] adjustToPickerWheelValue:@"american"];
+  [app.otherElements[@" Confirm"] tap];
+  
+  [app.staticTexts[@"Tap here to change choice"] tap];
+  [[app.pickerWheels element] adjustToPickerWheelValue:@"italian"];
+  [app.otherElements[@" Confirm"] tap];
+  
+  [app.staticTexts[@"Tap here to change choice"] tap];
+  [[app.pickerWheels element] adjustToPickerWheelValue:@"mexican"];
+  [app.otherElements[@" Confirm"] tap];
+  
+  [app.staticTexts[@"Tap here to change choice"] tap];
+  [[app.pickerWheels element] adjustToPickerWheelValue:@"french"];
+  [app.otherElements[@" Confirm"] tap];
+  
+  [app.staticTexts[@"Tap here to change choice"] tap];
+  [[app.pickerWheels element] adjustToPickerWheelValue:@"southwestern"];
+  [app.otherElements[@" Confirm"] tap];
+  
+  [app.staticTexts[@"Tap here to change choice"] tap];
+  [[app.pickerWheels element] adjustToPickerWheelValue:@"indian"];
+  [app.otherElements[@" Confirm"] tap];
+  
+  [app.staticTexts[@"Tap here to change choice"] tap];
+  [[app.pickerWheels element] adjustToPickerWheelValue:@"none"];
+  [app.otherElements[@" Confirm"] tap];
+  
+}
 
 @end
