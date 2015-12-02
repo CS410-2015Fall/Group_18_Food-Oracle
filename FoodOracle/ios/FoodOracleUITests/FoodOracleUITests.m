@@ -57,14 +57,16 @@
   [quickFoodSearchTextField tap];
 
   [quickFoodSearchTextField typeText:@"Chicken"];
+    [quickFoodSearchTextField typeText:@" "];
+  [quickFoodSearchTextField typeText:@"Tomato"];
   [app.otherElements[@" Search"] tap];
   
   XCUIElementQuery *scrollView = [app scrollViews];
 
-  [scrollView.otherElements[@"    Slow Cooker Honey-Soy Chicken  Time: 10 Minutes Rating: 4/5 "] tap];
+  [scrollView.otherElements[@"    Tomato Bisque  Time: 35 Minutes Rating: 4/5 "] tap];
   
   [[[[app.navigationBars[@"RCTWrapperView"] childrenMatchingType:XCUIElementTypeButton] matchingIdentifier:@"Back"] elementBoundByIndex:0] tap];
-  [scrollView.otherElements[@"    Garlic Chicken  Time: 35 Minutes Rating: 4/5 "] tap];
+  [scrollView.otherElements[@"    The Best Tomato Soup  Time: 40 Minutes Rating: 4/5 "] tap];
   
   
 }
@@ -89,7 +91,7 @@
   [app.navigationBars[@"RCTWrapperView"].buttons[@"Food Oracle"] tap];
   [app.otherElements[@"  Dinner  \uf3d3"] tap];
   
-  [scrollView.otherElements[@"    Quick Granny's Dinner  Time: 40 Minutes Rating: 4/5 "] tap];
+  [scrollView.otherElements[@"    Broccoli Beef  Time: 30 Minutes Rating: 4/5 "] tap];
   
   [[[[app.navigationBars[@"RCTWrapperView"] childrenMatchingType:XCUIElementTypeButton] matchingIdentifier:@"Back"] elementBoundByIndex:0] tap];
   [app.navigationBars[@"RCTWrapperView"].buttons[@"Food Oracle"] tap];
@@ -167,7 +169,7 @@
   
   [app.navigationBars[@"RCTWrapperView"].buttons[@"CookBook"] tap];
   [app.tabBars.buttons[@"Home"] tap];
-  [app.otherElements[@"  Breakfast   \uf3d3"] tap];
+  [app.otherElements[@"  Dinner  \uf3d3"] tap];
   XCUIElementQuery *scrollView = [app scrollViews];
   [[[scrollView otherElements] elementBoundByIndex:2] tap];
   [app.otherElements[@"  Save   \uf26b"] tap];
