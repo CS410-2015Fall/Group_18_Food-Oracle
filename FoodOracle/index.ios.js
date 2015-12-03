@@ -32,13 +32,21 @@ var FoodOracle = React.createClass({
   render: function() {
     return (
       
-    <Drawer
-      type="static"
-      content={<Refrigerator />}
-      openDrawerOffset={50}
-      styles={{main: {shadowColor: "#000000", shadowOpacity: 0.4, shadowRadius: 3}}}
-                      tweenHandler={Drawer.tweenPresets.parallax}
-      >
+      <Drawer
+  type="overlay"
+  content={<Refrigerator />}
+  tapToClose={true}
+  openDrawerOffset={.07} // 20% gap on the right side of drawer
+  panCloseMask={.2}
+  closedDrawerOffset={-3}
+  styles={{
+    drawer: {shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3},
+    main: {paddingLeft: 0}
+  }}
+  tweenHandler={(ratio) => ({
+    main: { opacity:(2-ratio)/2 }
+  })}
+  >
       <TabBarIOS 
       selectedTab={this.state.selectedTab ==='home'}
       tintColor="rgba(20,50,87,0.8)"
