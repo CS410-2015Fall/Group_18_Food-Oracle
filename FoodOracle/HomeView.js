@@ -7,7 +7,6 @@ var Fetch = require('./Fetch');
 var BlurView = require('react-native-blur').BlurView;
 var VibrancyView = require('react-native-blur').VibrancyView;
 
-var background = 'http://iphonewallpapers-hd.com/wallpapers/cocktail_-640x1136.jpg';
 
 var {
 	StyleSheet,
@@ -155,7 +154,7 @@ class HomeView extends Component {
 		return (
 
   	    <View style={styles.container}>
-				<Image source={{uri: background,}} style={styles.mealTimeContainer}>
+				<Image source={require('image!homeScreen')} style={styles.mealTimeContainer}>
         
         <BlurView blurType="dark" style={styles.searchContainer}>
         <View blurType="light" style={styles.searchContainer}>
