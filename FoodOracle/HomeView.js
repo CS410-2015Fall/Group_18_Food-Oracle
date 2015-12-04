@@ -6,7 +6,10 @@ var SearchResults = require('./SearchResults');
 var Fetch = require('./Fetch');
 var BlurView = require('react-native-blur').BlurView;
 var VibrancyView = require('react-native-blur').VibrancyView;
+var Dimensions = require('Dimensions');
+var {width, height} = Dimensions.get('window');
 
+var background = 'http://iphonewallpapers-hd.com/wallpapers/cocktail_-640x1136.jpg';
 
 var {
 	StyleSheet,
@@ -80,8 +83,8 @@ button: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        alignSelf: 'stretch',
         backgroundColor: 'transparent',
+        width: width + 5,
     },
 
      searchContainer: {

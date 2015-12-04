@@ -1,6 +1,6 @@
 'use strict'
 
-var COMMONWORDS = ["i", "have", "some", "and", "add", "please", " ", "  ", "also", "a", "too", "to", "in", "my", "fridge", "refridgerator", "no", "couple", "of", "can", "you", "us", "please", "thanks", "some", "bunch", "but", "with", "whole", "tonnes", "got", "i've", "i'm","we", "we'll", "whatever", "whenever", "him", "her", "my", "is", "husband", "boyfriend", "girlfriend", "brother", "sister", "mother", "wife", "cousin", "grandmother", "grandfather", "papa", "mama", "food", "oracle", "hello", "hi", "goodday", "good", "morning", "evening", "night", "lunch", "dinner"];
+var COMMONWORDS = ["i", "have", "some", "and", "add", "please", " ", "  ", "also", "a", "too", "to", "ohhh", "in", "my", "fridge", "refridgerator", "no", "couple", "of", "can", "you", "us", "please", "thanks", "some", "bunch", "but", "with", "whole", "tonnes", "got", "i've", "i'm","we", "we'll", "whatever", "whenever", "him", "her", "my", "is", "husband", "boyfriend", "girlfriend", "brother", "sister", "mother", "wife", "cousin", "grandmother", "grandfather", "papa", "mama", "food", "oracle", "hello", "hi", "goodday", "good", "morning", "evening", "night", "lunch", "dinner"];
 var React = require('react-native');
 var Icon = require('react-native-vector-icons/Ionicons');
 //var Favouritesamples = require('./favouritesamples.json');
