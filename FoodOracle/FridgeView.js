@@ -389,6 +389,7 @@ class FridgeView extends Component {
 					this.setState({inputString: ''});
 					if (noFound.length != 0) {
 						this.props.navigator.push({
+							title: 'Please Verify',
 							component: VerificationView,
 							passProps: {noFound: noFound}
 						});
