@@ -1,4 +1,4 @@
-# Group_18_Food-Oracle [![Build Status](https://magnum.travis-ci.com/CS410-2015Fall/Group_18_Food-Oracle.svg?token=swnZ2VWjC11sdTzDrVSH)](https://magnum.travis-ci.com/CS410-2015Fall/Group_18_Food-Oracle)
+# Group_18_Food-Oracle 
 
 ## Food Oracle
 
